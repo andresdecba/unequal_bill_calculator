@@ -35,6 +35,8 @@ class App extends StatelessWidget {
         '/agregarCuentas': (context) => const AgregarCuentas(),
         '/calcularTodo': (context) => const CalcularTodo(),
         '/usersExpensesList': (context) => const UserExpensesList(),
+        '/newCalculatorScreen': (context) => const NewCalculatorScreen(),
+
 
         //'/mostrarData': (context) => const AssignUserServices(indexUsuario: 0),
         //'/': (context) => const TopScreenBG(),

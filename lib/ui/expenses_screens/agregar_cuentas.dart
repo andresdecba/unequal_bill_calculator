@@ -161,6 +161,7 @@ class EditServiceDialog extends StatelessWidget {
 
 //////////// CONTINUE BUTTON ///////////
 class ContinueButtonServ extends StatelessWidget {
+  
   const ContinueButtonServ({Key? key, required CreateExpensesState state})
       : _state = state,
         super(key: key);
@@ -173,7 +174,7 @@ class ContinueButtonServ extends StatelessWidget {
       // VALIDATE FORMS
       onPressed: () {
         if (_state.listaServicios.isNotEmpty) {
-          Navigator.pushNamed(context, '/calcularTodo');
+          Navigator.pushNamed(context, '/newCalculatorScreen');
         } else {
           const snb = SnackBar(
             content: Text('Agrege un servicio'),

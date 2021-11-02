@@ -26,12 +26,30 @@ class CreateUsersState extends ChangeNotifier {
 
   ///// CREAR usuario /////
   void crearUsuario({required String usrName}) {
+    List<ServicioUsuario> agregarServiciosEsxistentes = [];
+
+    // this is used when a new user is created AFETER the expenses are created
+    // then we need to add the existing expeses to the new user
+    if (listaServicios.isNotEmpty) {
+      listaServicios.map((e) {
+        agregarServiciosEsxistentes.add(
+          ServicioUsuario(
+            servicio: e,
+            multiplicarPor: 1,
+            aPagar: 0.0,
+            isAdded: true,
+          ),
+        );
+        e.dividirPorTodos++;
+      }).toList();
+    }
+
     // create user
     listaUsuarios.add(Usuario(
       userNombre: usrName,
       totalAPagar: 0.0,
       totalAPagarByOne: 0.0,
-      servicios: [],
+      servicios: agregarServiciosEsxistentes, //[],
       totalDivider: 1,
       isPanelOpen: true,
     ));

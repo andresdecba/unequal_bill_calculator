@@ -12,15 +12,23 @@ class CalcularTodo extends StatefulWidget {
 }
 
 class _CalcularTodoState extends State<CalcularTodo> {
+
   bool _isExpanded = false;
   bool _toggled = true;
-  bool _showTotal = true;
+
+  late TabController _tabController;
+
+  
 
   @override
   Widget build(BuildContext context) {
     //////////// PROVIDERS ///////////
     final _calculateState = Provider.of<CalculateState>(context);
     final _propinaState = Provider.of<PropinaState>(context);
+
+    
+
+    
 
     return Scaffold(
       // floatingActionButton: FloatingActionButton(
@@ -32,47 +40,7 @@ class _CalcularTodoState extends State<CalcularTodo> {
         child: Column(
           children: [
             //////////// TOP SCREEN ///////////
-            Container(
-              padding: const EdgeInsets.all(25),
-              width: double.infinity,
-              decoration: containerDecoration(),
-              child: SafeArea(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ////////// MOSTRAR SUMA TOTAL + PROPINA  ///////////
-                    Text(
-                      'Sub-total \$ ${_propinaState.cuentaTotal.subTotalAPagar}',
-                      style: const TextStyle(fontSize: 25),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Propina \$ ${_propinaState.cuentaTotal.propina}',
-                          style: const TextStyle(fontSize: 25),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => const PropinaDialogBox(),
-                            );
-                          },
-                          icon: const Icon(Icons.add_box_rounded),
-                        )
-                      ],
-                    ),
-                    Text(
-                      'Total a pagar: \$ ${_propinaState.cuentaTotal.totalAPagar}',
-                      style: const TextStyle(fontSize: 30),
-                    ),
-
-                    const SizedBox(height: 40),
-                  ],
-                ),
-              ),
-            ),
+            TopScreenShowTotals(propinaState: _propinaState),
 
             // Title
             ListTile(
@@ -115,7 +83,6 @@ class _CalcularTodoState extends State<CalcularTodo> {
                           onTap: () {
                             Navigator.pushNamed(context, '/usersExpensesList');
                             setState(() => _isExpanded = !_isExpanded);
-                            _showTotal = false;
                           },
                         ),
                         ListTile(
@@ -150,96 +117,24 @@ class _CalcularTodoState extends State<CalcularTodo> {
               ],
             ),
 
-            ////////// MOSTRAR TOTAL POR USUARIO //////////
-            ListView.separated(
-              separatorBuilder: (context, index) => const Divider(
-                height: 0,
-                thickness: 1,
-                color: Colors.blue,
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: _calculateState.listaUsuarios.length,
-              itemBuilder: (BuildContext context, int usuariosINDEX) {
-                //////// SHOW USER NAME AND TOTAL  /////////
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Column(
-                    children: [
-                      Text(
-                        //// TODO: user total to pay
-
-                        ('\$  ${_calculateState.listaUsuarios[usuariosINDEX].totalAPagarByOne.toString()}'),
-
-                        style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w900),
-                      ),
-                      //// user name
-                      ListTile(
-                        leading: Text(
-                          _calculateState.listaUsuarios[usuariosINDEX].userNombre,
-                          style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w900),
-                        ),
-                        trailing: Padding(
-                          padding: const EdgeInsets.only(right: 15),
-                          child: Text(
-                            //// TODO: user total to pay
-                            ///
-                            _showTotal == true
-                                ? ('\$  ${_calculateState.listaUsuarios[usuariosINDEX].totalAPagar.toString()}')
-                                : ('\$  ${_calculateState.listaUsuarios[usuariosINDEX].totalAPagarByOne.toString()}'),
-
-                            style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w900),
-                          ),
-                        ),
-                      ),
-
-                      // dividir desigual globalmente
-                      ListTile(
-                        leading: const Text(
-                          'Dividir desigual:',
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            ///// restar button
-                            IconButton(
-                              onPressed: () {
-                                _calculateState.restarTotal(indexUsuario: usuariosINDEX);
-                                _showTotal = true;
-                              },
-                              icon: const Icon(
-                                Icons.remove_circle,
-                                color: Colors.black,
-                              ),
-                            ),
-                            const SizedBox(width: 15),
-                            ///// divisor text
-                            Text(
-                              _calculateState.listaUsuarios[usuariosINDEX].totalDivider.toString(),
-                              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: Colors.black),
-                            ),
-                            const SizedBox(width: 15),
-                            ///// sumar button
-                            IconButton(
-                              onPressed: () {
-                                _calculateState.sumarTotal(indexUsuario: usuariosINDEX);
-                                _showTotal = true;
-                              },
-                              icon: const Icon(
-                                Icons.add_circle,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
+            /////////////////////// TODO:  hacerrrr otra cosa, NO ANDAAA
+            // DefaultTabController(
+            //   length: 2,
+            //   child: Scaffold(
+            //     body: Column(
+            //       children: const [
+            //         TabBar(tabs: [
+            //           Tab(text: 'Tab 1'),
+            //           Tab(text: 'Tab 2'),
+            //         ]),
+            //         TabBarView(children: [
+            //           Text('data'),
+            //           Text('data'),
+            //         ]),
+            //       ],
+            //     ),
+            //   ),
+            // ),
 
             const Divider(
               endIndent: 20,
@@ -255,6 +150,150 @@ class _CalcularTodoState extends State<CalcularTodo> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class TopScreenShowTotals extends StatelessWidget {
+  const TopScreenShowTotals({
+    Key? key,
+    required PropinaState propinaState,
+  })  : _propinaState = propinaState,
+        super(key: key);
+
+  final PropinaState _propinaState;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(25),
+      width: double.infinity,
+      decoration: containerDecoration(),
+      child: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ////////// MOSTRAR SUMA TOTAL + PROPINA  ///////////
+            Text(
+              'Sub-total \$ ${_propinaState.cuentaTotal.subTotalAPagar}',
+              style: const TextStyle(fontSize: 25),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Propina \$ ${_propinaState.cuentaTotal.propina}',
+                  style: const TextStyle(fontSize: 25),
+                ),
+                IconButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => const PropinaDialogBox(),
+                    );
+                  },
+                  icon: const Icon(Icons.add_box_rounded),
+                )
+              ],
+            ),
+            Text(
+              'Total a pagar: \$ ${_propinaState.cuentaTotal.totalAPagar}',
+              style: const TextStyle(fontSize: 30),
+            ),
+
+            const SizedBox(height: 40),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class GlobalTotalByUser extends StatelessWidget {
+  const GlobalTotalByUser({
+    Key? key,
+    required CalculateState calculateState,
+  })  : _calculateState = calculateState,
+        super(key: key);
+
+  final CalculateState _calculateState;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      separatorBuilder: (context, index) => const Divider(
+        height: 0,
+        thickness: 1,
+        color: Colors.blue,
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: _calculateState.listaUsuarios.length,
+      itemBuilder: (BuildContext context, int usuariosINDEX) {
+        //////// SHOW USER NAME AND TOTAL  /////////
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Column(
+            children: [
+              //// user name
+              ListTile(
+                leading: Text(
+                  _calculateState.listaUsuarios[usuariosINDEX].userNombre,
+                  style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w900),
+                ),
+                trailing: Padding(
+                  padding: const EdgeInsets.only(right: 15),
+                  child: Text(
+                    ('\$  ${_calculateState.listaUsuarios[usuariosINDEX].totalAPagar.toString()}'),
+                    style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w900),
+                  ),
+                ),
+              ),
+
+              // dividir desigual globalmente
+              ListTile(
+                leading: const Text(
+                  'Dividir desigual:',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+                ),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ///// restar button
+                    IconButton(
+                      onPressed: () {
+                        _calculateState.restarTotal(indexUsuario: usuariosINDEX);
+                      },
+                      icon: const Icon(
+                        Icons.remove_circle,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const SizedBox(width: 15),
+                    ///// divisor text
+                    Text(
+                      _calculateState.listaUsuarios[usuariosINDEX].totalDivider.toString(),
+                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: Colors.black),
+                    ),
+                    const SizedBox(width: 15),
+                    ///// sumar button
+                    IconButton(
+                      onPressed: () {
+                        _calculateState.sumarTotal(indexUsuario: usuariosINDEX);
+                      },
+                      icon: const Icon(
+                        Icons.add_circle,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
