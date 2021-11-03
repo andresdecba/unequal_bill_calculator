@@ -93,7 +93,7 @@ class PropinaState extends ChangeNotifier {
 
     // asignar a modelo
     cuentaTotal.subTotalAPagar = subTotal;
-    cuentaTotal.totalAPagar = total;
+    cuentaTotal.totalAPagar = subTotal; //total;
     notifyListeners();
   }
 }

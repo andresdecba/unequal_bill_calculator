@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 class UserExpensesList extends StatefulWidget {
   const UserExpensesList({Key? key}) : super(key: key);
-
   @override
   State<UserExpensesList> createState() => _UserExpensesListState();
 }
@@ -16,56 +15,32 @@ class _UserExpensesListState extends State<UserExpensesList> {
     final _state = Provider.of<CalculateState>(context);
 
     return ListView.builder(
+      padding: const EdgeInsets.symmetric(vertical: 16),
       physics: const ScrollPhysics(),
       shrinkWrap: true,
       itemCount: _state.listaUsuarios.length,
       itemBuilder: (BuildContext context, int index) {
         return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            ListTile(
-              contentPadding: const EdgeInsets.all(10),
-              tileColor: Colors.amber,
-
-              // user name
-              title: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Text(
-                  '> ${_state.listaUsuarios[index].userNombre}',
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
-                ),
-              ),
-
-              // user to pay
-              trailing: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  '\$ ${_state.listaUsuarios[index].totalAPagarByOne.toString()}',
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
-                ),
-              ),
-            ),
+            
+            // EXPANSIBLE TILE
             ExpansionPanelList(
-              expandedHeaderPadding: const EdgeInsets.all(0),
+              animationDuration: const Duration(milliseconds: 400),
               elevation: 0,
-              expansionCallback: (int panelIndex, bool isOpen) => setState(() => _state.listaUsuarios[index].isPanelOpen = !isOpen),
+              expansionCallback: (int panelIndex, bool isOpen) => setState(
+                () => _state.listaUsuarios[index].isPanelOpen = !isOpen,
+              ),
               children: [
                 ExpansionPanel(
                   isExpanded: _state.listaUsuarios[index].isPanelOpen,
-                  backgroundColor: Colors.grey[300],
+                  backgroundColor: Colors.amber,
 
                   // HEADER: titulo
                   headerBuilder: (context, isOpen2) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                      child: _state.listaUsuarios[index].isPanelOpen == false
-                          ? const Text(
-                              'Mostrar detalles',
-                              style: TextStyle(fontSize: 20),
-                            )
-                          : const Text(
-                              'Ocultar',
-                              style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
-                            ),
+                      child: nombre(_state, index),
                     );
                   },
 
@@ -77,9 +52,29 @@ class _UserExpensesListState extends State<UserExpensesList> {
                 ),
               ],
             ),
+            const Divider(),
           ],
         );
       },
+    );
+  }
+
+  ListTile nombre(CalculateState _state, int index) {
+    return ListTile(
+      //contentPadding: const EdgeInsets.all(4),
+      tileColor: Colors.amber,
+
+      // user name
+      title: Text(
+        '> ${_state.listaUsuarios[index].userNombre}',
+        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
+      ),
+
+      // user to pay
+      trailing: Text(
+        '\$ ${_state.listaUsuarios[index].totalAPagarByOne.toString()}',
+        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
+      ),
     );
   }
 }

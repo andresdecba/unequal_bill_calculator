@@ -19,15 +19,18 @@ class ShowTotalBill extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ////////// MOSTRAR SUMA TOTAL + PROPINA  ///////////
+            const Divider(),            
             Text(
-              'Sub-total \$ ${_propinaState.cuentaTotal.subTotalAPagar}',
-              style: const TextStyle(fontSize: 25),
+              '> Total a pagar  \$ ${_propinaState.cuentaTotal.totalAPagar}',
+              style: const TextStyle(fontSize: 35, fontWeight: FontWeight.w900),
             ),
+            const Divider(),
+            
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Propina \$ ${_propinaState.cuentaTotal.propina}',
+                  'Calcular propina  \$ ${_propinaState.cuentaTotal.propina}',
                   style: const TextStyle(fontSize: 25),
                 ),
                 IconButton(
@@ -41,10 +44,8 @@ class ShowTotalBill extends StatelessWidget {
                 )
               ],
             ),
-            Text(
-              'Total a pagar: \$ ${_propinaState.cuentaTotal.totalAPagar}',
-              style: const TextStyle(fontSize: 30),
-            ),
+            const Divider(),
+
 
             const SizedBox(height: 40),
           ],

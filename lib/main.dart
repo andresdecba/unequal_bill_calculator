@@ -1,6 +1,11 @@
+import 'package:bill_calculator/ui/borrar/borrar.dart';
+import 'package:bill_calculator/ui/calculate_Screen.dart/new_calculator_screen.dart';
+import 'package:bill_calculator/ui/expenses_screens/agregar_cuentas.dart';
+import 'package:bill_calculator/ui/users_expenses_list/user_expenses_list.dart';
+import 'package:bill_calculator/ui/users_screen/agregar_usuarios.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bill_calculator/ui/screens.dart';
+//import 'package:bill_calculator/ui/screens.dart';
 import 'package:bill_calculator/states/states.dart';
 
 
@@ -33,10 +38,12 @@ class App extends StatelessWidget {
       routes: {
         '/agregarUsuarios': (context) => const AgregarUsuarios(),
         '/agregarCuentas': (context) => const AgregarCuentas(),
-        '/calcularTodo': (context) => const CalcularTodo(),
         '/usersExpensesList': (context) => const UserExpensesList(),
         '/newCalculatorScreen': (context) => const NewCalculatorScreen(),
+        '/borrar': (context) => const Borrar(),
 
+
+        //'/calcularTodo': (context) => const CalcularTodo(),
 
         //'/mostrarData': (context) => const AssignUserServices(indexUsuario: 0),
         //'/': (context) => const TopScreenBG(),

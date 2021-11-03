@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Borrar extends StatefulWidget {
-  Borrar({Key? key}) : super(key: key);
+  const Borrar({Key? key}) : super(key: key);
 
   @override
   _BorrarState createState() => _BorrarState();

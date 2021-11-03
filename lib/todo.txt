@@ -7,7 +7,6 @@
 ---- V 1.0.0 ----
 ******1- hacer el total de todoo
 ******2- calculadora de propina
-3- dividir la propina entre todes
 ******4- cuando asigna la cuenta a cada persona poner tmb la division desigual - 1 +
 ******5- En la pantalla calcular todo, los items por persona deben ser mas chicos
 11- logo, icono y splash screen
@@ -21,6 +20,7 @@
 6- hacer persistencia de datos
 7- poner publicidad
 10- poner algunas animaciones
+3- dividir la propina entre todes
 
 
 ---- v 3.0.0 ---
