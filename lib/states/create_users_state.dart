@@ -28,7 +28,7 @@ class CreateUsersState extends ChangeNotifier {
   void crearUsuario({required String usrName}) {
     List<ServicioUsuario> agregarServiciosEsxistentes = [];
 
-    // this is used when a new user is created AFETER the expenses are created
+    // this is used when a new user is created **AFTER the expenses are created**
     // then we need to add the existing expeses to the new user
     if (listaServicios.isNotEmpty) {
       listaServicios.map((e) {
@@ -49,9 +49,9 @@ class CreateUsersState extends ChangeNotifier {
       userNombre: usrName,
       totalAPagar: 0.0,
       totalAPagarByOne: 0.0,
-      servicios: agregarServiciosEsxistentes, //[],
+      servicios: agregarServiciosEsxistentes,
       totalDivider: 1,
-      isPanelOpen: true,
+      isPanelOpen: listaUsuarios.isEmpty ? true : false //the first person in the list has its panel open, the rest its close
     ));
     cuentaTotal.dividirPorTodos++;
 

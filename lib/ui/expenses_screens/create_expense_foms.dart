@@ -1,20 +1,21 @@
 import 'package:bill_calculator/states/states.dart';
 import 'package:bill_calculator/styles/styles.dart';
+import 'package:bill_calculator/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-class CreateExpenseForms extends StatefulWidget {
-  const CreateExpenseForms({required this.onEdit, this.serviceIndex, Key? key}) : super(key: key);
+class CreateExpenseFormsAndButton extends StatefulWidget {
+  const CreateExpenseFormsAndButton({required this.onEdit, this.serviceIndex, Key? key}) : super(key: key);
 
   final bool onEdit;
   final int? serviceIndex;
 
   @override
-  _CreateExpenseFormsState createState() => _CreateExpenseFormsState();
+  _CreateExpenseFormsAndButtonState createState() => _CreateExpenseFormsAndButtonState();
 }
 
-class _CreateExpenseFormsState extends State<CreateExpenseForms> {
+class _CreateExpenseFormsAndButtonState extends State<CreateExpenseFormsAndButton> {
   var _nameController = TextEditingController();
   var _priceController = TextEditingController();
 
@@ -58,7 +59,7 @@ class _CreateExpenseFormsState extends State<CreateExpenseForms> {
                   return (value!.isEmpty) ? 'ingrese un titulo' : null;
                 },
               ),
-              const SizedBox(height: 15),
+              kSizedBoxSmall,
 
               ////////// PRICE TEXT FIELD //////////
               TextFormField(
@@ -77,7 +78,7 @@ class _CreateExpenseFormsState extends State<CreateExpenseForms> {
             ],
           ),
         ),
-        const SizedBox(height: 10),
+        kSizedBoxSmall,
 
         widget.onEdit == false
 
@@ -94,6 +95,7 @@ class _CreateExpenseFormsState extends State<CreateExpenseForms> {
                     }
                   }).toString();
 
+                  // VALIDATE ITEM NAME AND FORMS
                   if (_state.validateCuentasFormKey() == true && itemExist == false) {
                     ////// create service
                     _state.crearServicio(servicioNombre: _nombre, precioServ: double.parse(_monto));
@@ -102,18 +104,14 @@ class _CreateExpenseFormsState extends State<CreateExpenseForms> {
                     FocusScope.of(context).unfocus();
                   } else if (itemExist == true) {
                     ///// expense already exists snackBar alert
-                    const snb = SnackBar(
-                      content: Text('El servicio ya existe, utilice un nombre diferente.'),
-                      backgroundColor: Colors.green,
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      snackBarCustom(message: 'El gasto ya existe, utilice un nombre diferente.'),
                     );
-                    ScaffoldMessenger.of(context).showSnackBar(snb);
                   } else {
-                    ///// empty fields snackBar alert
-                    const snb = SnackBar(
-                      content: Text('Defina un nombre y un precio'),
-                      backgroundColor: Colors.green,
+                    ///// no expenses added snackBar alert
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      snackBarCustom(message: 'Defina un nombre y un precio'),
                     );
-                    ScaffoldMessenger.of(context).showSnackBar(snb);
                   }
                 },
               )
@@ -139,12 +137,10 @@ class _CreateExpenseFormsState extends State<CreateExpenseForms> {
                     FocusScope.of(context).unfocus();
                     Navigator.pop(context);
                   } else if (itemExist == true) {
-                    ///// alert snackBar
-                    const snb = SnackBar(
-                      content: Text('El servicio ya existe, utilice un nombre diferente.'),
-                      backgroundColor: Colors.green,
+                    ///// expense already exists snackBar alert
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      snackBarCustom(message: 'El gasto ya existe, utilice un nombre diferente.'),
                     );
-                    ScaffoldMessenger.of(context).showSnackBar(snb);
                   }
                 },
               ),

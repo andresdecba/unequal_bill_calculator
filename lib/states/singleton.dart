@@ -13,7 +13,13 @@ class Singleton {
   // propiedades
   final List<Usuario> listaUsuarios = [];
   final List<Servicio> listaServicios = [];
-  final CuentaTotal cuentaTotal = CuentaTotal(subTotalAPagar: 0.0, propina: 0.0, totalAPagar: 0.0, dividirPorTodos: 0);
+  final CuentaTotal cuentaTotal = CuentaTotal(
+    subTotalAPagar: 0.0,
+    propina: 0.0,
+    totalAPagar: 0.0,
+    dividirPorTodos: 0,
+    totalPayersInTotalDivider: 0,
+  );
   //final double cuentaTotal = 0.0;
 }
   

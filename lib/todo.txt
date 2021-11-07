@@ -11,12 +11,11 @@
 ******5- En la pantalla calcular todo, los items por persona deben ser mas chicos
 11- logo, icono y splash screen
 ******13- editar nombres de usuarios, nombres y montos de los gastos
-14- hacer sort de las listas
-12- refactorizar un poco todo el proyecto
+******12- refactorizar un poco todo el proyecto
 ******16- hacer agregar y quitar todo
 
 ---- V 2.0.0 ----
-15- hacer menu lateral o bottom bar con las opciones
+******15- hacer menu lateral o bottom bar con las opciones
 6- hacer persistencia de datos
 7- poner publicidad
 10- poner algunas animaciones

@@ -67,7 +67,6 @@ class CalculateState extends ChangeNotifier {
 
   ///// calcular totales por usuario  //////
   void calcularTotalPorUsuario() {
-    // Calcular servicios asignados: ( precio servicio / divisor global) * su multiplicador y redondear
     for (var usuario in listaUsuarios) {
       double totalPorUsuario = 0;
 
@@ -81,7 +80,6 @@ class CalculateState extends ChangeNotifier {
       }
       usuario.totalAPagarByOne = totalPorUsuario;
 
-      //(cuentaTotal.totalAPagar / cuentaTotal.dividirPorTodos) * usuario.totalDivider;
     }
   }
 }

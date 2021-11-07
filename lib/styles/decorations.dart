@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 InputDecoration inputDecoration({required TextEditingController controller, required String hintText}) {
   return InputDecoration(
+    contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+
     isDense: true,
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
     suffixIcon: controller.text.isEmpty

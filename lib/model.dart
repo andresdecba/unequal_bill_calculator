@@ -68,12 +68,14 @@ class CuentaTotal {
     required this.propina,
     required this.totalAPagar,
     required this.dividirPorTodos,
+    required this.totalPayersInTotalDivider,
   });
 
   double subTotalAPagar;
   double propina;
   double totalAPagar;
   int dividirPorTodos;
+  int totalPayersInTotalDivider;
 
   @override
   String toString() {

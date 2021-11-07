@@ -1,11 +1,13 @@
+import 'package:bill_calculator/styles/buttons.dart';
+import 'package:bill_calculator/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'create_expense_foms.dart';
 import 'package:bill_calculator/states/states.dart';
 import 'package:bill_calculator/styles/styles.dart';
 
-class AgregarCuentas extends StatelessWidget {
-  const AgregarCuentas({Key? key}) : super(key: key);
+class CreateExpensesScreen extends StatelessWidget {
+  const CreateExpensesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,10 @@ class AgregarCuentas extends StatelessWidget {
 
     return Scaffold(
       // CONTUNE button
-      floatingActionButton: ContinueButtonServ(state: _state),
+      floatingActionButton: Visibility(
+        visible: MediaQuery.of(context).viewInsets.bottom == 0,
+        child: ContinueButtonServ(state: _state),
+      ),
 
       // body
       body: SingleChildScrollView(
@@ -25,49 +30,56 @@ class AgregarCuentas extends StatelessWidget {
           children: [
             //////////// TOP SCREEN, INPUT DATA ///////////
             Container(
-              padding: const EdgeInsets.only(top: 50, bottom: 25, left: 25, right: 25),
-              decoration: containerDecoration(),
-              child: Column(
-                children: const [
-                  ////////// TITLES //////////
-                  Text('¿QUE VAN A PAGAR?', style: TextStyle(fontSize: 30, fontFamily: 'Highman')),
-                  SizedBox(height: 20),
-
-                  ///////// CREATE EXPENSE FORMS AND BUTTON ////////
-                  CreateExpenseForms(onEdit: false),
-                ],
+              padding: kPaddingSmall,
+              color: kAmarillo,
+              child: SafeArea(
+                child: Column(
+                  children: const [
+                    ////////// TITLES //////////
+                    Text('¿QUE VAN A PAGAR?', style: kBigTitles),
+                    kSizedBoxBig,
+                    ///////// CREATE EXPENSE FORMS AND BUTTON ////////
+                    CreateExpenseFormsAndButton(onEdit: false),
+                  ],
+                ),
               ),
             ),
 
-            const SizedBox(height: 20),
-            
+            kSizedBoxBig,
 
             //////////// ADDED SERVICES LIST ///////////
             _state.listaServicios.isEmpty
-                ? const Text('No hay servicios agregados', textAlign: TextAlign.center)
+                ? Container(
+                    height: 200,
+                    padding: kPaddingLarge,
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'Agregue los gatos a compartir.',
+                      style: kTextSmall,
+                      textAlign: TextAlign.center,
+                    ),
+                  )
 
                 // generar lista de usuarios
                 : DataTable(
-                    dataRowHeight: 50,
+                    dataRowHeight: kSpaceLarge,
                     showBottomBorder: true,
+                    horizontalMargin: kSpaceSmall,
                     columnSpacing: 0,
-                    horizontalMargin: 0,
-                    sortColumnIndex: 1,
-                    sortAscending: true,
 
                     ////colums
                     columns: const <DataColumn>[
                       DataColumn(
-                        label: Text('Servicio', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900)),
+                        label: Text('Servicio', style: kTextMedium),
                       ),
                       DataColumn(
-                        label: Text('Importe', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900)),
+                        label: Text('Importe', style: kTextMedium),
                       ),
                       DataColumn(
-                        label: Text('', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900)),
+                        label: Text(''),
                       ),
                       DataColumn(
-                        label: Text('', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900)),
+                        label: Text(''),
                       ),
                     ],
 
@@ -82,14 +94,14 @@ class AgregarCuentas extends StatelessWidget {
                           DataCell(
                             Container(
                               width: (_queryData.size.width - 50) * 0.4,
-                              child: Text(item.servicioNombre),
+                              child: Text(item.servicioNombre, style: kTextSmall),
                             ),
                           ),
                           ////// EXPENSE MOUNT
                           DataCell(
                             Container(
                               width: (_queryData.size.width - 50) * 0.3,
-                              child: Text(item.precio.toString()),
+                              child: Text(item.precio.toString(), style: kTextSmall),
                             ),
                           ),
                           ////// EDIT
@@ -97,14 +109,22 @@ class AgregarCuentas extends StatelessWidget {
                             Container(
                               alignment: Alignment.centerRight,
                               width: (_queryData.size.width - 50) * 0.15,
-                              child: IconButton(
-                                onPressed: () => showDialog(
+                              child: kIconButton(
+                                ////// SHOW DIALOG BOX
+                                onPress: () => showDialog(
+                                  barrierColor: kDialogBackground,
                                   context: context,
-                                  builder: (context) => EditServiceDialog(index: index),
+                                  builder: (context) => DialogBox(
+                                    title: 'Editar gasto',
+                                    children: [
+                                      CreateExpenseFormsAndButton(
+                                        onEdit: true,
+                                        serviceIndex: index,
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                padding: EdgeInsets.zero,
-                                alignment: Alignment.center,
-                                icon: const Icon(Icons.edit),
+                                icon: Icons.edit,
                               ),
                             ),
                           ),
@@ -113,11 +133,9 @@ class AgregarCuentas extends StatelessWidget {
                             Container(
                               alignment: Alignment.centerRight,
                               width: (_queryData.size.width - 50) * 0.15,
-                              child: IconButton(
-                                onPressed: () => _state.eliminarServicio(index: index),
-                                padding: EdgeInsets.zero,
-                                alignment: Alignment.center,
-                                icon: const Icon(Icons.delete_forever),
+                              child: kIconButton(
+                                onPress: () => _state.eliminarServicio(index: index),
+                                icon: Icons.delete_forever,
                               ),
                             ),
                           ),
@@ -131,37 +149,8 @@ class AgregarCuentas extends StatelessWidget {
   }
 }
 
-//////////// EDITAR NOMBRE DIALOG ////////////
-class EditServiceDialog extends StatelessWidget {
-  const EditServiceDialog({Key? key, required this.index}) : super(key: key);
-
-  final int index;
-
-  @override
-  Widget build(BuildContext context) {
-    return SimpleDialog(
-      insetPadding: const EdgeInsets.all(2),
-      backgroundColor: Colors.amber,
-      contentPadding: EdgeInsets.all(15),
-      alignment: Alignment.center,
-      title: const Text(
-        'EDITAR SERVICIO',
-        style: TextStyle(fontSize: 30, fontFamily: 'Highman'),
-        textAlign: TextAlign.center,
-      ),
-      children: [
-        CreateExpenseForms(
-          onEdit: true,
-          serviceIndex: index,
-        ),
-      ],
-    );
-  }
-}
-
 //////////// CONTINUE BUTTON ///////////
 class ContinueButtonServ extends StatelessWidget {
-  
   const ContinueButtonServ({Key? key, required CreateExpensesState state})
       : _state = state,
         super(key: key);
@@ -176,16 +165,12 @@ class ContinueButtonServ extends StatelessWidget {
         if (_state.listaServicios.isNotEmpty) {
           Navigator.pushNamed(context, '/newCalculatorScreen');
         } else {
-          const snb = SnackBar(
-            content: Text('Agrege un servicio'),
-            backgroundColor: Colors.green,
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snb);
+          ScaffoldMessenger.of(context).showSnackBar(snackBarCustom(message: 'Agrege un gasto.'));
         }
       },
       label: const Text(
         'CONTINUAR >',
-        style: TextStyle(color: Colors.black, fontFamily: 'Highman', fontSize: 20, height: 1.2),
+        style: kButtonsText,
       ),
     );
   }

@@ -1,21 +1,22 @@
+import 'package:bill_calculator/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:bill_calculator/states/states.dart';
 import 'package:bill_calculator/styles/styles.dart';
 
-class UsersForm extends StatefulWidget {
-  UsersForm({required this.onEdit, this.userIndex, Key? key}) : super(key: key);
+class CreateUsersFormAnButton extends StatefulWidget {
+  const CreateUsersFormAnButton({required this.onEdit, this.userIndex, Key? key}) : super(key: key);
 
   // flag: creating or editing a user?
-  bool onEdit;
-  int? userIndex;
+  final bool onEdit;
+  final int? userIndex;
 
   @override
-  _UsersFormState createState() => _UsersFormState();
+  _CreateUsersFormAnButtonState createState() => _CreateUsersFormAnButtonState();
 }
 
-class _UsersFormState extends State<UsersForm> {
+class _CreateUsersFormAnButtonState extends State<CreateUsersFormAnButton> {
   String _nombre = '';
   var _textController = TextEditingController();
 
@@ -54,12 +55,11 @@ class _UsersFormState extends State<UsersForm> {
           ),
         ),
 
-        const SizedBox(height: 10),
+        kSizedBoxBig,
 
         ////////// ADD USER BUTTON //////////
         ElevatedButton(
           style: buttonDecoration(),
-          
           onPressed: () {
             // LOOK FOR THE ITEM NAME
             bool itemExist = false;
@@ -80,14 +80,19 @@ class _UsersFormState extends State<UsersForm> {
               FocusScope.of(context).unfocus();
               Navigator.pop(context);
             } else {
-              const snb = SnackBar(
-                content: Text('Ese nombre ya existe, utilice uno diferente.'),
-                backgroundColor: Colors.green,
+              // const snb = SnackBar(
+              //   content: Text('Ese nombre ya existe, utilice uno diferente.'),
+              //   backgroundColor: Colors.green,
+              // );
+              ScaffoldMessenger.of(context).showSnackBar(
+                snackBarCustom(message: 'Ese nombre ya existe, utilice uno diferente.'),
               );
-              ScaffoldMessenger.of(context).showSnackBar(snb);
             }
           },
-          child: Text(widget.onEdit == true ? '> ok' : '> agregar'),
+          child: Text(
+            widget.onEdit == true ? '> ok' : '> agregar',
+            style: kButtonsText,
+          ),
         ),
       ],
     );
