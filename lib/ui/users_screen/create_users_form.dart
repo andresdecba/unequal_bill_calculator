@@ -73,7 +73,7 @@ class _CreateUsersFormAnButtonState extends State<CreateUsersFormAnButton> {
             if (widget.onEdit == false && _state.validateUserFormKey() == true && itemExist == false) {
               _state.crearUsuario(usrName: _nombre);
               _textController.clear();
-              FocusScope.of(context).unfocus();
+              //FocusScope.of(context).unfocus();
             } else if (widget.onEdit == true && _state.validateEditUserFormKey() == true && itemExist == false) {
               _state.editarUsuario(index: widget.userIndex!, nombre: _nombre);
               _textController.clear();

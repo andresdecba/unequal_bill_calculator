@@ -3,7 +3,6 @@ import 'package:bill_calculator/styles/buttons.dart';
 import 'package:bill_calculator/styles/styles.dart';
 import 'package:bill_calculator/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class DivideByItems extends StatelessWidget {
   DivideByItems({Key? key, required CalculateState state, required this.usuariosINDEX})

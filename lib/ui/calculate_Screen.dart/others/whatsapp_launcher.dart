@@ -83,7 +83,7 @@ class _ByItemState extends State<ByItem> {
   _launchWhatsAppComplete() async {
     final link = WhatsAppUnilink(
       phoneNumber: '',
-      text: 'Totales a pagar:\n\n' + createWappText + 'Calculado con play.google.com/store/apps/details?id=com.tienda.online',
+      text: 'Totales a pagar:\n\n' + createWappText + 'Calculado con play.google.com/store/apps/details?id=com.calculadora.desigual',
     );
     await launch('$link');
   }

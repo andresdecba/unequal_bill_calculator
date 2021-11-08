@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 SnackBar snackBarCustom({required String message}) {
   return SnackBar(
-    duration: const Duration(milliseconds: 800),
+    duration: const Duration(milliseconds: 1000),
     padding: kPaddingLarge,
     backgroundColor: kAzul,
     content: Column(
@@ -11,7 +11,7 @@ SnackBar snackBarCustom({required String message}) {
       children: [
         const Icon(
           Icons.warning,
-          color: Colors.white,
+          color: Colors.black,
         ),
         Text(
           message,

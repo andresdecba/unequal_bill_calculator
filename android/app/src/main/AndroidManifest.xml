@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bill_calculator">
+    package="com.calculadora.desigual">
    <application
-        android:label="bill_calculator"
+        android:label="Calculadora de cuentas desigual"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

@@ -101,7 +101,7 @@ class _CreateExpenseFormsAndButtonState extends State<CreateExpenseFormsAndButto
                     _state.crearServicio(servicioNombre: _nombre, precioServ: double.parse(_monto));
                     _priceController.clear();
                     _nameController.clear();
-                    FocusScope.of(context).unfocus();
+                    //FocusScope.of(context).unfocus();
                   } else if (itemExist == true) {
                     ///// expense already exists snackBar alert
                     ScaffoldMessenger.of(context).showSnackBar(
