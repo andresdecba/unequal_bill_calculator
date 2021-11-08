@@ -59,7 +59,7 @@ class _ByItemState extends State<ByItem> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Enviar el total por persona con sus items ',
+          'Se enviará total por persona con sus items ',
           style: kTextSmall,
         ),
         kDivder,
@@ -119,7 +119,7 @@ class _ByTotalState extends State<ByTotal> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Enviar sólamente el total por persona',
+          'Se enviará el total por persona',
           style: kTextSmall,
         ),
         kDivder,

@@ -20,6 +20,8 @@ class Singleton {
     dividirPorTodos: 0,
     totalPayersInTotalDivider: 0,
   );
+
+  
   //final double cuentaTotal = 0.0;
 }
   

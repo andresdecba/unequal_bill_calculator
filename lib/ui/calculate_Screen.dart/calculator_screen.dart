@@ -33,12 +33,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> with TickerProvider
   }
 
   @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       // FLOATING ACTION BUTTONS WITH OPTIONS
@@ -67,6 +61,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> with TickerProvider
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 }
 
@@ -165,20 +165,24 @@ class MultipleFloatingActionButton extends StatelessWidget {
           child: const Icon(Icons.group),
           label: 'Ver lista de usuarios',
           labelStyle: kTextSmall,
-          onTap: () => Navigator.pushNamed(context, '/'),
+          onTap: () => Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const CreateUsersScreen()),
+            ModalRoute.withName("/"),
+          ),
         ),
         SpeedDialChild(
           labelBackgroundColor: Colors.white.withOpacity(0.7),
           child: const Icon(Icons.list),
           label: 'Ver lista de gastos',
           labelStyle: kTextSmall,
-          onTap: () => Navigator.pop(
+          onTap: () => Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(
-              builder: (context) => const CreateExpensesScreen(),
-            ),
+            MaterialPageRoute(builder: (context) => const CreateExpensesScreen()),
+            ModalRoute.withName("/agregarCuentas"),
           ),
         ),
+        
       ],
     );
   }

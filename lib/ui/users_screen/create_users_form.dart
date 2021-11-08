@@ -69,7 +69,7 @@ class _CreateUsersFormAnButtonState extends State<CreateUsersFormAnButton> {
               }
             }).toString();
 
-            // VALIDATE ITEM NAME AND FORMS
+            // VALIDATE ITEM's NAMES AND FORMS
             if (widget.onEdit == false && _state.validateUserFormKey() == true && itemExist == false) {
               _state.crearUsuario(usrName: _nombre);
               _textController.clear();
@@ -96,5 +96,11 @@ class _CreateUsersFormAnButtonState extends State<CreateUsersFormAnButton> {
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _textController.dispose();
   }
 }

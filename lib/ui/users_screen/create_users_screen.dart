@@ -1,3 +1,4 @@
+import 'package:bill_calculator/ui/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -155,7 +156,7 @@ class ContinueButton extends StatelessWidget {
       ),
       onPressed: () {
         if (_state.listaUsuarios.isNotEmpty) {
-          Navigator.pushNamed(context, '/agregarCuentas');
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const CreateExpensesScreen()), ModalRoute.withName("/agregarCuentas"));
         } else {
           ScaffoldMessenger.of(context).showSnackBar(snackBarCustom(message: 'Agrege un usuario.'));
         }

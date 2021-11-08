@@ -32,19 +32,12 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Material App',
+      title: 'Calculadora de cuentas desigual',
       initialRoute: '/',
       routes: {
         '/': (context) => const CreateUsersScreen(),
         '/agregarCuentas': (context) => const CreateExpensesScreen(),
         '/newCalculatorScreen': (context) => const CalculatorScreen(),
-
-        //'/usersExpensesList': (context) => const UserExpensesList(),
-        //'/borrar': (context) => const Borrar(),
-        //'/calcularTodo': (context) => const CalcularTodo(),
-        //'/mostrarData': (context) => const AssignUserServices(indexUsuario: 0),
-        //'/': (context) => const TopScreenBG(),
-        //'/borrar': (context) => Borrar(),
       },
 
       theme: ThemeData(

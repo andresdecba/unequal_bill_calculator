@@ -1,4 +1,5 @@
 import 'package:bill_calculator/styles/buttons.dart';
+import 'package:bill_calculator/ui/calculate_Screen.dart/calculator_screen.dart';
 import 'package:bill_calculator/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -163,7 +164,7 @@ class ContinueButtonServ extends StatelessWidget {
       // VALIDATE FORMS
       onPressed: () {
         if (_state.listaServicios.isNotEmpty) {
-          Navigator.pushNamed(context, '/newCalculatorScreen');
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const CalculatorScreen()), ModalRoute.withName('/newCalculatorScreen'));
         } else {
           ScaffoldMessenger.of(context).showSnackBar(snackBarCustom(message: 'Agrege un gasto.'));
         }

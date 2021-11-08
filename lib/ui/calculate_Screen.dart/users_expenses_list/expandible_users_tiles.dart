@@ -1,5 +1,6 @@
 import 'package:bill_calculator/states/states.dart';
 import 'package:bill_calculator/styles/styles.dart';
+import 'package:bill_calculator/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,7 +54,7 @@ class _ExpandibleUsersTilesState extends State<ExpandibleUsersTiles> {
                   expansionCallback: (int panelIndex, bool isOpen) => setState(
                     () => _state.listaUsuarios[index].isPanelOpen = !isOpen,
                   ),
-                  expandedHeaderPadding: EdgeInsets.all(0),
+                  expandedHeaderPadding: const EdgeInsets.all(0),
                   children: [
                     ExpansionPanel(
                       isExpanded: _state.listaUsuarios[index].isPanelOpen,
@@ -90,10 +91,12 @@ class _ExpandibleUsersTilesState extends State<ExpandibleUsersTiles> {
       ),
 
       // user to pay
-      trailing: Text(
-        '\$ ${_state.listaUsuarios[index].totalAPagarByOne.toString()}',
-        style: kTextLarge,
-      ),
+      trailing: _state.isLoading
+          ? const ProgressIndicartor()
+          : Text(
+              '\$ ${_state.listaUsuarios[index].totalAPagarByOne.toString()}',
+              style: kTextLarge,
+            ),
     );
   }
 }

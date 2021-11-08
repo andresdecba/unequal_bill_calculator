@@ -1,16 +1,19 @@
 import 'package:bill_calculator/states/states.dart';
 import 'package:bill_calculator/styles/buttons.dart';
 import 'package:bill_calculator/styles/styles.dart';
+import 'package:bill_calculator/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DivideByItems extends StatelessWidget {
-  const DivideByItems({Key? key, required CalculateState state, required this.usuariosINDEX})
+  DivideByItems({Key? key, required CalculateState state, required this.usuariosINDEX})
       : _state = state,
         super(key: key);
 
   final CalculateState _state;
   final int usuariosINDEX;
+
+  //bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,7 @@ class DivideByItems extends StatelessWidget {
                 label: Text('Gasto'),
               ),
               DataColumn(
-                label: Text('A pagarr'),
+                label: Text('A pagar'),
               ),
               DataColumn(
                 label: Text('     Dividir desigual'),
@@ -51,23 +54,30 @@ class DivideByItems extends StatelessWidget {
                   DataCell(Text(
                     '${item.servicio.servicioNombre} (\$ ${item.servicio.precio.toString()})',
                   )),
-                  DataCell(Text(
-                    '\$ ${item.aPagar.toString()}',
-                  )),
                   DataCell(
-                    Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                      kIconButton(
-                        onPress: () => _state.restarMultiplicador(indexUsuario: usuariosINDEX, indexServicio: index),
-                        icon: Icons.remove_circle,
-                      ),
-                      kSizedBoxBig,
-                      Text(_state.listaUsuarios[usuariosINDEX].servicios[index].multiplicarPor.toString()),
-                      kSizedBoxBig,
-                      kIconButton(
-                        onPress: () => _state.sumarMultiplicador(indexUsuario: usuariosINDEX, indexServicio: index),
-                        icon: Icons.add_circle,
-                      )
-                    ]),
+                    _state.isLoading ? const ProgressIndicartor() : Text('\$ ${item.aPagar.toString()}'),
+                  ),
+                  DataCell(
+                    // block the buttons wile is loading.
+                    AbsorbPointer(
+                      absorbing: _state.isLoading,
+                      child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                        // Substract button
+                        kIconButton(
+                          onPress: () => _state.restarMultiplicador(indexUsuario: usuariosINDEX, indexServicio: index),
+                          icon: Icons.remove_circle,
+                        ),
+                        kSizedBoxBig,
+                        // number
+                        Text(_state.listaUsuarios[usuariosINDEX].servicios[index].multiplicarPor.toString()),
+                        kSizedBoxBig,
+                        // add button
+                        kIconButton(
+                          onPress: () => _state.sumarMultiplicador(indexUsuario: usuariosINDEX, indexServicio: index),
+                          icon: Icons.add_circle,
+                        ),
+                      ]),
+                    ),
                   ),
                 ],
               );

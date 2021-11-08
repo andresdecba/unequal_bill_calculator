@@ -1,6 +1,7 @@
 import 'package:bill_calculator/states/states.dart';
 import 'package:bill_calculator/styles/buttons.dart';
 import 'package:bill_calculator/styles/styles.dart';
+import 'package:bill_calculator/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +49,9 @@ class DivideByTheTotal extends StatelessWidget {
                   ),
                   trailing: Padding(
                     padding: const EdgeInsets.only(right: 15),
-                    child: Text(
+                    child: _calculateState.isLoading
+                        ? const ProgressIndicartor()
+                        : Text(
                       ('\$  ${_calculateState.listaUsuarios[usuariosINDEX].totalAPagar.toString()}'),
                       style: kTextLarge,
                     ),
@@ -63,27 +66,31 @@ class DivideByTheTotal extends StatelessWidget {
                     'Dividir desigual',
                     style: kTextSmall,
                   ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ///// restar button
-                      kIconButton(
-                        onPress: () => _calculateState.restarTotal(indexUsuario: usuariosINDEX),
-                        icon: Icons.remove_circle,
-                      ),
-                      kSizedBoxBig,
-                      ///// divisor text
-                      Text(
-                        _calculateState.listaUsuarios[usuariosINDEX].totalDivider.toString(),
-                        style: kTextSmall,
-                      ),
-                      kSizedBoxBig,
-                      ///// sumar button
-                      kIconButton(
-                        onPress: () => _calculateState.sumarTotal(indexUsuario: usuariosINDEX),
-                        icon: Icons.add_circle,
-                      )
-                    ],
+                    // block the buttons wile is loading.
+                  trailing: AbsorbPointer(
+                    absorbing: _calculateState.isLoading,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ///// restar button
+                        kIconButton(
+                          onPress: () => _calculateState.restarTotal(indexUsuario: usuariosINDEX),
+                          icon: Icons.remove_circle,
+                        ),
+                        kSizedBoxBig,
+                        ///// divisor text
+                        Text(
+                          _calculateState.listaUsuarios[usuariosINDEX].totalDivider.toString(),
+                          style: kTextSmall,
+                        ),
+                        kSizedBoxBig,
+                        ///// sumar button
+                        kIconButton(
+                          onPress: () => _calculateState.sumarTotal(indexUsuario: usuariosINDEX),
+                          icon: Icons.add_circle,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],

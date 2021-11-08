@@ -147,4 +147,11 @@ class _CreateExpenseFormsAndButtonState extends State<CreateExpenseFormsAndButto
       ],
     );
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _nameController.dispose();
+    _priceController.dispose();
+  }
 }

@@ -28,11 +28,6 @@ class TotalBill extends StatelessWidget {
             const SizedBox(height: 15),
             kDivder,
             Text(
-              '> Diferencia por redondeo:  ${_calculateState.listaUsuarios.length}',
-              style: kTextSmall,
-            ),
-            kDivder,
-            Text(
               '> Total de pagadores:  ${_calculateState.listaUsuarios.length}',
               style: kTextSmall,
             ),
