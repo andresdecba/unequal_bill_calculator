@@ -164,7 +164,12 @@ class ContinueButtonServ extends StatelessWidget {
       // VALIDATE FORMS
       onPressed: () {
         if (_state.listaServicios.isNotEmpty) {
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const CalculatorScreen()), ModalRoute.withName('/newCalculatorScreen'));
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              settings: const RouteSettings(name: "/newCalculatorScreen"),
+              builder: (context) => const CalculatorScreen(),
+            ),
+          );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(snackBarCustom(message: 'Agrege un gasto.'));
         }

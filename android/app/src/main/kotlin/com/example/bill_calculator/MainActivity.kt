@@ -1,4 +1,4 @@
-package com.example.bill_calculator
+package com.calculadora.desigual
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -156,7 +156,12 @@ class ContinueButton extends StatelessWidget {
       ),
       onPressed: () {
         if (_state.listaUsuarios.isNotEmpty) {
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const CreateExpensesScreen()), ModalRoute.withName("/agregarCuentas"));
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              settings: const RouteSettings(name: "/agregarCuentas"),
+              builder: (context) => const CreateExpensesScreen(),
+            ),
+          );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(snackBarCustom(message: 'Agrege un usuario.'));
         }

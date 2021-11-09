@@ -47,7 +47,7 @@ class _ByItemState extends State<ByItem> {
         expenseDetails += '- _${expense.servicio.servicioNombre}: \$ ${expense.aPagar} (x${expense.multiplicarPor})_ \n';
       }
 
-      String total = '*${user.userNombre}: \$${user.totalAPagar}*\n$expenseDetails\n';
+      String total = '*${user.userNombre}: \$${user.totalAPagarByOne}*\n$expenseDetails\n';
       createWappText += total;
     }
   }
