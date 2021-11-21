@@ -1,10 +1,8 @@
-import 'package:bill_calculator/styles/styles.dart';
-import 'package:bill_calculator/ui/calculate_Screen.dart/users_expenses_list/divide_by_the_total.dart';
-import 'package:bill_calculator/ui/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:bill_calculator/ui/calculate_Screen.dart/others/total_bill.dart';
-import 'package:bill_calculator/ui/calculate_Screen.dart/others/whatsapp_launcher.dart';
+
+import 'package:bill_calculator/styles/styles.dart';
+import 'package:bill_calculator/ui/screens.dart';
 
 class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({Key? key}) : super(key: key);
@@ -22,6 +20,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> with TickerProvider
   @override
   void initState() {
     super.initState();
+    // tabs
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
@@ -72,7 +71,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> with TickerProvider
 
 ///// BUILD TABS
 class CreateTabsAndDisplayTotalBill extends StatelessWidget {
-  const CreateTabsAndDisplayTotalBill({required this.tabController, required this.isActive, Key? key}) : super(key: key);
+  const CreateTabsAndDisplayTotalBill({
+    required this.tabController,
+    required this.isActive,
+    Key? key,
+  }) : super(key: key);
 
   final TabController tabController;
   final bool isActive;
@@ -81,7 +84,7 @@ class CreateTabsAndDisplayTotalBill extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       automaticallyImplyLeading: false,
-      expandedHeight: 260,
+      expandedHeight: 270,
       pinned: true,
       floating: true,
       snap: true,
@@ -89,7 +92,7 @@ class CreateTabsAndDisplayTotalBill extends StatelessWidget {
       elevation: 0,
       flexibleSpace: const FlexibleSpaceBar(
         //
-        //////////// TOTAL BILL
+        //////////// HEADER: SHOW TOTAL BILL and bill name
         background: TotalBill(),
       ),
       bottom: TabBar(
@@ -165,7 +168,7 @@ class MultipleFloatingActionButton extends StatelessWidget {
           child: const Icon(Icons.group),
           label: 'Ver lista de usuarios',
           labelStyle: kTextSmall,
-          onTap: () => Navigator.of(context).popUntil(ModalRoute.withName("/")),
+          onTap: () => Navigator.of(context).popUntil(ModalRoute.withName("/createUsers")),
         ),
         SpeedDialChild(
           labelBackgroundColor: Colors.white.withOpacity(0.7),
@@ -174,7 +177,6 @@ class MultipleFloatingActionButton extends StatelessWidget {
           labelStyle: kTextSmall,
           onTap: () => Navigator.of(context).popUntil(ModalRoute.withName("/agregarCuentas")),
         ),
-        
       ],
     );
   }

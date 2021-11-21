@@ -1,4 +1,6 @@
-import '../model.dart';
+import 'package:hive/hive.dart';
+
+import 'package:bill_calculator/models/models.dart';
 
 ////// singleton repositories /////
 class Singleton {
@@ -10,18 +12,10 @@ class Singleton {
 
   Singleton._internal();
 
-  // propiedades
-  final List<Usuario> listaUsuarios = [];
-  final List<Servicio> listaServicios = [];
-  final CuentaTotal cuentaTotal = CuentaTotal(
-    subTotalAPagar: 0.0,
-    propina: 0.0,
-    totalAPagar: 0.0,
-    dividirPorTodos: 0,
-    totalPayersInTotalDivider: 0,
-  );
+  // hive fields
+  var usersBOX = Hive.box<UserModel>('USERS-BOX');
+  var expensesBOX = Hive.box<ExpenseModel>('EXPENSE-BOX');
+  var userExpensesBOX = Hive.box<UserExpenseModel>('USER-EXPENSES-BOX');
+  var billBOX = Hive.box<BillModel>('BILL-BOX');
 
-  
-  //final double cuentaTotal = 0.0;
 }
-  

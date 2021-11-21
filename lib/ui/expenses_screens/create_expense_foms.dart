@@ -1,25 +1,27 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
+
+import 'package:bill_calculator/models/models.dart';
 import 'package:bill_calculator/states/states.dart';
 import 'package:bill_calculator/styles/styles.dart';
 import 'package:bill_calculator/widgets/widgets.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 
-class CreateExpenseFormsAndButton extends StatefulWidget {
-  const CreateExpenseFormsAndButton({required this.onEdit, this.serviceIndex, Key? key}) : super(key: key);
+class CreateExpenseForms extends StatefulWidget {
+  const CreateExpenseForms({required this.onEdit, this.expense, Key? key}) : super(key: key);
 
   final bool onEdit;
-  final int? serviceIndex;
+  final ExpenseModel? expense;
 
   @override
-  _CreateExpenseFormsAndButtonState createState() => _CreateExpenseFormsAndButtonState();
+  _CreateExpenseFormsState createState() => _CreateExpenseFormsState();
 }
 
-class _CreateExpenseFormsAndButtonState extends State<CreateExpenseFormsAndButton> {
+class _CreateExpenseFormsState extends State<CreateExpenseForms> {
   var _nameController = TextEditingController();
   var _priceController = TextEditingController();
 
-  String _nombre = '';
+  String _newName = '';
   String _monto = '0.0';
 
   @override
@@ -31,14 +33,15 @@ class _CreateExpenseFormsAndButtonState extends State<CreateExpenseFormsAndButto
     _priceController.addListener(() => setState(() {}));
 
     // below lines add initial value on text the fields
-    _nameController = TextEditingController(text: widget.onEdit == false ? '' : CalculateState().listaServicios[widget.serviceIndex!].servicioNombre);
-    _priceController = TextEditingController(text: widget.onEdit == false ? '' : CalculateState().listaServicios[widget.serviceIndex!].precio.toString());
+    _nameController = TextEditingController(text: widget.onEdit == false ? '' : widget.expense!.expenseName);
+    _priceController = TextEditingController(text: widget.onEdit == false ? '' : widget.expense!.price.toString());
   }
 
   @override
   Widget build(BuildContext context) {
+
     //provider
-    final _state = Provider.of<CreateExpensesState>(context);
+    final _state = Provider.of<CreateExpensesScreenState>(context);
 
     return Column(
       children: [
@@ -53,8 +56,8 @@ class _CreateExpenseFormsAndButtonState extends State<CreateExpenseFormsAndButto
                 textCapitalization: TextCapitalization.sentences,
                 textInputAction: TextInputAction.done,
                 decoration: inputDecoration(controller: _nameController, hintText: 'Nombre servicio'),
-                onChanged: (value) => setState(() => _nombre = value),
-                onFieldSubmitted: (value) => setState(() => _nombre = value),
+                onChanged: (value) => setState(() => _newName = value),
+                onFieldSubmitted: (value) => setState(() => _newName = value),
                 validator: (value) {
                   return (value!.isEmpty) ? 'ingrese un titulo' : null;
                 },
@@ -89,8 +92,8 @@ class _CreateExpenseFormsAndButtonState extends State<CreateExpenseFormsAndButto
                 onPressed: () {
                   // SEARCH IF ITEM ALREADY EXISTS
                   bool itemExist = false;
-                  _state.listaServicios.map((e) {
-                    if (e.servicioNombre == _nombre) {
+                  _state.expensesBox.values.map((e) {
+                    if (e.expenseName == _newName) {
                       itemExist = true;
                     }
                   }).toString();
@@ -98,7 +101,7 @@ class _CreateExpenseFormsAndButtonState extends State<CreateExpenseFormsAndButto
                   // VALIDATE ITEM NAME AND FORMS
                   if (_state.validateCuentasFormKey() == true && itemExist == false) {
                     ////// create service
-                    _state.crearServicio(servicioNombre: _nombre, precioServ: double.parse(_monto));
+                    _state.crearServicio(servicioNombre: _newName, precioServ: double.parse(_monto));
                     _priceController.clear();
                     _nameController.clear();
                     //FocusScope.of(context).unfocus();
@@ -120,18 +123,19 @@ class _CreateExpenseFormsAndButtonState extends State<CreateExpenseFormsAndButto
             : ElevatedButton(
                 style: buttonDecoration(),
                 child: const Text('> OK'),
+                
                 onPressed: () {
                   // SEARCH IF ITEM ALREADY EXISTS
                   bool itemExist = false;
-                  _state.listaServicios.map((item) {
-                    if (item.servicioNombre == _nombre && item.servicioNombre != _state.listaServicios[widget.serviceIndex!].servicioNombre) {
+                  _state.expensesBox.values.map((item) {
+                    if (item.expenseName == _newName && item.expenseName != widget.expense!.expenseName) {
                       itemExist = true;
                     }
                   }).toString();
 
                   if (_state.validateEditCuentasFormKey() == true && itemExist == false) {
                     ///// edit service
-                    _state.editarServicio(index: widget.serviceIndex!, serviceName: _nombre, servicePrice: double.parse(_monto));
+                    _state.editarServicio(expense: widget.expense! ,  serviceName: _newName, servicePrice: double.parse(_monto));
                     _priceController.clear();
                     _nameController.clear();
                     FocusScope.of(context).unfocus();

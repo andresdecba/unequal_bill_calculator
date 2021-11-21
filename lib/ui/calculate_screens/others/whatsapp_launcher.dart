@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 
+import 'package:bill_calculator/states/states.dart';
 import 'package:bill_calculator/styles/styles.dart';
 import 'package:bill_calculator/widgets/widgets.dart';
-import 'package:bill_calculator/states/singleton.dart';
 
 Future whatsappLauncher(BuildContext context, bool isActive) async {
   return await showDialog(
@@ -31,8 +30,9 @@ class ByItem extends StatefulWidget {
 class _ByItemState extends State<ByItem> {
   //
   // texto a enviar
-  final usersList = Singleton().listaUsuarios;
-  String createWappText = '';
+  final usersList = Singleton().usersBOX.values;
+
+  String createWappText = '${Singleton().billBOX.values.first.billName}\n';
 
   @override
   void initState() {
@@ -43,11 +43,11 @@ class _ByItemState extends State<ByItem> {
       String expenseDetails = '';
 
       // get services by user
-      for (var expense in user.servicios) {
-        expenseDetails += '- _${expense.servicio.servicioNombre}: \$ ${expense.aPagar} (x${expense.multiplicarPor})_ \n';
+      for (var expense in user.userExpensesList2) {
+        expenseDetails += '- _${expense.expense.expenseName}: \$ ${expense.toPay} (x${expense.multiplyBy})_ \n';
       }
 
-      String total = '*${user.userNombre}: \$${user.totalAPagarByOne}*\n$expenseDetails\n';
+      String total = '*${user.userName}: \$${user.totalToPayByExpense}*\n$expenseDetails\n';
       createWappText += total;
     }
   }
@@ -99,8 +99,8 @@ class ByTotal extends StatefulWidget {
 class _ByTotalState extends State<ByTotal> {
   //
   // users data
-  final lista = Singleton().listaUsuarios;
-  String textToWhatsapp = '';
+  final lista = Singleton().usersBOX.values;
+  String textToWhatsapp = '${Singleton().billBOX.values.first.billName}\n';
 
   @override
   void initState() {
@@ -108,7 +108,7 @@ class _ByTotalState extends State<ByTotal> {
 
     // get total by user
     lista.map((e) {
-      return textToWhatsapp += '*${e.userNombre}: \$${e.totalAPagar}* _(x${e.totalDivider})_\n';
+      return textToWhatsapp += '*${e.userName}: \$${e.totalToPay}* _(x${e.totalDivider})_\n';
     }).toString();
   }
 

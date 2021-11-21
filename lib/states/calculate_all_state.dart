@@ -1,7 +1,35 @@
-import 'package:bill_calculator/states/singleton.dart';
 import 'package:flutter/material.dart';
 
-class PropinaState extends ChangeNotifier {
+import 'package:bill_calculator/states/states.dart';
+
+class CalculateAllState extends ChangeNotifier {
+  //
+  ////// CALCULATE THE TOTAL BILL //////
+
+  ///// listas de propiedades //////
+  final usersBox = Singleton().usersBOX;
+  final expensesBox = Singleton().expensesBOX;
+  final bill = Singleton().billBOX.values.first;
+
+  ///// calcular la cuenta total //////
+  calculateAll() async {
+    //
+    // calcular total a pagar
+    double total = 0;
+    for (var item in expensesBox.values) {
+      total += item.price;
+    }
+
+    // save to the box
+    bill.totalToPay = total;
+    await bill.save();
+    notifyListeners();
+  }
+}
+
+///// PROPINA *** NO USADO *** /////
+
+class Propina extends ChangeNotifier {
   ///// formularios
   GlobalKey<FormState> propinaFormKey = GlobalKey<FormState>();
 
@@ -10,9 +38,9 @@ class PropinaState extends ChangeNotifier {
   }
 
   ///// listas de propiedades //////
-  final listaUsuarios = Singleton().listaUsuarios;
-  final listaServicios = Singleton().listaServicios;
-  final cuentaTotal = Singleton().cuentaTotal;
+  final usersBox = Singleton().usersBOX;
+  final expensesBox = Singleton().expensesBOX;
+  final bill = Singleton().billBOX.values.first;
 
   ///// calcular propina //////
   // mostrar el porcentaje
@@ -27,14 +55,14 @@ class PropinaState extends ChangeNotifier {
   // decrementar porcentaje
   void restarPorcentaje() {
     propinaPercent--;
-    propinaFromPercent = cuentaTotal.subTotalAPagar * propinaPercent / 100;
+    propinaFromPercent = bill.subtotalToPay * propinaPercent / 100;
     notifyListeners();
   }
 
   // incrementar porcentaje
   void sumarPorcentaje() {
     propinaPercent++;
-    propinaFromPercent = cuentaTotal.subTotalAPagar * propinaPercent / 100;
+    propinaFromPercent = bill.subtotalToPay * propinaPercent / 100;
     notifyListeners();
   }
 
@@ -42,12 +70,12 @@ class PropinaState extends ChangeNotifier {
   void asignarPropina(bool value) {
     // percent == true, manual == false
     if (value == true) {
-      cuentaTotal.propina = propinaFromPercent;
-      calcularTotal();
+      bill.propina = propinaFromPercent;
+      CalculateAllState().calculateAll();
       notifyListeners();
     } else {
-      cuentaTotal.propina = propinaFromManual;
-      calcularTotal();
+      bill.propina = propinaFromManual;
+      CalculateAllState().calculateAll();
       notifyListeners();
     }
 
@@ -79,21 +107,4 @@ class PropinaState extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-  ///// calcular la cuenta total //////
-  void calcularTotal() {
-    // calcular sub-total
-    double subTotal = 0.0;
-
-    for (var item in listaServicios) {
-      subTotal += item.precio;
-    }
-
-    // calcular total a pagar
-    double total = subTotal + cuentaTotal.propina;
-
-    // asignar a modelo
-    cuentaTotal.subTotalAPagar = subTotal;
-    cuentaTotal.totalAPagar = subTotal; //total;
-    notifyListeners();
-  }
 }

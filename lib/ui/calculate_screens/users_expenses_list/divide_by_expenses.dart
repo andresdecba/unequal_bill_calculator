@@ -1,22 +1,19 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:bill_calculator/models/models.dart';
 import 'package:bill_calculator/states/states.dart';
-import 'package:bill_calculator/styles/buttons.dart';
 import 'package:bill_calculator/styles/styles.dart';
 import 'package:bill_calculator/widgets/widgets.dart';
-import 'package:flutter/material.dart';
 
-class DivideByItems extends StatelessWidget {
-  DivideByItems({Key? key, required CalculateState state, required this.usuariosINDEX})
-      : _state = state,
-        super(key: key);
-
-  final CalculateState _state;
-  final int usuariosINDEX;
-
-  //bool _isLoading = false;
+class DivideByExpenses extends StatelessWidget {
+  //
+  const DivideByExpenses({Key? key, required this.user}) : super(key: key);
+  final UserModel user;
 
   @override
   Widget build(BuildContext context) {
-    //final _calculateState = Provider.of<CalculateState>(context);
+    final _state = Provider.of<CalculateScreenState>(context);
 
     return FittedBox(
       fit: BoxFit.fitWidth,
@@ -45,16 +42,15 @@ class DivideByItems extends StatelessWidget {
             ],
 
             ////rows
-            rows: _state.listaUsuarios[usuariosINDEX].servicios.map((item) {
-              int index = _state.listaUsuarios[usuariosINDEX].servicios.indexOf(item);
-
+            rows: user.userExpensesList2.map((userExpense) {
               return DataRow(
                 cells: <DataCell>[
                   DataCell(Text(
-                    '${item.servicio.servicioNombre} (\$ ${item.servicio.precio.toString()})',
+                    '${userExpense.expense.expenseName} (\$ ${userExpense.expense.price.toString()})',
                   )),
+                  ////////// progress indicator wile is calculating
                   DataCell(
-                    _state.isLoading ? const ProgressIndicartor() : Text('\$ ${item.aPagar.toString()}'),
+                    _state.isLoading ? const ProgressIndicartor() : Text('\$ ${userExpense.toPay.toString()}'),
                   ),
                   DataCell(
                     // block the buttons wile is loading.
@@ -63,16 +59,16 @@ class DivideByItems extends StatelessWidget {
                       child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                         // Substract button
                         kIconButton(
-                          onPress: () => _state.restarMultiplicador(indexUsuario: usuariosINDEX, indexServicio: index),
+                          onPress: () => _state.restarMultiplicador(userExpense: userExpense),
                           icon: Icons.remove_circle,
                         ),
                         kSizedBoxBig,
                         // number
-                        Text(_state.listaUsuarios[usuariosINDEX].servicios[index].multiplicarPor.toString()),
+                        Text(userExpense.multiplyBy.toString()),
                         kSizedBoxBig,
                         // add button
                         kIconButton(
-                          onPress: () => _state.sumarMultiplicador(indexUsuario: usuariosINDEX, indexServicio: index),
+                          onPress: () => _state.sumarMultiplicador(userExpense: userExpense),
                           icon: Icons.add_circle,
                         ),
                       ]),

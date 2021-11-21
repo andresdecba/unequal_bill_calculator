@@ -1,0 +1,74 @@
+Date : 2021-11-20 16:53:00
+Directory : c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib
+Total : 39 files,  2084 codes, 302 comments, 378 blanks, all 2764 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Dart     |         39 |      2,084 |        302 |        378 |      2,764 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                                                             | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                                                |         39 |      2,084 |        302 |        378 |      2,764 |
+| models                                                                                                                                                           |          9 |        274 |         18 |         54 |        346 |
+| states                                                                                                                                                           |          6 |        303 |        114 |        104 |        521 |
+| styles                                                                                                                                                           |          6 |        138 |          8 |         25 |        171 |
+| ui                                                                                                                                                               |         13 |      1,245 |        156 |        173 |      1,574 |
+| ui\calculate_screens                                                                                                                                             |          7 |        701 |         83 |         80 |        864 |
+| ui\calculate_screens\others                                                                                                                                      |          3 |        282 |         40 |         34 |        356 |
+| ui\calculate_screens\users_expenses_list                                                                                                                         |          3 |        265 |         30 |         29 |        324 |
+| ui\expenses_screens                                                                                                                                              |          2 |        274 |         34 |         37 |        345 |
+| ui\initial_screen                                                                                                                                                |          1 |         37 |          5 |          5 |         47 |
+| ui\users_screen                                                                                                                                                  |          2 |        221 |         30 |         39 |        290 |
+| widgets                                                                                                                                                          |          4 |         64 |          2 |         11 |         77 |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                                                                         | language | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\main.dart                                                            | Dart     |         60 |          4 |         11 |         75 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\models\bill_model.dart                                               | Dart     |         32 |          0 |          5 |         37 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\models\bill_model.g.dart                                             | Dart     |         44 |          4 |          8 |         56 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\models\expense_model.dart                                            | Dart     |         20 |          0 |          5 |         25 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\models\expense_model.g.dart                                          | Dart     |         36 |          4 |          8 |         48 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\models\models.dart                                                   | Dart     |          4 |          0 |          1 |          5 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\models\user_expense_model.dart                                       | Dart     |         24 |          0 |          6 |         30 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\models\user_expense_model.g.dart                                     | Dart     |         39 |          4 |          8 |         51 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\models\user_model.dart                                               | Dart     |         30 |          2 |          5 |         37 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\models\user_model.g.dart                                             | Dart     |         45 |          4 |          8 |         57 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\states\calculate_all_state.dart                                      | Dart     |         49 |         40 |         22 |        111 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\states\calculate_screen_state.dart                                   | Dart     |         98 |         25 |         30 |        153 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\states\create_expenses_screen_state.dart                             | Dart     |         65 |         22 |         21 |        108 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\states\create_users_screen_state.dart                                | Dart     |         73 |         25 |         22 |        120 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\states\singleton.dart                                                | Dart     |         13 |          2 |          7 |         22 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\states\states.dart                                                   | Dart     |          5 |          0 |          2 |          7 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\styles\buttons.dart                                                  | Dart     |         13 |          0 |          2 |         15 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\styles\colors.dart                                                   | Dart     |          9 |          1 |          2 |         12 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\styles\decorations.dart                                              | Dart     |         45 |          1 |          7 |         53 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\styles\spacing.dart                                                  | Dart     |         20 |          6 |          7 |         33 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\styles\styles.dart                                                   | Dart     |          5 |          0 |          4 |          9 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\styles\texts.dart                                                    | Dart     |         46 |          0 |          3 |         49 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\ui\calculate_screens\calculator_screen.dart                          | Dart     |        154 |         13 |         17 |        184 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\ui\calculate_screens\others\propina_dialog.dart                      | Dart     |        120 |          6 |         10 |        136 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\ui\calculate_screens\others\total_bill.dart                          | Dart     |         40 |         23 |          6 |         69 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\ui\calculate_screens\others\whatsapp_launcher.dart                   | Dart     |        122 |         11 |         18 |        151 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\ui\calculate_screens\users_expenses_list\divide_by_expenses.dart     | Dart     |         69 |          8 |          7 |         84 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\ui\calculate_screens\users_expenses_list\divide_by_the_total.dart    | Dart     |         99 |         11 |          9 |        119 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\ui\calculate_screens\users_expenses_list\expandible_users_tiles.dart | Dart     |         97 |         11 |         13 |        121 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\ui\expenses_screens\create_expense_foms.dart                         | Dart     |        125 |         16 |         21 |        162 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\ui\expenses_screens\create_expenses_screen.dart                      | Dart     |        149 |         18 |         16 |        183 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\ui\initial_screen\create_new_bill_screen.dart                        | Dart     |         37 |          5 |          5 |         47 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\ui\screens.dart                                                      | Dart     |         12 |          4 |         12 |         28 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\ui\users_screen\create_users_form.dart                               | Dart     |         82 |         12 |         19 |        113 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\ui\users_screen\create_users_screen.dart                             | Dart     |        139 |         18 |         20 |        177 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\widgets\dialog_box.dart                                              | Dart     |         22 |          2 |          5 |         29 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\widgets\progress_indicator.dart                                      | Dart     |         16 |          0 |          3 |         19 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\widgets\snack_bar.dart                                               | Dart     |         23 |          0 |          2 |         25 |
+| c:\Users\Andres\Desktop\flutter bill calculator\esta_si\unequal_bill_calculator  en uso\lib\widgets\widgets.dart                                                 | Dart     |          3 |          0 |          1 |          4 |
+| Total                                                                                                                                                            |          |      2,084 |        302 |        378 |      2,764 |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

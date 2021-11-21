@@ -1,16 +1,19 @@
-import 'package:bill_calculator/states/states.dart';
-import 'package:bill_calculator/styles/buttons.dart';
-import 'package:bill_calculator/styles/styles.dart';
-import 'package:bill_calculator/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'package:bill_calculator/models/models.dart';
+import 'package:bill_calculator/states/states.dart';
+import 'package:bill_calculator/styles/styles.dart';
+import 'package:bill_calculator/widgets/widgets.dart';
 
 class DivideByTheTotal extends StatelessWidget {
   const DivideByTheTotal({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _calculateState = Provider.of<CalculateState>(context);
+    //
+    final _state = Provider.of<CalculateScreenState>(context);
+    List<UserModel> _nombres = _state.usersBox.values.toList().cast<UserModel>();
 
     return ListView(
       padding: const EdgeInsets.all(0),
@@ -28,14 +31,26 @@ class DivideByTheTotal extends StatelessWidget {
           ),
         ),
 
+        Container(
+          padding: kPaddingXS,
+          color: kGris100,
+          child: Text(
+            '> Diferencia por redondeo  \$ ${_state.bill.roundingDifferenceTOTAL.toStringAsFixed(4)}',
+            style: kTextSmall,
+          ),
+        ),
+
         // LISTA a pagar
         ListView.separated(
           separatorBuilder: (context, index) => kDivder,
           padding: kPaddingSmall,
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: _calculateState.listaUsuarios.length,
+          itemCount: _nombres.length,
           itemBuilder: (BuildContext context, int usuariosINDEX) {
+            // get the user
+            final UserModel user = _nombres[usuariosINDEX];
+
             //////// SHOW USER NAME AND TOTAL  /////////
             return Column(
               children: [
@@ -44,17 +59,17 @@ class DivideByTheTotal extends StatelessWidget {
                   dense: true,
                   contentPadding: const EdgeInsets.all(0),
                   leading: Text(
-                    '> ${_calculateState.listaUsuarios[usuariosINDEX].userNombre}',
+                    '> ${user.userName}',
                     style: kTextLarge,
                   ),
                   trailing: Padding(
                     padding: const EdgeInsets.only(right: 15),
-                    child: _calculateState.isLoading
+                    child: _state.isLoading
                         ? const ProgressIndicartor()
                         : Text(
-                      ('\$  ${_calculateState.listaUsuarios[usuariosINDEX].totalAPagar.toString()}'),
-                      style: kTextLarge,
-                    ),
+                            ('\$  ${user.totalToPay.toString()}'),
+                            style: kTextLarge,
+                          ),
                   ),
                 ),
 
@@ -66,27 +81,27 @@ class DivideByTheTotal extends StatelessWidget {
                     'Dividir desigual',
                     style: kTextSmall,
                   ),
-                    // block the buttons wile is loading.
+                  // block the buttons wile is loading.
                   trailing: AbsorbPointer(
-                    absorbing: _calculateState.isLoading,
+                    absorbing: _state.isLoading,
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ///// restar button
                         kIconButton(
-                          onPress: () => _calculateState.restarTotal(indexUsuario: usuariosINDEX),
+                          onPress: () => _state.restarTotal(user: user),
                           icon: Icons.remove_circle,
                         ),
                         kSizedBoxBig,
                         ///// divisor text
                         Text(
-                          _calculateState.listaUsuarios[usuariosINDEX].totalDivider.toString(),
+                          user.totalDivider.toString(),
                           style: kTextSmall,
                         ),
                         kSizedBoxBig,
                         ///// sumar button
                         kIconButton(
-                          onPress: () => _calculateState.sumarTotal(indexUsuario: usuariosINDEX),
+                          onPress: () => _state.sumarTotal(user: user),
                           icon: Icons.add_circle,
                         )
                       ],

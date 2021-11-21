@@ -1,30 +1,26 @@
-import 'package:bill_calculator/ui/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:bill_calculator/styles/buttons.dart';
 import 'package:bill_calculator/styles/styles.dart';
-import 'package:bill_calculator/widgets/widgets.dart';
 import 'package:bill_calculator/states/states.dart';
-import 'package:bill_calculator/ui/users_screen/create_users_form.dart';
+import 'package:bill_calculator/models/models.dart';
+import 'package:bill_calculator/widgets/widgets.dart';
+import 'package:bill_calculator/ui/screens.dart';
 
 class CreateUsersScreen extends StatelessWidget {
-  const CreateUsersScreen({
-    //required onEditt,
-    Key? key,
-  }) : super(key: key);
-
-  //final bool onEditt = false;
+  const CreateUsersScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     //provider
-    final _state = Provider.of<CreateUsersState>(context);
+    final _state = Provider.of<CreateUsersScreenState>(context);
+    List<UserModel> _usersList = _state.usersBox.values.toList().cast<UserModel>();
 
     //get screen size
-    final _queryData = MediaQuery.of(context);
+    final _screenData = MediaQuery.of(context);
 
     return Scaffold(
+
       // CONTUNE button
       floatingActionButton: Visibility(
         visible: MediaQuery.of(context).viewInsets.bottom == 0,
@@ -46,16 +42,25 @@ class CreateUsersScreen extends StatelessWidget {
                     Text('¿QUIENES PAGAN?', style: kBigTitles),
                     kSizedBoxBig,
                     ///////// TEXT FIELD + BUTTON ////////
-                    CreateUsersFormAnButton(onEdit: false),
+                    CreateUsersForm(onEdit: false),
                   ],
                 ),
               ),
             ),
 
+            // reset app button
+            ElevatedButton(
+              child: const Text('Resetear app'),
+              onPressed: () {
+                _state.reset();
+                Navigator.pushNamed(context, '/');
+              },
+            ),
+
             kSizedBoxBig,
 
             //////////// ADDED USERS LIST ///////////
-            _state.listaUsuarios.isEmpty
+            _usersList.isEmpty
                 ? Container(
                     height: 200,
                     padding: kPaddingLarge,
@@ -69,7 +74,7 @@ class CreateUsersScreen extends StatelessWidget {
 
                 // generar lista de usuarios
                 : SizedBox(
-                    width: _queryData.size.width,
+                    width: _screenData.size.width,
                     child: DataTable(
                         dataRowHeight: kSpaceLarge,
                         showBottomBorder: true,
@@ -89,31 +94,32 @@ class CreateUsersScreen extends StatelessWidget {
                         ],
 
                         ////rows
-                        rows: _state.listaUsuarios.map((item) {
-                          int index = _state.listaUsuarios.indexOf(item);
+                        rows: _usersList.map((user) {
+                          //int index = _usersList.indexOf(item);
+
                           return DataRow(
                             cells: <DataCell>[
                               ////// NAME
                               DataCell(
                                 Text(
-                                  item.userNombre,
+                                  user.userName,
                                   style: kTextSmall,
                                 ),
                               ),
 
-                              ////// EDIT   EditUserNameDialog(index: index),
+                              ////// EDIT / UPDATE
                               DataCell(
                                 kIconButton(
-                                  ////// SHOW DIALOG BOX
+                                  // show dialog box
                                   onPress: () => showDialog(
-                                    barrierColor: kDialogBackground, //Colors.black.withOpacity(0.5),
+                                    barrierColor: kDialogBackground,
                                     context: context,
                                     builder: (context) => DialogBox(
                                       title: 'Editar usuario',
                                       children: [
-                                        CreateUsersFormAnButton(
+                                        CreateUsersForm(
                                           onEdit: true,
-                                          userIndex: index,
+                                          user: user,
                                         )
                                       ],
                                     ),
@@ -124,7 +130,7 @@ class CreateUsersScreen extends StatelessWidget {
 
                               ////// DELETE
                               DataCell(kIconButton(
-                                onPress: () => _state.eliminarUsuario(index: index),
+                                onPress: () => _state.eliminarUsuario(user: user),
                                 icon: Icons.delete_forever,
                               )),
                             ],
@@ -141,11 +147,11 @@ class CreateUsersScreen extends StatelessWidget {
 //////////// CONTINUE BUTTON ///////////
 
 class ContinueButton extends StatelessWidget {
-  const ContinueButton({Key? key, required CreateUsersState state})
+  const ContinueButton({Key? key, required CreateUsersScreenState state})
       : _state = state,
         super(key: key);
 
-  final CreateUsersState _state;
+  final CreateUsersScreenState _state;
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +161,7 @@ class ContinueButton extends StatelessWidget {
         style: kButtonsText,
       ),
       onPressed: () {
-        if (_state.listaUsuarios.isNotEmpty) {
+        if (_state.usersBox.isNotEmpty) {
           Navigator.of(context).push(
             MaterialPageRoute(
               settings: const RouteSettings(name: "/agregarCuentas"),

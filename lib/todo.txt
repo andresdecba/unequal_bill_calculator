@@ -9,19 +9,24 @@
 ******2- calculadora de propina
 ******4- cuando asigna la cuenta a cada persona poner tmb la division desigual - 1 +
 ******5- En la pantalla calcular todo, los items por persona deben ser mas chicos
-11- logo, icono y splash screen
+******11- logo, icono y splash screen
 ******13- editar nombres de usuarios, nombres y montos de los gastos
 ******12- refactorizar un poco todo el proyecto
 ******16- hacer agregar y quitar todo
 ******18- arreglar bug de navegar a las pantallas con formularios
+19- hacer drawer con opciones: 
+      - editar nombre de la cuenta
+      - Borrar toda la memoria
+      - resetear los calculos a 1
+      - pantalla about this app
 
 ---- V 2.0.0 ----
 ******15- hacer menu lateral o bottom bar con las opciones
-6- hacer persistencia de datos
+******6- hacer persistencia de datos
 7- poner publicidad
 10- poner algunas animaciones
 3- dividir la propina entre todes
-17- hacer diferencia de redondedo
+*****17- hacer diferencia de redondedo
 
 
 ---- v 3.0.0 ---

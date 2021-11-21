@@ -1,11 +1,11 @@
-import 'package:bill_calculator/styles/buttons.dart';
-import 'package:bill_calculator/ui/calculate_Screen.dart/calculator_screen.dart';
-import 'package:bill_calculator/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'create_expense_foms.dart';
+
+import 'package:bill_calculator/ui/screens.dart';
+import 'package:bill_calculator/models/models.dart';
 import 'package:bill_calculator/states/states.dart';
 import 'package:bill_calculator/styles/styles.dart';
+import 'package:bill_calculator/widgets/widgets.dart';
 
 class CreateExpensesScreen extends StatelessWidget {
   const CreateExpensesScreen({Key? key}) : super(key: key);
@@ -13,7 +13,8 @@ class CreateExpensesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //provider
-    final _state = Provider.of<CreateExpensesState>(context);
+    final _state = Provider.of<CreateExpensesScreenState>(context);
+    final _expensesList = _state.expensesBox.values.toList().cast<ExpenseModel>();
 
     //MediaQueryData queryData;
     final _queryData = MediaQuery.of(context);
@@ -40,7 +41,7 @@ class CreateExpensesScreen extends StatelessWidget {
                     Text('¿QUE VAN A PAGAR?', style: kBigTitles),
                     kSizedBoxBig,
                     ///////// CREATE EXPENSE FORMS AND BUTTON ////////
-                    CreateExpenseFormsAndButton(onEdit: false),
+                    CreateExpenseForms(onEdit: false),
                   ],
                 ),
               ),
@@ -49,7 +50,7 @@ class CreateExpensesScreen extends StatelessWidget {
             kSizedBoxBig,
 
             //////////// ADDED SERVICES LIST ///////////
-            _state.listaServicios.isEmpty
+            _state.expensesBox.isEmpty
                 ? Container(
                     height: 200,
                     padding: kPaddingLarge,
@@ -85,24 +86,21 @@ class CreateExpensesScreen extends StatelessWidget {
                     ],
 
                     ////rows
-                    rows: _state.listaServicios.map((item) {
-                      // get THIS expense index from the expenses list
-                      int index = _state.listaServicios.indexOf(item);
-
+                    rows: _expensesList.map((expense) {
                       return DataRow(
                         cells: <DataCell>[
                           ////// EXPENSE NAME
                           DataCell(
                             Container(
                               width: (_queryData.size.width - 50) * 0.4,
-                              child: Text(item.servicioNombre, style: kTextSmall),
+                              child: Text(expense.expenseName, style: kTextSmall),
                             ),
                           ),
-                          ////// EXPENSE MOUNT
+                          ////// EXPENSE AMOUNT
                           DataCell(
                             Container(
                               width: (_queryData.size.width - 50) * 0.3,
-                              child: Text(item.precio.toString(), style: kTextSmall),
+                              child: Text(expense.price.toString(), style: kTextSmall),
                             ),
                           ),
                           ////// EDIT
@@ -118,9 +116,9 @@ class CreateExpensesScreen extends StatelessWidget {
                                   builder: (context) => DialogBox(
                                     title: 'Editar gasto',
                                     children: [
-                                      CreateExpenseFormsAndButton(
+                                      CreateExpenseForms(
                                         onEdit: true,
-                                        serviceIndex: index,
+                                        expense: expense,
                                       )
                                     ],
                                   ),
@@ -135,7 +133,7 @@ class CreateExpensesScreen extends StatelessWidget {
                               alignment: Alignment.centerRight,
                               width: (_queryData.size.width - 50) * 0.15,
                               child: kIconButton(
-                                onPress: () => _state.eliminarServicio(index: index),
+                                onPress: () => _state.eliminarServicio(expense: expense),
                                 icon: Icons.delete_forever,
                               ),
                             ),
@@ -152,18 +150,19 @@ class CreateExpensesScreen extends StatelessWidget {
 
 //////////// CONTINUE BUTTON ///////////
 class ContinueButtonServ extends StatelessWidget {
-  const ContinueButtonServ({Key? key, required CreateExpensesState state})
+  const ContinueButtonServ({Key? key, required CreateExpensesScreenState state})
       : _state = state,
         super(key: key);
 
-  final CreateExpensesState _state;
+  final CreateExpensesScreenState _state;
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
       // VALIDATE FORMS
       onPressed: () {
-        if (_state.listaServicios.isNotEmpty) {
+        
+        if (_state.expensesBox.isNotEmpty) {
           Navigator.of(context).push(
             MaterialPageRoute(
               settings: const RouteSettings(name: "/newCalculatorScreen"),

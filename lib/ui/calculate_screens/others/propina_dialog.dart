@@ -1,8 +1,9 @@
-import 'package:bill_calculator/states/states.dart';
-import 'package:bill_calculator/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+
+import 'package:bill_calculator/states/states.dart';
+import 'package:bill_calculator/styles/styles.dart';
 
 class PropinaDialogBox extends StatefulWidget {
   const PropinaDialogBox({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class _PropinaDialogBoxState extends State<PropinaDialogBox> {
 
   @override
   Widget build(BuildContext context) {
-    final _state = Provider.of<PropinaState>(context);
+    final _state = Provider.of<Propina>(context);
 
     return SimpleDialog(
       backgroundColor: Colors.amber,

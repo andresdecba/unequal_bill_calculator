@@ -1,10 +1,11 @@
-import 'package:bill_calculator/states/states.dart';
-import 'package:bill_calculator/styles/styles.dart';
-import 'package:bill_calculator/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'divide_by_items.dart';
+import 'package:bill_calculator/ui/screens.dart';
+import 'package:bill_calculator/models/models.dart';
+import 'package:bill_calculator/states/states.dart';
+import 'package:bill_calculator/styles/styles.dart';
+import 'package:bill_calculator/widgets/widgets.dart';
 
 class ExpandibleUsersTiles extends StatefulWidget {
   const ExpandibleUsersTiles({Key? key}) : super(key: key);
@@ -15,7 +16,9 @@ class ExpandibleUsersTiles extends StatefulWidget {
 class _ExpandibleUsersTilesState extends State<ExpandibleUsersTiles> {
   @override
   Widget build(BuildContext context) {
-    final _state = Provider.of<CalculateState>(context);
+    // provider
+    final _state = Provider.of<CalculateScreenState>(context);
+    List<UserModel> _nombres = _state.usersBox.values.toList().cast<UserModel>();
 
     return ListView(
       padding: const EdgeInsets.all(0),
@@ -34,6 +37,15 @@ class _ExpandibleUsersTilesState extends State<ExpandibleUsersTiles> {
           ),
         ),
 
+        Container(
+          padding: kPaddingXS,
+          color: kGris100,
+          child: Text(
+            '> Diferencia por redondeo  \$ ${_state.bill.roundingDifferenceITEM.toStringAsFixed(4)}',
+            style: kTextSmall,
+          ),
+        ),
+
         // LISTA A PAGAR
         ListView.separated(
           separatorBuilder: (context, index) => const Divider(
@@ -43,8 +55,12 @@ class _ExpandibleUsersTilesState extends State<ExpandibleUsersTiles> {
           padding: kPaddingSmall,
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: _state.listaUsuarios.length,
+          itemCount: _nombres.length,
           itemBuilder: (BuildContext context, int index) {
+            // get user
+            final user = _nombres[index];
+
+            // build data
             return Column(
               children: [
                 // EXPANSIBLE TILE
@@ -52,22 +68,24 @@ class _ExpandibleUsersTilesState extends State<ExpandibleUsersTiles> {
                   animationDuration: const Duration(milliseconds: 400),
                   elevation: 0,
                   expansionCallback: (int panelIndex, bool isOpen) => setState(
-                    () => _state.listaUsuarios[index].isPanelOpen = !isOpen,
+                    () => user.isPanelOpen = !isOpen,
                   ),
                   expandedHeaderPadding: const EdgeInsets.all(0),
                   children: [
                     ExpansionPanel(
-                      isExpanded: _state.listaUsuarios[index].isPanelOpen,
+                      isExpanded: user.isPanelOpen,
                       canTapOnHeader: true,
                       backgroundColor: Colors.grey[50],
 
                       // HEADER: titulo
                       headerBuilder: (context, isOpen2) {
-                        return nombre(_state, index);
+                        return nombre(_state, user);
                       },
 
                       //  BODY: show expenses list
-                      body: DivideByItems(state: _state, usuariosINDEX: index),
+                      body: DivideByExpenses(
+                        user: user,
+                      ),
                     ),
                   ],
                 ),
@@ -79,14 +97,14 @@ class _ExpandibleUsersTilesState extends State<ExpandibleUsersTiles> {
     );
   }
 
-  ListTile nombre(CalculateState _state, int index) {
+  ListTile nombre(CalculateScreenState _state, UserModel user) {
     return ListTile(
       contentPadding: const EdgeInsets.all(0),
       //tileColor: Colors.grey[300],
 
       // user name
       title: Text(
-        '> ${_state.listaUsuarios[index].userNombre}',
+        '> ${user.userName}',
         style: kTextLarge,
       ),
 
@@ -94,7 +112,7 @@ class _ExpandibleUsersTilesState extends State<ExpandibleUsersTiles> {
       trailing: _state.isLoading
           ? const ProgressIndicartor()
           : Text(
-              '\$ ${_state.listaUsuarios[index].totalAPagarByOne.toString()}',
+              '\$ ${user.totalToPayByExpense.toString()}',
               style: kTextLarge,
             ),
     );

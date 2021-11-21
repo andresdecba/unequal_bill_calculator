@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:bill_calculator/states/states.dart';
 import 'package:bill_calculator/styles/styles.dart';
 
@@ -8,8 +9,9 @@ class TotalBill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _propinaState = Provider.of<PropinaState>(context);
-    final _calculateState = Provider.of<CalculateState>(context);
+    // state
+    final _state = Provider.of<CalculateAllState>(context);
+
     return Container(
       padding: kPaddingSmall,
       color: kAmarillo,
@@ -17,23 +19,28 @@ class TotalBill extends StatelessWidget {
       child: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            //const SizedBox(height: 20),
             ////////// MOSTRAR SUMA TOTAL
             Text(
-              '> Total a pagar  \$ ${_propinaState.cuentaTotal.totalAPagar}',
+              '"${_state.bill.billName}"',
+              style: kTextMedium,
+            ),
+            const SizedBox(height: 15),
+            Text(
+              '> Total a pagar  \$ ${_state.bill.totalToPay}',
               style: kTextXXL,
             ),
             const SizedBox(height: 15),
+
             kDivder,
             Text(
-              '> Total de pagadores:  ${_calculateState.listaUsuarios.length}',
+              '> Total de pagadores:  ${_state.usersBox.length}',
               style: kTextSmall,
             ),
             kDivder,
             Text(
-              '> Total de gastos:  ${_calculateState.listaServicios.length}',
+              '> Total de gastos:  ${_state.expensesBox.length}',
               style: kTextSmall,
             ),
             kDivder,
