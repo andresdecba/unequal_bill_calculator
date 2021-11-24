@@ -6,19 +6,30 @@ part 'expense_model.g.dart';
 class ExpenseModel extends HiveObject {
   ExpenseModel({
     required this.expenseName,
-    required this.price,
-    required this.divideByAll,
+    required this.expensePrice,
+    required this.expenseApportionment,
   });
 
   @HiveField(0)
   String expenseName;
   @HiveField(1)
-  double price;
+  double expensePrice;
   @HiveField(2)
-  int divideByAll;
+  int expenseApportionment;
 
   @override
   String toString() {
-    return '** Nombre servicio: $expenseName, Precio: $price, Dividir:  $divideByAll';
+    return '** Nombre servicio: $expenseName, Precio: $expensePrice, Dividir:  $expenseApportionment';
   }
 }
+
+/*
+***ABOUT THIS MODEL***
+En este modelo se muestra la informacion del gasto
+
+***ABOUT FIELDS***
+expenseName: nombre del gasto
+expencePrice: monto del gasto
+expenseApportionment: prorrateo del gasto, se usa para dividir el monto del gasto entre la cantidad de usuarios
+
+*/

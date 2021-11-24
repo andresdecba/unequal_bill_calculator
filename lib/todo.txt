@@ -15,9 +15,9 @@
 ******16- hacer agregar y quitar todo
 ******18- arreglar bug de navegar a las pantallas con formularios
 19- hacer drawer con opciones: 
-      - editar nombre de la cuenta
-      - Borrar toda la memoria
-      - resetear los calculos a 1
+      ***- editar nombre de la cuenta
+      ***- Borrar toda la memoria
+      ***- resetear los calculos a 1
       - pantalla about this app
 
 ---- V 2.0.0 ----

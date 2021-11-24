@@ -22,7 +22,7 @@ class CreateExpensesScreen extends StatelessWidget {
     return Scaffold(
       // CONTUNE button
       floatingActionButton: Visibility(
-        visible: MediaQuery.of(context).viewInsets.bottom == 0,
+        //visible: MediaQuery.of(context).viewInsets.bottom == 0,
         child: ContinueButtonServ(state: _state),
       ),
 
@@ -100,7 +100,7 @@ class CreateExpensesScreen extends StatelessWidget {
                           DataCell(
                             Container(
                               width: (_queryData.size.width - 50) * 0.3,
-                              child: Text(expense.price.toString(), style: kTextSmall),
+                              child: Text(expense.expensePrice.toString(), style: kTextSmall),
                             ),
                           ),
                           ////// EDIT
@@ -115,12 +115,16 @@ class CreateExpensesScreen extends StatelessWidget {
                                   context: context,
                                   builder: (context) => DialogBox(
                                     title: 'Editar gasto',
-                                    children: [
-                                      CreateExpenseForms(
-                                        onEdit: true,
-                                        expense: expense,
-                                      )
-                                    ],
+                                    children: Column(
+                                      children: [
+                                        CreateExpenseForms(
+                                          onEdit: true,
+                                          expense: expense,
+                                        ),
+                                        const CancelButton(),
+                                      ],
+                                    ),
+                                    
                                   ),
                                 ),
                                 icon: Icons.edit,
@@ -141,6 +145,7 @@ class CreateExpensesScreen extends StatelessWidget {
                         ],
                       );
                     }).toList()),
+            kFooterSpace,
           ],
         ),
       ),

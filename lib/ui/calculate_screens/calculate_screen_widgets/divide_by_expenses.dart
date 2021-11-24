@@ -46,7 +46,7 @@ class DivideByExpenses extends StatelessWidget {
               return DataRow(
                 cells: <DataCell>[
                   DataCell(Text(
-                    '${userExpense.expense.expenseName} (\$ ${userExpense.expense.price.toString()})',
+                    '${userExpense.expense.expenseName} (\$ ${userExpense.expense.expensePrice.toString()})',
                   )),
                   ////////// progress indicator wile is calculating
                   DataCell(

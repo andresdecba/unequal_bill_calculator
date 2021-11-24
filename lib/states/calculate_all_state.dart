@@ -17,7 +17,7 @@ class CalculateAllState extends ChangeNotifier {
     // calcular total a pagar
     double total = 0;
     for (var item in expensesBox.values) {
-      total += item.price;
+      total += item.expensePrice;
     }
 
     // save to the box
@@ -70,11 +70,11 @@ class Propina extends ChangeNotifier {
   void asignarPropina(bool value) {
     // percent == true, manual == false
     if (value == true) {
-      bill.propina = propinaFromPercent;
+      bill.tip = propinaFromPercent;
       CalculateAllState().calculateAll();
       notifyListeners();
     } else {
-      bill.propina = propinaFromManual;
+      bill.tip = propinaFromManual;
       CalculateAllState().calculateAll();
       notifyListeners();
     }

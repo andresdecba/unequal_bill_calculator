@@ -12,9 +12,7 @@ Future whatsappLauncher(BuildContext context, bool isActive) async {
     builder: (context) {
       return DialogBox(
         title: 'Enviar por WhatsApp',
-        children: [
-          isActive == true ? const ByTotal() : const ByItem(),
-        ],
+        children: isActive == true ? const ByTotal() : const ByItem(),
       );
     },
   );

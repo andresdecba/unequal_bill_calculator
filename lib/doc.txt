@@ -1,0 +1,9 @@
+
+
+usuarios
+gastos
+
+
+gasto.
+
+total del gasto / gasto.prorrateo

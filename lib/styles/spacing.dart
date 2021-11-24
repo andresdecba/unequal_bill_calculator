@@ -30,3 +30,7 @@ const kDivder = Divider(
   //indent: 10,
   //endIndent: 10,
 );
+
+const kFooterSpace = SizedBox(
+  height: 80,
+);

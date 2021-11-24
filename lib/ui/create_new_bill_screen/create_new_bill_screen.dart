@@ -38,7 +38,7 @@ class CreateNewBillScreen extends StatelessWidget {
             keyboardType: TextInputType.name,
             textCapitalization: TextCapitalization.sentences,
             textInputAction: TextInputAction.done,
-            decoration: inputDecoration(controller: _textController, hintText: 'Nueva_cuenta'),
+            decoration: inputDecoration(controller: _textController, hintText: 'Cuenta nueva (${_state.getDate()})'),
             onChanged: (value) => _billName = value,
             onFieldSubmitted: (value) => _billName = value,
           ),
@@ -53,9 +53,7 @@ class CreateNewBillScreen extends StatelessWidget {
             ),
             onPressed: () async {
               await _state.createNewBill(billName: _billName);
-
-              Navigator.pushNamed(context, "/createUsers");
-              //Navigator.of(context).popUntil(ModalRoute.withName("/createUsers"));
+              Navigator.pushNamedAndRemoveUntil(context, '/createUsers', (route) => false);
             },
           ),
 

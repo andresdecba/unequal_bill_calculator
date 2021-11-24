@@ -5,24 +5,29 @@ class DialogBox extends StatelessWidget {
   const DialogBox({required this.title, required this.children, Key? key}) : super(key: key);
 
   final String title;
-  final List<Widget> children;
+  final Widget children;
 
   @override
   Widget build(BuildContext context) {
     //get screen size
+    final _screenData = MediaQuery.of(context).size.width;
 
     return SimpleDialog(
       elevation: 5,
-      insetPadding: kPaddingSmall,
+      //insetPadding: kPaddingSmall,
       contentPadding: kPaddingSmall,
       backgroundColor: kAmarillo,
       alignment: Alignment.center,
       title: Text(
         '> $title',
         style: kTextLarge,
-        //textAlign: TextAlign.center,
       ),
-      children: children,
+      children: [
+        SizedBox(
+          width: _screenData,
+        ),
+        children,
+      ],
     );
   }
 }

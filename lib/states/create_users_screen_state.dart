@@ -26,7 +26,8 @@ class CreateUsersScreenState extends ChangeNotifier {
   ////////// USUARIOS ///////////
 
   ///// CREAR usuario /////
-  void crearUsuario({required String usrName}) {
+  void crearUsuario({required String usrName}) async {
+    //
     // create user
     UserModel newUser = UserModel(
       userName: usrName,
@@ -39,11 +40,11 @@ class CreateUsersScreenState extends ChangeNotifier {
     );
 
     // agregarlo al box de usuarios
-    usersBox.add(newUser);
+    await usersBox.add(newUser);
 
     // increment and save bill counter
-    bill.divideByAllUsers++;
-    bill.save();
+    bill.usersLenght++;
+    await bill.save();
 
     // this is used when a new user is created **AFTER the expenses are created**
     // then we need to add the existing expeses to the new user
@@ -59,61 +60,53 @@ class CreateUsersScreenState extends ChangeNotifier {
         );
 
         // add userExpense to box
-        userExpensesBox.add(newUserExpense);
+        await userExpensesBox.add(newUserExpense);
 
         // add userExpense to the new user
         newUser.userExpensesList2.add(newUserExpense);
-        newUser.save();
+        await newUser.save();
 
         // increment expense counter
-        expense.divideByAll++;
-        expense.save();
+        expense.expenseApportionment++;
+        await expense.save();
       }).toList();
     }
 
     // make the whole calculations
-    calculations();
+    await calculations();
     notifyListeners();
   }
 
   ///// ELIMINAR usuario /////
-  void eliminarUsuario({required UserModel user}) {
+  eliminarUsuario({required UserModel user}) async {
     // delete user
     user.delete();
 
     // decremente users count
-    bill.divideByAllUsers--;
-    bill.save();
-
-    // 1- re-calculate bill
-    CalculateAllState().calculateAll();
+    bill.usersLenght--;
+    await bill.save();
 
     // make the whole calculations
-    calculations();
+    await calculations();
     notifyListeners();
   }
 
   ///// Editar usuario /////
-  void editarUsuario({required UserModel user, required String newName}) {
+  updateUser({required UserModel user, required String newName}) async {
     user.userName = newName;
-    user.save();
+    await user.save();
     notifyListeners();
   }
 
   // make the whole calculations
-  void calculations() async {
+  calculations() async {
     // re-calculate these:
     await CalculateAllState().calculateAll();
     await CalculateScreenState().calcularTotalPorItem();
     await CalculateScreenState().calcularTotalGlobal();
   }
 
-  //// reset app ////
-  void reset() async {
-    await Singleton().usersBOX.clear();
-    await Singleton().expensesBOX.clear();
-    await Singleton().userExpensesBOX.clear();
-    await Singleton().billBOX.clear();
-    notifyListeners();
-  }
+  
+
+ 
 }

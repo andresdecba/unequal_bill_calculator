@@ -17,5 +17,6 @@ class Singleton {
   var expensesBOX = Hive.box<ExpenseModel>('EXPENSE-BOX');
   var userExpensesBOX = Hive.box<UserExpenseModel>('USER-EXPENSES-BOX');
   var billBOX = Hive.box<BillModel>('BILL-BOX');
+  
 
 }

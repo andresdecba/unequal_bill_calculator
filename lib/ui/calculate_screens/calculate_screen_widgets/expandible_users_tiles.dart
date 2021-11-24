@@ -93,6 +93,7 @@ class _ExpandibleUsersTilesState extends State<ExpandibleUsersTiles> {
             );
           },
         ),
+        kFooterSpace,
       ],
     );
   }

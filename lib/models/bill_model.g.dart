@@ -18,10 +18,9 @@ class BillModelAdapter extends TypeAdapter<BillModel> {
     };
     return BillModel(
       subtotalToPay: fields[0] as double,
-      propina: fields[1] as double,
+      tip: fields[1] as double,
       totalToPay: fields[2] as double,
-      divideByAllUsers: fields[3] as int,
-      totalPayersInTotalDivider: fields[4] as int,
+      usersLenght: fields[3] as int,
       roundingDifferenceTOTAL: fields[5] as double,
       roundingDifferenceITEM: fields[6] as double,
       billName: fields[7] as String,
@@ -31,17 +30,15 @@ class BillModelAdapter extends TypeAdapter<BillModel> {
   @override
   void write(BinaryWriter writer, BillModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.subtotalToPay)
       ..writeByte(1)
-      ..write(obj.propina)
+      ..write(obj.tip)
       ..writeByte(2)
       ..write(obj.totalToPay)
       ..writeByte(3)
-      ..write(obj.divideByAllUsers)
-      ..writeByte(4)
-      ..write(obj.totalPayersInTotalDivider)
+      ..write(obj.usersLenght)
       ..writeByte(5)
       ..write(obj.roundingDifferenceTOTAL)
       ..writeByte(6)

@@ -112,6 +112,7 @@ class DivideByTheTotal extends StatelessWidget {
             );
           },
         ),
+        kFooterSpace,
       ],
     );
   }

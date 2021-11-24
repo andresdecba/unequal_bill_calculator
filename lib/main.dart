@@ -1,5 +1,6 @@
 import 'package:bill_calculator/ui/screens.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -26,7 +27,7 @@ void main() async {
   await Hive.openBox<ExpenseModel>('EXPENSE-BOX');
   await Hive.openBox<BillModel>('BILL-BOX');
 
-  runApp(const MyApp());
+  runApp(Phoenix(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -62,6 +63,8 @@ class App extends StatelessWidget {
         '/createUsers': (context) => const CreateUsersScreen(),
         '/agregarCuentas': (context) => const CreateExpensesScreen(),
         '/newCalculatorScreen': (context) => const CalculatorScreen(),
+        '/aboutTheApp': (context) => const AboutTheApp(),
+
       },
       theme: ThemeData(
         fontFamily: 'OpenSans_Condensed-Regular',

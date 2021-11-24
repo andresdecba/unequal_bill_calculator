@@ -1,5 +1,5 @@
+import 'package:bill_calculator/ui/menu_options/menu_options.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import 'package:bill_calculator/styles/styles.dart';
 import 'package:bill_calculator/ui/screens.dart';
@@ -35,7 +35,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> with TickerProvider
   Widget build(BuildContext context) {
     return Scaffold(
       // FLOATING ACTION BUTTONS WITH OPTIONS
-      floatingActionButton: MultipleFloatingActionButton(activeTab: _isActive),
+      floatingActionButton: OptionsActionButton(activeTab: _isActive),
 
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -93,7 +93,7 @@ class CreateTabsAndDisplayTotalBill extends StatelessWidget {
       flexibleSpace: const FlexibleSpaceBar(
         //
         //////////// HEADER: SHOW TOTAL BILL and bill name
-        background: TotalBill(),
+        background: ShowTotalBill(),
       ),
       bottom: TabBar(
         indicatorWeight: 5,
@@ -132,52 +132,11 @@ class CreateTabsAndDisplayTotalBill extends StatelessWidget {
               ],
             ),
           ),
+          
         ],
       ),
     );
   }
 }
 
-///// FLOATING ACTION BUTTONS
-class MultipleFloatingActionButton extends StatelessWidget {
-  const MultipleFloatingActionButton({
-    required this.activeTab,
-    Key? key,
-  }) : super(key: key);
 
-  final bool activeTab;
-
-  @override
-  Widget build(BuildContext context) {
-    return SpeedDial(
-      animatedIcon: AnimatedIcons.menu_close,
-      elevation: 10,
-      overlayOpacity: 0.5,
-      overlayColor: Colors.black, // color de fondo en la pantalla
-      spacing: 20,
-      children: [
-        SpeedDialChild(
-          labelBackgroundColor: Colors.white.withOpacity(0.7),
-          child: const Icon(Icons.share),
-          label: 'Compartir resumen',
-          labelStyle: kTextSmall,
-          onTap: () => whatsappLauncher(context, activeTab),
-        ),
-        SpeedDialChild(
-          labelBackgroundColor: Colors.white.withOpacity(0.7),
-          child: const Icon(Icons.group),
-          label: 'Ver lista de usuarios',
-          labelStyle: kTextSmall,
-          onTap: () => Navigator.of(context).popUntil(ModalRoute.withName("/createUsers")),
-        ),
-        SpeedDialChild(
-          labelBackgroundColor: Colors.white.withOpacity(0.7),
-          child: const Icon(Icons.list),
-          label: 'Ver lista de gastos',
-          labelStyle: kTextSmall,
-          onTap: () => Navigator.of(context).popUntil(ModalRoute.withName("/agregarCuentas")),
-        ),
-      ],
-    );
-  }
-}

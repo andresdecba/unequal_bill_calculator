@@ -85,7 +85,7 @@ class _CreateUsersFormState extends State<CreateUsersForm> {
             } 
             // if update
             else if (widget.onEdit == true && _state.validateEditUserFormKey() == true && itemExist == false) {
-              _state.editarUsuario(newName: _nombre, user: widget.user!);
+              _state.updateUser(newName: _nombre, user: widget.user!);
               _textController.clear();
               FocusScope.of(context).unfocus();
               Navigator.pop(context);

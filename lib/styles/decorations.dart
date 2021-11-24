@@ -44,6 +44,18 @@ ButtonStyle buttonDecoration({double widthCustom = double.infinity}) {
   );
 }
 
+ButtonStyle cancelButtonDecoration({double widthCustom = double.infinity}) {
+  return ElevatedButton.styleFrom(
+    primary: Colors.black.withOpacity(0.5),
+    minimumSize: Size(widthCustom, 35),
+    textStyle: const TextStyle(fontSize: 20, fontFamily: 'Highman'),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+    elevation: 0,
+  );
+}
+
 
 BoxDecoration containerDecoration() {
   return const BoxDecoration(

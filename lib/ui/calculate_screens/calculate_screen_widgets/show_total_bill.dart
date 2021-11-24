@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:bill_calculator/states/states.dart';
 import 'package:bill_calculator/styles/styles.dart';
 
-class TotalBill extends StatelessWidget {
-  const TotalBill({Key? key}) : super(key: key);
+class ShowTotalBill extends StatelessWidget {
+  const ShowTotalBill({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

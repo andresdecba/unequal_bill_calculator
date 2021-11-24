@@ -24,7 +24,7 @@ class CalculateScreenState extends ChangeNotifier {
     user.totalDivider++;
     await user.save();
 
-    bill.divideByAllUsers++;
+    bill.usersLenght++;
     await bill.save();
     await calcularTotalGlobal();
 
@@ -38,10 +38,10 @@ class CalculateScreenState extends ChangeNotifier {
     notifyListeners();
 
     // limit counter to zero and at least one user is set to 1
-    if (user.totalDivider != 0 && bill.divideByAllUsers != 1) {
+    if (user.totalDivider != 0 && bill.usersLenght != 1) {
       user.totalDivider--;
       await user.save();
-      bill.divideByAllUsers--;
+      bill.usersLenght--;
       await bill.save();
     }
     await calcularTotalGlobal();
@@ -54,7 +54,7 @@ class CalculateScreenState extends ChangeNotifier {
   calcularTotalGlobal() async {
     for (var user in usersBox.values) {
       //
-      double total = (bill.totalToPay / bill.divideByAllUsers) * user.totalDivider;
+      double total = (bill.totalToPay / bill.usersLenght) * user.totalDivider;
 
       //redondeo
       num mod = pow(10.0, 1);
@@ -86,7 +86,7 @@ class CalculateScreenState extends ChangeNotifier {
     notifyListeners();
 
     userExpense.multiplyBy++;
-    userExpense.expense.divideByAll++;
+    userExpense.expense.expenseApportionment++;
     await userExpense.save();
     await calcularTotalPorItem();
 
@@ -101,10 +101,10 @@ class CalculateScreenState extends ChangeNotifier {
     notifyListeners();
 
     // validar que no baje de cero y que AL MENOS UN USUARIO tenga el gasto seteado en 1
-    if (userExpense.multiplyBy != 0 && userExpense.expense.divideByAll != 1) {
+    if (userExpense.multiplyBy != 0 && userExpense.expense.expenseApportionment != 1) {
       userExpense.multiplyBy--;
       await userExpense.save();
-      userExpense.expense.divideByAll--;
+      userExpense.expense.expenseApportionment--;
       await userExpense.expense.save();
     }
     await calcularTotalPorItem();
@@ -113,7 +113,7 @@ class CalculateScreenState extends ChangeNotifier {
     notifyListeners();
   }
 
-  ///// calcular totales por usuario  //////
+  ///// calcular totales por item  //////
   calcularTotalPorItem() async {
     for (var user in usersBox.values) {
       // total
@@ -121,7 +121,7 @@ class CalculateScreenState extends ChangeNotifier {
 
       for (var userExpense in user.userExpensesList2) {
         // total per expense
-        double total = (userExpense.expense.price / userExpense.expense.divideByAll) * userExpense.multiplyBy;
+        double total = (userExpense.expense.expensePrice / userExpense.expense.expenseApportionment) * userExpense.multiplyBy;
         // rounding
         num mod = pow(10.0, 1);
         userExpense.toPay = ((total * pow(10.0, 1)).round().toDouble() / mod);
@@ -147,6 +147,30 @@ class CalculateScreenState extends ChangeNotifier {
 
     bill.roundingDifferenceITEM = total - bill.totalToPay;
     await bill.save();
+    notifyListeners();
+  }
+
+  ///////////////////////////////// RESET DIVIDERS /////////////////////////////////
+
+  resetDividers() async {
+    for (var user in usersBox.values) {
+      user.totalDivider = 1;
+
+      for (var item in user.userExpensesList2) {
+        item.multiplyBy = 1;
+        item.expense.expenseApportionment = usersBox.length;
+        await item.save();
+        await item.expense.save();
+      }
+
+      await user.save();
+    }
+
+    bill.usersLenght = usersBox.length;
+    await bill.save();
+
+    await calcularTotalPorItem();
+    await calcularTotalGlobal();
     notifyListeners();
   }
 }

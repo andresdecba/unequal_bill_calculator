@@ -27,8 +27,8 @@ class CreateExpensesScreenState extends ChangeNotifier {
     //create new expense
     ExpenseModel newExpense = ExpenseModel(
       expenseName: servicioNombre,
-      price: precioServ,
-      divideByAll: 0,
+      expensePrice: precioServ,
+      expenseApportionment: 0,
     );
 
     //add to the expenses box
@@ -46,7 +46,7 @@ class CreateExpensesScreenState extends ChangeNotifier {
       );
 
       // increment counter
-      newExpense.divideByAll++;
+      newExpense.expenseApportionment++;
       newExpense.save();
 
       // add to box
@@ -64,12 +64,12 @@ class CreateExpensesScreenState extends ChangeNotifier {
   //// remove expense
   void eliminarServicio({required ExpenseModel expense}) {
     //
-    // remove THIS expense from the user expenses box
-    userExpensesBox.values.forEach((element) {
-      if (element.expense == expense) {
-        element.delete();
+    //remove THIS expense from the user expenses box
+    for (var item in userExpensesBox.values) {
+      if (item.expense == expense) {
+        item.delete();
       }
-    });
+    }
 
     // remove expense to expenses box
     expense.delete();
@@ -86,7 +86,7 @@ class CreateExpensesScreenState extends ChangeNotifier {
     }
 
     if (servicePrice != 0.0) {
-      expense.price = servicePrice;
+      expense.expensePrice = servicePrice;
       CalculateAllState().calculateAll();
     }
 
