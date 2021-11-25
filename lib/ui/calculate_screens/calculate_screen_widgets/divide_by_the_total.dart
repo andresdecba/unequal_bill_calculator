@@ -35,7 +35,7 @@ class DivideByTheTotal extends StatelessWidget {
           padding: kPaddingXS,
           color: kGris100,
           child: Text(
-            '> Diferencia por redondeo  \$ ${_state.bill.roundingDifferenceTOTAL.toStringAsFixed(4)}',
+            '> Diferencia por redondeo  \$ ${_state.bill.billRoundingDifferenceByTotal.toStringAsFixed(4)}',
             style: kTextSmall,
           ),
         ),
@@ -67,7 +67,7 @@ class DivideByTheTotal extends StatelessWidget {
                     child: _state.isLoading
                         ? const ProgressIndicartor()
                         : Text(
-                            ('\$  ${user.totalToPay.toString()}'),
+                            ('\$  ${user.userTotalByGlobal.toString()}'),
                             style: kTextLarge,
                           ),
                   ),
@@ -95,7 +95,7 @@ class DivideByTheTotal extends StatelessWidget {
                         kSizedBoxBig,
                         ///// divisor text
                         Text(
-                          user.totalDivider.toString(),
+                          user.userByGlobalFactor.toString(),
                           style: kTextSmall,
                         ),
                         kSizedBoxBig,

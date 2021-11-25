@@ -1,35 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:intl/intl.dart';
 
 import 'package:bill_calculator/models/models.dart';
 import 'package:bill_calculator/states/states.dart';
 
 class CreateNewBillScreenState extends ChangeNotifier {
-  //
-  // create a default name
-  String getDate() {    
-    DateTime now = DateTime.now();
-    String dateToday = '${DateFormat('dd-MM-yyyy · kk:mm').format(now)}';
-    return dateToday;
-  }
+
+  final bill = Singleton().billBOX.values.first;
 
   //// CREATE A NEW BILL ////
   createNewBill({String? billName}) async {
-    //
-    // create a default name
-    // DateTime now = DateTime.now();
-    // String dateToday = 'Nueva_cuenta: ${DateFormat('dd-MM-yyyy – kk:mm').format(now)}';
 
     // create new bill
     var newBill = BillModel(
-      subtotalToPay: 0.0,
-      tip: 0.0,
-      totalToPay: 0.0,
-      usersLenght: 0,
+      billSubtotal: 0.0,
+      billTip: 0.0,
+      billTotal: 0.0,
+      billDivider: 0,
       //totalPayersInTotalDivider: 0,
-      roundingDifferenceTOTAL: 0,
-      roundingDifferenceITEM: 0,
+      billRoundingDifferenceByTotal: 0,
+      billRoundingDifferenceByItem: 0,
       billName: billName != null ? billName : 'Cuenta nueva (${getDate()})',
     );
 

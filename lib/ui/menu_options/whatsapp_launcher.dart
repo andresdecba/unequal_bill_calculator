@@ -41,11 +41,11 @@ class _ByItemState extends State<ByItem> {
       String expenseDetails = '';
 
       // get services by user
-      for (var expense in user.userExpensesList2) {
-        expenseDetails += '- _${expense.expense.expenseName}: \$ ${expense.toPay} (x${expense.multiplyBy})_ \n';
+      for (var expense in user.userExpensesList) {
+        expenseDetails += '- _${expense.userExpenseExpense.expenseName}: \$ ${expense.userExpenseTotal} (x${expense.userExpenseByItemFactor})_ \n';
       }
 
-      String total = '*${user.userName}: \$${user.totalToPayByExpense}*\n$expenseDetails\n';
+      String total = '*${user.userName}: \$${user.userTotalByItem}*\n$expenseDetails\n';
       createWappText += total;
     }
   }
@@ -106,7 +106,7 @@ class _ByTotalState extends State<ByTotal> {
 
     // get total by user
     lista.map((e) {
-      return textToWhatsapp += '*${e.userName}: \$${e.totalToPay}* _(x${e.totalDivider})_\n';
+      return textToWhatsapp += '*${e.userName}: \$${e.userTotalByGlobal}* _(x${e.userByGlobalFactor})_\n';
     }).toString();
   }
 

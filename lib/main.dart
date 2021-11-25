@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:bill_calculator/styles/styles.dart';
 import 'package:bill_calculator/states/states.dart';
-import 'models/models.dart';
+import 'package:bill_calculator/models/models.dart';
 
 void main() async {
   // init widgets safety
@@ -43,8 +43,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CreateExpensesScreenState()),
         ChangeNotifierProvider(create: (_) => Propina()),
         ChangeNotifierProvider(create: (_) => CreateNewBillScreenState()),
-
-
       ],
       child: App(),
     );

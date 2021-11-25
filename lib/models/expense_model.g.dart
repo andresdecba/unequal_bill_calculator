@@ -19,7 +19,7 @@ class ExpenseModelAdapter extends TypeAdapter<ExpenseModel> {
     return ExpenseModel(
       expenseName: fields[0] as String,
       expensePrice: fields[1] as double,
-      expenseApportionment: fields[2] as int,
+      expenseDivider: fields[2] as int,
     );
   }
 
@@ -32,7 +32,7 @@ class ExpenseModelAdapter extends TypeAdapter<ExpenseModel> {
       ..writeByte(1)
       ..write(obj.expensePrice)
       ..writeByte(2)
-      ..write(obj.expenseApportionment);
+      ..write(obj.expenseDivider);
   }
 
   @override

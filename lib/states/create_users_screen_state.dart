@@ -31,45 +31,45 @@ class CreateUsersScreenState extends ChangeNotifier {
     // create user
     UserModel newUser = UserModel(
       userName: usrName,
-      totalToPay: 0.0,
-      totalToPayByExpense: 0.0,
-      userExpensesList2: HiveList<UserExpenseModel>(userExpensesBox),
-      totalDivider: 1,
+      userTotalByGlobal: 0.0,
+      userTotalByItem: 0.0,
+      userExpensesList: HiveList<UserExpenseModel>(userExpensesBox),
+      userByGlobalFactor: 1,
       //the first person in the list has its panel open, the rest its close
-      isPanelOpen: usersBox.isEmpty ? true : false,
+      userPanelState: usersBox.isEmpty ? true : false,
     );
 
     // agregarlo al box de usuarios
     await usersBox.add(newUser);
 
     // increment and save bill counter
-    bill.usersLenght++;
+    bill.billDivider++;
     await bill.save();
 
     // this is used when a new user is created **AFTER the expenses are created**
     // then we need to add the existing expeses to the new user
     if (expensesBox.isNotEmpty) {
-      //
-      expensesBox.values.map((expense) async {
+
+      for (var expense in expensesBox.values) {
+
         // create new userExpese instance
         UserExpenseModel newUserExpense = UserExpenseModel(
-          expense: expense,
-          multiplyBy: 1,
-          toPay: 0.0,
-          isAdded: true,
+          userExpenseExpense: expense,
+          userExpenseByItemFactor: 1,
+          userExpenseTotal: 0.0,
         );
 
         // add userExpense to box
         await userExpensesBox.add(newUserExpense);
 
         // add userExpense to the new user
-        newUser.userExpensesList2.add(newUserExpense);
+        newUser.userExpensesList.add(newUserExpense);
         await newUser.save();
 
-        // increment expense counter
-        expense.expenseApportionment++;
-        await expense.save();
-      }).toList();
+        // increment expenseDivider
+        expense.expenseDivider++;
+        await expense.save(); 
+      }
     }
 
     // make the whole calculations
@@ -79,12 +79,28 @@ class CreateUsersScreenState extends ChangeNotifier {
 
   ///// ELIMINAR usuario /////
   eliminarUsuario({required UserModel user}) async {
+    //
+    // decremente billDivider used for global calculations
+    bill.billDivider = bill.billDivider - user.userByGlobalFactor;
+    await bill.save();
+
+    // decrement each expense´s expenseDivider used for item calculation
+    for (var item in user.userExpensesList) {
+      item.userExpenseExpense.expenseDivider = item.userExpenseExpense.expenseDivider - item.userExpenseByItemFactor;
+      item.userExpenseExpense.save();
+    }
+
+    //remove user userExpenses from the userExpensesBox
+    for (var boxItem in userExpensesBox.values) {
+      for (var userItem in user.userExpensesList) {
+        if (boxItem == userItem) {
+          await boxItem.delete();
+        }
+      }
+    }
+
     // delete user
     user.delete();
-
-    // decremente users count
-    bill.usersLenght--;
-    await bill.save();
 
     // make the whole calculations
     await calculations();
@@ -97,16 +113,4 @@ class CreateUsersScreenState extends ChangeNotifier {
     await user.save();
     notifyListeners();
   }
-
-  // make the whole calculations
-  calculations() async {
-    // re-calculate these:
-    await CalculateAllState().calculateAll();
-    await CalculateScreenState().calcularTotalPorItem();
-    await CalculateScreenState().calcularTotalGlobal();
-  }
-
-  
-
- 
 }

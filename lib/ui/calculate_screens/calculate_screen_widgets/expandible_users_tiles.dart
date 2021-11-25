@@ -14,6 +14,8 @@ class ExpandibleUsersTiles extends StatefulWidget {
 }
 
 class _ExpandibleUsersTilesState extends State<ExpandibleUsersTiles> {
+  
+
   @override
   Widget build(BuildContext context) {
     // provider
@@ -41,7 +43,7 @@ class _ExpandibleUsersTilesState extends State<ExpandibleUsersTiles> {
           padding: kPaddingXS,
           color: kGris100,
           child: Text(
-            '> Diferencia por redondeo  \$ ${_state.bill.roundingDifferenceITEM.toStringAsFixed(4)}',
+            '> Diferencia por redondeo  \$ ${_state.bill.billRoundingDifferenceByItem.toStringAsFixed(4)}',
             style: kTextSmall,
           ),
         ),
@@ -68,12 +70,12 @@ class _ExpandibleUsersTilesState extends State<ExpandibleUsersTiles> {
                   animationDuration: const Duration(milliseconds: 400),
                   elevation: 0,
                   expansionCallback: (int panelIndex, bool isOpen) => setState(
-                    () => user.isPanelOpen = !isOpen,
+                    () => user.userPanelState = !isOpen,
                   ),
                   expandedHeaderPadding: const EdgeInsets.all(0),
                   children: [
                     ExpansionPanel(
-                      isExpanded: user.isPanelOpen,
+                      isExpanded: user.userPanelState,
                       canTapOnHeader: true,
                       backgroundColor: Colors.grey[50],
 
@@ -113,7 +115,7 @@ class _ExpandibleUsersTilesState extends State<ExpandibleUsersTiles> {
       trailing: _state.isLoading
           ? const ProgressIndicartor()
           : Text(
-              '\$ ${user.totalToPayByExpense.toString()}',
+              '\$ ${user.userTotalByItem.toString()}',
               style: kTextLarge,
             ),
     );

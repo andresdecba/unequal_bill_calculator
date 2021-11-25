@@ -7,7 +7,7 @@ class ExpenseModel extends HiveObject {
   ExpenseModel({
     required this.expenseName,
     required this.expensePrice,
-    required this.expenseApportionment,
+    required this.expenseDivider,
   });
 
   @HiveField(0)
@@ -15,11 +15,11 @@ class ExpenseModel extends HiveObject {
   @HiveField(1)
   double expensePrice;
   @HiveField(2)
-  int expenseApportionment;
+  int expenseDivider;
 
   @override
   String toString() {
-    return '** Nombre servicio: $expenseName, Precio: $expensePrice, Dividir:  $expenseApportionment';
+    return '$expenseName, \$ $expensePrice, ED: $expenseDivider -';
   }
 }
 
@@ -30,6 +30,6 @@ En este modelo se muestra la informacion del gasto
 ***ABOUT FIELDS***
 expenseName: nombre del gasto
 expencePrice: monto del gasto
-expenseApportionment: prorrateo del gasto, se usa para dividir el monto del gasto entre la cantidad de usuarios
+expenseDivider: se usa para dividir el monto cuando el usuario hace +1 -1 en el gasto 
 
 */

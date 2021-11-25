@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'package:bill_calculator/models/models.dart';
@@ -21,10 +20,10 @@ class CalculateScreenState extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    user.totalDivider++;
+    user.userByGlobalFactor++;
     await user.save();
 
-    bill.usersLenght++;
+    bill.billDivider++;
     await bill.save();
     await calcularTotalGlobal();
 
@@ -38,10 +37,10 @@ class CalculateScreenState extends ChangeNotifier {
     notifyListeners();
 
     // limit counter to zero and at least one user is set to 1
-    if (user.totalDivider != 0 && bill.usersLenght != 1) {
-      user.totalDivider--;
+    if (user.userByGlobalFactor != 0 && bill.billDivider != 1) {
+      user.userByGlobalFactor--;
       await user.save();
-      bill.usersLenght--;
+      bill.billDivider--;
       await bill.save();
     }
     await calcularTotalGlobal();
@@ -52,13 +51,13 @@ class CalculateScreenState extends ChangeNotifier {
 
   ///// calcular totales por usuario globalmente //////
   calcularTotalGlobal() async {
+    // loop
     for (var user in usersBox.values) {
-      //
-      double total = (bill.totalToPay / bill.usersLenght) * user.totalDivider;
-
-      //redondeo
-      num mod = pow(10.0, 1);
-      user.totalToPay = ((total * pow(10.0, 1)).round().toDouble() / mod);
+      // calculate
+      double total = (bill.billTotal / bill.billDivider) * user.userByGlobalFactor;
+      // round
+      user.userTotalByGlobal = rounder(total);
+      // save
       await user.save();
     }
     // calculate rounding difference;
@@ -67,13 +66,11 @@ class CalculateScreenState extends ChangeNotifier {
 
   void roundingDiferenceTOTAL() async {
     //
-    double totalDeUsuarios = 0.0;
-
+    double value = 0.0;
     for (var user in usersBox.values) {
-      totalDeUsuarios += user.totalToPay;
+      value += user.userTotalByGlobal;
     }
-
-    bill.roundingDifferenceTOTAL = totalDeUsuarios - bill.totalToPay;
+    bill.billRoundingDifferenceByTotal = value - bill.billTotal;
     await bill.save();
     notifyListeners();
   }
@@ -85,9 +82,10 @@ class CalculateScreenState extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    userExpense.multiplyBy++;
-    userExpense.expense.expenseApportionment++;
+    userExpense.userExpenseByItemFactor++;
     await userExpense.save();
+    userExpense.userExpenseExpense.expenseDivider++;
+    await userExpense.userExpenseExpense.save();
     await calcularTotalPorItem();
 
     isLoading = false;
@@ -101,11 +99,11 @@ class CalculateScreenState extends ChangeNotifier {
     notifyListeners();
 
     // validar que no baje de cero y que AL MENOS UN USUARIO tenga el gasto seteado en 1
-    if (userExpense.multiplyBy != 0 && userExpense.expense.expenseApportionment != 1) {
-      userExpense.multiplyBy--;
+    if (userExpense.userExpenseByItemFactor != 0 && userExpense.userExpenseExpense.expenseDivider != 1) {
+      userExpense.userExpenseByItemFactor--;
       await userExpense.save();
-      userExpense.expense.expenseApportionment--;
-      await userExpense.expense.save();
+      userExpense.userExpenseExpense.expenseDivider--;
+      await userExpense.userExpenseExpense.save();
     }
     await calcularTotalPorItem();
 
@@ -115,22 +113,25 @@ class CalculateScreenState extends ChangeNotifier {
 
   ///// calcular totales por item  //////
   calcularTotalPorItem() async {
+    //
+    // loop
     for (var user in usersBox.values) {
       // total
       double totalPerUser = 0;
 
-      for (var userExpense in user.userExpensesList2) {
+      for (var userExpense in user.userExpensesList) {
         // total per expense
-        double total = (userExpense.expense.expensePrice / userExpense.expense.expenseApportionment) * userExpense.multiplyBy;
+        double total = (userExpense.userExpenseExpense.expensePrice / userExpense.userExpenseExpense.expenseDivider) * userExpense.userExpenseByItemFactor;
+
         // rounding
-        num mod = pow(10.0, 1);
-        userExpense.toPay = ((total * pow(10.0, 1)).round().toDouble() / mod);
-        // add up
-        totalPerUser += userExpense.toPay;
+        userExpense.userExpenseTotal = rounder(total);
+
+        // sumar
+        totalPerUser += userExpense.userExpenseTotal;
       }
 
       // asign and save
-      user.totalToPayByExpense = totalPerUser;
+      user.userTotalByItem = rounder(totalPerUser);
       await user.save();
     }
     // calculate rounding difference;
@@ -139,13 +140,11 @@ class CalculateScreenState extends ChangeNotifier {
 
   void roundingDiderenceITEM() async {
     //
-    double total = 0.0;
-
+    double value = 0.0;
     for (var user in usersBox.values) {
-      total += user.totalToPayByExpense;
+      value += user.userTotalByItem;
     }
-
-    bill.roundingDifferenceITEM = total - bill.totalToPay;
+    bill.billRoundingDifferenceByItem = value - bill.billTotal;
     await bill.save();
     notifyListeners();
   }
@@ -153,20 +152,24 @@ class CalculateScreenState extends ChangeNotifier {
   ///////////////////////////////// RESET DIVIDERS /////////////////////////////////
 
   resetDividers() async {
-    for (var user in usersBox.values) {
-      user.totalDivider = 1;
 
-      for (var item in user.userExpensesList2) {
-        item.multiplyBy = 1;
-        item.expense.expenseApportionment = usersBox.length;
+    await usersBox.compact();
+    await expensesBox.compact();
+
+    for (var user in usersBox.values) {
+      user.userByGlobalFactor = 1;
+
+      for (var item in user.userExpensesList) {
+        item.userExpenseByItemFactor = 1;
         await item.save();
-        await item.expense.save();
+        item.userExpenseExpense.expenseDivider = usersBox.length;
+        await item.userExpenseExpense.save();
       }
 
       await user.save();
     }
 
-    bill.usersLenght = usersBox.length;
+    bill.billDivider = usersBox.values.length;
     await bill.save();
 
     await calcularTotalPorItem();

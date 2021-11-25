@@ -14,14 +14,14 @@ class CalculateAllState extends ChangeNotifier {
   ///// calcular la cuenta total //////
   calculateAll() async {
     //
-    // calcular total a pagar
+    // calcular la suma de todos los gastos
     double total = 0;
     for (var item in expensesBox.values) {
       total += item.expensePrice;
     }
 
     // save to the box
-    bill.totalToPay = total;
+    bill.billTotal = total;
     await bill.save();
     notifyListeners();
   }
@@ -55,14 +55,14 @@ class Propina extends ChangeNotifier {
   // decrementar porcentaje
   void restarPorcentaje() {
     propinaPercent--;
-    propinaFromPercent = bill.subtotalToPay * propinaPercent / 100;
+    propinaFromPercent = bill.billSubtotal * propinaPercent / 100;
     notifyListeners();
   }
 
   // incrementar porcentaje
   void sumarPorcentaje() {
     propinaPercent++;
-    propinaFromPercent = bill.subtotalToPay * propinaPercent / 100;
+    propinaFromPercent = bill.billSubtotal * propinaPercent / 100;
     notifyListeners();
   }
 
@@ -70,11 +70,11 @@ class Propina extends ChangeNotifier {
   void asignarPropina(bool value) {
     // percent == true, manual == false
     if (value == true) {
-      bill.tip = propinaFromPercent;
+      bill.billTip = propinaFromPercent;
       CalculateAllState().calculateAll();
       notifyListeners();
     } else {
-      bill.tip = propinaFromManual;
+      bill.billTip = propinaFromManual;
       CalculateAllState().calculateAll();
       notifyListeners();
     }

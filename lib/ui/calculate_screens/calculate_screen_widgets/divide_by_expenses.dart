@@ -42,15 +42,15 @@ class DivideByExpenses extends StatelessWidget {
             ],
 
             ////rows
-            rows: user.userExpensesList2.map((userExpense) {
+            rows: user.userExpensesList.map((userExpense) {
               return DataRow(
                 cells: <DataCell>[
                   DataCell(Text(
-                    '${userExpense.expense.expenseName} (\$ ${userExpense.expense.expensePrice.toString()})',
+                    '${userExpense.userExpenseExpense.expenseName} (\$ ${userExpense.userExpenseExpense.expensePrice.toString()})',
                   )),
                   ////////// progress indicator wile is calculating
                   DataCell(
-                    _state.isLoading ? const ProgressIndicartor() : Text('\$ ${userExpense.toPay.toString()}'),
+                    _state.isLoading ? const ProgressIndicartor() : Text('\$ ${userExpense.userExpenseTotal.toString()}'),
                   ),
                   DataCell(
                     // block the buttons wile is loading.
@@ -64,7 +64,7 @@ class DivideByExpenses extends StatelessWidget {
                         ),
                         kSizedBoxBig,
                         // number
-                        Text(userExpense.multiplyBy.toString()),
+                        Text(userExpense.userExpenseByItemFactor.toString()),
                         kSizedBoxBig,
                         // add button
                         kIconButton(

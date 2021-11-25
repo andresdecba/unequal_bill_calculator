@@ -22,86 +22,81 @@ class CreateExpensesScreenState extends ChangeNotifier {
   final userExpensesBox = Singleton().userExpensesBOX;
 
   //// create expense
-  void crearServicio({required String servicioNombre, required double precioServ}) {
+  void crearServicio({required String servicioNombre, required double precioServ}) async {
     //
     //create new expense
     ExpenseModel newExpense = ExpenseModel(
       expenseName: servicioNombre,
       expensePrice: precioServ,
-      expenseApportionment: 0,
+      expenseDivider: 0,
     );
 
     //add to the expenses box
-    expensesBox.add(newExpense);
+    await expensesBox.add(newExpense);
 
     //add the new expense to each user's expenses list
-    usersBox.values.forEach((user) {
+    usersBox.values.forEach((user) async {
       //
       // create new userExpesen instance
       UserExpenseModel newUserExpense = UserExpenseModel(
-        expense: newExpense,
-        multiplyBy: 1,
-        toPay: 0.0,
-        isAdded: true,
+        userExpenseExpense: newExpense,
+        userExpenseByItemFactor: 1,
+        userExpenseTotal: 0.0,
+        
       );
 
       // increment counter
-      newExpense.expenseApportionment++;
-      newExpense.save();
+      newExpense.expenseDivider++;
+      await newExpense.save();
 
       // add to box
-      userExpensesBox.add(newUserExpense);
+      await userExpensesBox.add(newUserExpense);
 
       // add to user
-      user.userExpensesList2.add(newUserExpense);
+      user.userExpensesList.add(newUserExpense);
     });
 
     // make the whole calculations
-    calculations();
+    await calculations();
     notifyListeners();
   }
 
   //// remove expense
-  void eliminarServicio({required ExpenseModel expense}) {
+  void eliminarServicio({required ExpenseModel expense}) async {
     //
     //remove THIS expense from the user expenses box
     for (var item in userExpensesBox.values) {
-      if (item.expense == expense) {
-        item.delete();
+      if (item.userExpenseExpense == expense) {
+        await item.delete();
       }
     }
 
     // remove expense to expenses box
-    expense.delete();
+    await expense.delete();
 
     // make the whole calculations
-    calculations();
+    await calculations();
     notifyListeners();
   }
 
   //// edit expense values
-  void editarServicio({required ExpenseModel expense, required String serviceName, required double servicePrice}) {
+  void editarServicio({required ExpenseModel expense, required String serviceName, required double servicePrice}) async {
+    //
     if (serviceName != '') {
       expense.expenseName = serviceName;
     }
 
     if (servicePrice != 0.0) {
       expense.expensePrice = servicePrice;
-      CalculateAllState().calculateAll();
+      await CalculateAllState().calculateAll();
     }
 
-    expense.save();
+    await expense.save();
 
     // make the whole calculations
-    calculations();
+    await calculations();
     notifyListeners();
   }
 
-  // make the whole calculations
-  void calculations() async {
-    // re-calculate these:
-    await CalculateAllState().calculateAll();
-    await CalculateScreenState().calcularTotalPorItem();
-    await CalculateScreenState().calcularTotalGlobal();
-  }
+  
 }

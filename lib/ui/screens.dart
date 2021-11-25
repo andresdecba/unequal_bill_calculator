@@ -1,5 +1,5 @@
 // initial screen
-export 'package:bill_calculator/ui/create_new_bill_screen/create_new_bill_screen.dart';
+export 'package:bill_calculator/ui/new_bill_screen/create_new_bill_screen.dart';
 
 // create users screen
 export 'package:bill_calculator/ui/users_screen/create_users_screen.dart';
@@ -19,10 +19,3 @@ export 'package:bill_calculator/ui/calculate_screens/calculate_screen_widgets/pr
 
 // about the app
 export 'package:bill_calculator/ui/about_the_app_screen/about_the_app.dart';
-
-
-
-
-
-
-

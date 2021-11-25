@@ -1,9 +1,46 @@
 
+*************************************************
+            DIVIDIR POR ITEMS
+*************************************************
 
-usuarios
-gastos
+cada usuario tiene una lista de "userExpense" que consta de:
+--userExpenseExpense: el gasto asociado.
+--userExpenseByItemFactor: (multiplicador) o sea cuanto paga mas de este gasto el usuario actual respecto de los demas usuarios 
+--userExpenseTotal: cuanto pagará el usuario por ESTE gasto basado en el userExpenseByItemFactor
+
+>> calculo por item:
+userExpenseTotal(d) = (expensePrice(a) / expenseDivider(b)) * userExpenseByItemFactor(c)
+
+a: precio del gasto,
+b: es la suma de todos los userExpenseItemFactor de todos los usuarios
+c: userExpenseByItemFactor (explicado arriba)
+d: userExpenseTotal (explicado arriba)
+
+>> calculo a pagar por el usuario segun su division por item:
+userTotalByItem = es la suma de todos SUS userExpenseTotal
+
+>> Al agregar un usuario:
 
 
-gasto.
+>> Al eliminar un usuario:
+restar al expenseDivider de cada expense el userExpenseByItemFactor que dciho usuario tiene asociado a ese expense
+ 
 
-total del gasto / gasto.prorrateo
+
+
+*************************************************
+            CONCEPTOS GENERALES
+*************************************************
+
+**MULTIPLICACIN**
+FACTOR: Un factor es cada uno de los numeros de una multiplicación (a y b).
+PRODUCTO: es el resultado de la multiplicación (c).
+a * b = c
+
+
+**DIVISION**
+DIVIDENDO: es el numero que se va a dividir o descomponer (a).
+DIVISOR: es el numero que divide al dividendo (b).
+COCIENTE: resultado d ela division (c).
+a / b = c
+

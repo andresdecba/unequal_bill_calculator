@@ -38,7 +38,7 @@ class CreateNewBillScreen extends StatelessWidget {
             keyboardType: TextInputType.name,
             textCapitalization: TextCapitalization.sentences,
             textInputAction: TextInputAction.done,
-            decoration: inputDecoration(controller: _textController, hintText: 'Cuenta nueva (${_state.getDate()})'),
+            decoration: inputDecoration(controller: _textController, hintText: 'Cuenta nueva (${getDate()})'),
             onChanged: (value) => _billName = value,
             onFieldSubmitted: (value) => _billName = value,
           ),

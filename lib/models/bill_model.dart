@@ -5,36 +5,35 @@ part 'bill_model.g.dart';
 @HiveType(typeId: 3)
 class BillModel extends HiveObject {
   BillModel({
-    required this.subtotalToPay,
-    required this.tip,
-    required this.totalToPay,
-    required this.usersLenght,
-    //required this.totalPayersInTotalDivider,
-    required this.roundingDifferenceTOTAL,
-    required this.roundingDifferenceITEM,
+    required this.billSubtotal,
+    required this.billTip,
+    required this.billTotal,
+    required this.billDivider,
+    required this.billRoundingDifferenceByTotal,
+    required this.billRoundingDifferenceByItem,
     required this.billName,
   });
 
   @HiveField(0)
-  double subtotalToPay;
+  double billSubtotal;
   @HiveField(1)
-  double tip;
+  double billTip;
   @HiveField(2)
-  double totalToPay;
+  double billTotal;
   @HiveField(3)
-  int usersLenght;
+  int billDivider;
   // @HiveField(4)
   // int totalPayersInTotalDivider;
   @HiveField(5)
-  double roundingDifferenceTOTAL;
+  double billRoundingDifferenceByTotal;
   @HiveField(6)
-  double roundingDifferenceITEM;
+  double billRoundingDifferenceByItem;
   @HiveField(7)
   String billName;
 
   @override
   String toString() {
-    return 'Total a pagar: $totalToPay, usuarios: $usersLenght, Bill name: $billName';
+    return 'Total a pagar: $billTotal, usuarios: $billDivider, Bill name: $billName';
   }
 }
 
@@ -43,12 +42,12 @@ class BillModel extends HiveObject {
 En ese modelo se muestra la informacion de la suma total de todos los gastos
 
 ---ABOUT FILEDS---
-tip: propina para les mozes **no usado en v. 1.0.0**
-subtotalToPay: subtotal a pagar suma de los gastos SIN la propina **no usado en v 1.0.0**
-totalToPay: suma de todos los gastos
-usersLenght: cantidad de usuarios
-roundingDifferenceTOTAL: diferencia del redondeo basado en la cuenta de los divisiores globales 
-roundingDifferenceITEM: diferencia del redondeo basado en la cuenta de los divisiores por gasto
+billTip: propina para les mozes **no usado en v. 1.0.0**
+billSubtotal: subtotal a pagar suma de los gastos SIN la propina **no usado en v 1.0.0**
+billTotal: suma de todos los gastos
+billDivider: divisor que se cambia cuando el usuario hace +1 - 1 en dividir global
+billRoundingDifferenceByTotal: diferencia del redondeo basado en la cuenta de los divisiores globales 
+billRoundingDifferenceByItem: diferencia del redondeo basado en la cuenta de los divisiores por gasto
 billName: titulo de la cuenta que se va a mostrar al enviar x whatsapp
 
 */

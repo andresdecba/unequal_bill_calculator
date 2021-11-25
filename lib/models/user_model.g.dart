@@ -18,11 +18,11 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
     };
     return UserModel(
       userName: fields[1] as String,
-      totalToPay: fields[2] as double,
-      totalToPayByExpense: fields[3] as double,
-      isPanelOpen: fields[0] as bool,
-      totalDivider: fields[4] as int,
-      userExpensesList2: (fields[6] as HiveList).castHiveList(),
+      userTotalByGlobal: fields[2] as double,
+      userTotalByItem: fields[3] as double,
+      userPanelState: fields[0] as bool,
+      userByGlobalFactor: fields[4] as int,
+      userExpensesList: (fields[6] as HiveList).castHiveList(),
     );
   }
 
@@ -31,17 +31,17 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
     writer
       ..writeByte(6)
       ..writeByte(0)
-      ..write(obj.isPanelOpen)
+      ..write(obj.userPanelState)
       ..writeByte(1)
       ..write(obj.userName)
       ..writeByte(2)
-      ..write(obj.totalToPay)
+      ..write(obj.userTotalByGlobal)
       ..writeByte(3)
-      ..write(obj.totalToPayByExpense)
+      ..write(obj.userTotalByItem)
       ..writeByte(4)
-      ..write(obj.totalDivider)
+      ..write(obj.userByGlobalFactor)
       ..writeByte(6)
-      ..write(obj.userExpensesList2);
+      ..write(obj.userExpensesList);
   }
 
   @override

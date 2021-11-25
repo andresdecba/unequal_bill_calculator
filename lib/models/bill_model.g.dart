@@ -17,12 +17,12 @@ class BillModelAdapter extends TypeAdapter<BillModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return BillModel(
-      subtotalToPay: fields[0] as double,
-      tip: fields[1] as double,
-      totalToPay: fields[2] as double,
-      usersLenght: fields[3] as int,
-      roundingDifferenceTOTAL: fields[5] as double,
-      roundingDifferenceITEM: fields[6] as double,
+      billSubtotal: fields[0] as double,
+      billTip: fields[1] as double,
+      billTotal: fields[2] as double,
+      billDivider: fields[3] as int,
+      billRoundingDifferenceByTotal: fields[5] as double,
+      billRoundingDifferenceByItem: fields[6] as double,
       billName: fields[7] as String,
     );
   }
@@ -32,17 +32,17 @@ class BillModelAdapter extends TypeAdapter<BillModel> {
     writer
       ..writeByte(7)
       ..writeByte(0)
-      ..write(obj.subtotalToPay)
+      ..write(obj.billSubtotal)
       ..writeByte(1)
-      ..write(obj.tip)
+      ..write(obj.billTip)
       ..writeByte(2)
-      ..write(obj.totalToPay)
+      ..write(obj.billTotal)
       ..writeByte(3)
-      ..write(obj.usersLenght)
+      ..write(obj.billDivider)
       ..writeByte(5)
-      ..write(obj.roundingDifferenceTOTAL)
+      ..write(obj.billRoundingDifferenceByTotal)
       ..writeByte(6)
-      ..write(obj.roundingDifferenceITEM)
+      ..write(obj.billRoundingDifferenceByItem)
       ..writeByte(7)
       ..write(obj.billName);
   }

@@ -11,6 +11,7 @@ class ShowTotalBill extends StatelessWidget {
   Widget build(BuildContext context) {
     // state
     final _state = Provider.of<CalculateAllState>(context);
+    final _titleState = Provider.of<CreateNewBillScreenState>(context);
 
     return Container(
       padding: kPaddingSmall,
@@ -23,12 +24,12 @@ class ShowTotalBill extends StatelessWidget {
           children: [
             ////////// MOSTRAR SUMA TOTAL
             Text(
-              '"${_state.bill.billName}"',
+              '"${_titleState.bill.billName}"',
               style: kTextMedium,
             ),
             const SizedBox(height: 15),
             Text(
-              '> Total a pagar  \$ ${_state.bill.totalToPay}',
+              '> Total a pagar  \$ ${_state.bill.billTotal}',
               style: kTextXXL,
             ),
             const SizedBox(height: 15),
