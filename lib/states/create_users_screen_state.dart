@@ -78,7 +78,7 @@ class CreateUsersScreenState extends ChangeNotifier {
   }
 
   ///// ELIMINAR usuario /////
-  eliminarUsuario({required UserModel user}) async {
+  void eliminarUsuario({required UserModel user}) async {
     //
     // decremente billDivider used for global calculations
     bill.billDivider = bill.billDivider - user.userByGlobalFactor;

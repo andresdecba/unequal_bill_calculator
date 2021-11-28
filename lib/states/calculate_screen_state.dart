@@ -77,15 +77,15 @@ class CalculateScreenState extends ChangeNotifier {
 
   ///////////////////////////////// CALCULAR TOTAL POR CADA GASTO DE USUARIO /////////////////////////////////
 
-  ///// sumar multiplicador //////
-  void sumarMultiplicador({required UserExpenseModel userExpense}) async {
+  ///// incrementar item factor //////
+  void sumarItem({required UserExpenseModel userExpense}) async {
     isLoading = true;
     notifyListeners();
 
     userExpense.userExpenseByItemFactor++;
     await userExpense.save();
-    userExpense.userExpenseExpense.expenseDivider++;
-    await userExpense.userExpenseExpense.save();
+
+    userExpense.userExpenseExpense.expenseDivider++;    
     await calcularTotalPorItem();
 
     isLoading = false;
@@ -93,7 +93,7 @@ class CalculateScreenState extends ChangeNotifier {
   }
 
   ///// restar multiplicador //////
-  void restarMultiplicador({required UserExpenseModel userExpense}) async {
+  void restarItem({required UserExpenseModel userExpense}) async {
     //
     isLoading = true;
     notifyListeners();
@@ -103,7 +103,6 @@ class CalculateScreenState extends ChangeNotifier {
       userExpense.userExpenseByItemFactor--;
       await userExpense.save();
       userExpense.userExpenseExpense.expenseDivider--;
-      await userExpense.userExpenseExpense.save();
     }
     await calcularTotalPorItem();
 
@@ -121,12 +120,11 @@ class CalculateScreenState extends ChangeNotifier {
 
       for (var userExpense in user.userExpensesList) {
         // total per expense
-        double total = (userExpense.userExpenseExpense.expensePrice / userExpense.userExpenseExpense.expenseDivider) * userExpense.userExpenseByItemFactor;
-
-        // rounding
-        userExpense.userExpenseTotal = rounder(total);
-
-        // sumar
+        double itemTotal = (userExpense.userExpenseExpense.expensePrice / userExpense.userExpenseExpense.expenseDivider) * userExpense.userExpenseByItemFactor;
+        // rounding, asign and save
+        userExpense.userExpenseTotal = rounder(itemTotal);
+        await userExpense.save();
+        // acumular
         totalPerUser += userExpense.userExpenseTotal;
       }
 
@@ -152,7 +150,6 @@ class CalculateScreenState extends ChangeNotifier {
   ///////////////////////////////// RESET DIVIDERS /////////////////////////////////
 
   resetDividers() async {
-
     await usersBox.compact();
     await expensesBox.compact();
 

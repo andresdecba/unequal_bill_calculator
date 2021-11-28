@@ -22,39 +22,40 @@ class CreateExpensesScreenState extends ChangeNotifier {
   final userExpensesBox = Singleton().userExpensesBOX;
 
   //// create expense
-  void crearServicio({required String servicioNombre, required double precioServ}) async {
+  void createExpense({required String expenseName, required double expensePrice}) async {
     //
     //create new expense
     ExpenseModel newExpense = ExpenseModel(
-      expenseName: servicioNombre,
-      expensePrice: precioServ,
+      expenseName: expenseName,
+      expensePrice: expensePrice,
       expenseDivider: 0,
     );
 
-    //add to the expenses box
+    //store in expenses box
     await expensesBox.add(newExpense);
 
+    
+
     //add the new expense to each user's expenses list
-    usersBox.values.forEach((user) async {
-      //
-      // create new userExpesen instance
+    for (var user in usersBox.values) {
+
+      // create new userExpese instance
       UserExpenseModel newUserExpense = UserExpenseModel(
         userExpenseExpense: newExpense,
         userExpenseByItemFactor: 1,
         userExpenseTotal: 0.0,
-        
       );
-
-      // increment counter
-      newExpense.expenseDivider++;
-      await newExpense.save();
-
-      // add to box
+      
+      // store in user expenses box
       await userExpensesBox.add(newUserExpense);
 
       // add to user
       user.userExpensesList.add(newUserExpense);
-    });
+
+      // increment expense divider
+      newExpense.expenseDivider++;
+      await newExpense.save();
+    }
 
     // make the whole calculations
     await calculations();
@@ -62,7 +63,7 @@ class CreateExpensesScreenState extends ChangeNotifier {
   }
 
   //// remove expense
-  void eliminarServicio({required ExpenseModel expense}) async {
+  void deleteExpense({required ExpenseModel expense}) async {
     //
     //remove THIS expense from the user expenses box
     for (var item in userExpensesBox.values) {

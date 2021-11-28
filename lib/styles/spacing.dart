@@ -1,3 +1,4 @@
+import 'package:bill_calculator/styles/styles.dart';
 import 'package:flutter/material.dart';
 
 //////////// spacing ///////////
@@ -8,6 +9,7 @@ const double kSpaceMedium = 40.0;
 const double kSpaceLarge = 60.0;
 
 ////// Paddings
+const kPaddingXXS = EdgeInsets.all(10);
 const kPaddingXS = EdgeInsets.all(15);
 const kPaddingSmall = EdgeInsets.all(20);
 const kPaddingMedium = EdgeInsets.all(25);
@@ -27,6 +29,14 @@ const kSizedBoxSmall = SizedBox(
 const kDivder = Divider(
   height: 10,
   thickness: 1,
+  //indent: 10,
+  //endIndent: 10,
+);
+
+const kDivderBlue = Divider(
+  height: 0,
+  thickness: 1,
+  color: kAzul,
   //indent: 10,
   //endIndent: 10,
 );

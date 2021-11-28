@@ -13,7 +13,7 @@ class CalculatorScreen extends StatefulWidget {
 
 class _CalculatorScreenState extends State<CalculatorScreen> with TickerProviderStateMixin {
   //
-  // _isActive control how to show the active or inactive tab
+  // _isActive controls how to show the active or inactive tab
   bool _isActive = true;
   late TabController _tabController;
 
@@ -52,10 +52,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> with TickerProvider
           physics: const NeverScrollableScrollPhysics(),
           children: const <Widget>[
             // MOSTRAR DIVIDIR GLOBAL
-            DivideByTheTotal(),
+            DivideByTheTotalScreen(),
 
             // MOSTRAR DIVIDIR POR ITEM
-            ExpandibleUsersTiles(),
+            DivideByItemsScreen(),
           ],
         ),
       ),
@@ -93,7 +93,7 @@ class CreateTabsAndDisplayTotalBill extends StatelessWidget {
       flexibleSpace: const FlexibleSpaceBar(
         //
         //////////// HEADER: SHOW TOTAL BILL and bill name
-        background: ShowTotalBill(),
+        background: Bill(),
       ),
       bottom: TabBar(
         indicatorWeight: 5,

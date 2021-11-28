@@ -6,7 +6,7 @@ import 'package:bill_calculator/states/states.dart';
 
 class CreateNewBillScreenState extends ChangeNotifier {
 
-  final bill = Singleton().billBOX.values.first;
+  final bill = Singleton().billBOX;
 
   //// CREATE A NEW BILL ////
   createNewBill({String? billName}) async {

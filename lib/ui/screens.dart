@@ -11,10 +11,10 @@ export 'package:bill_calculator/ui/expenses_screens/create_expense_foms.dart';
 
 // calculate screen
 export 'package:bill_calculator/ui/calculate_screens/calculator_screen.dart';
-export 'package:bill_calculator/ui/calculate_screens/calculate_screen_widgets/expandible_users_tiles.dart';
-export 'package:bill_calculator/ui/calculate_screens/calculate_screen_widgets/divide_by_the_total.dart';
-export 'package:bill_calculator/ui/calculate_screens/calculate_screen_widgets/divide_by_expenses.dart';
-export 'package:bill_calculator/ui/calculate_screens/calculate_screen_widgets/show_total_bill.dart';
+export 'package:bill_calculator/ui/calculate_screens/calculate_screen_widgets/divide_by_items_screen.dart';
+export 'package:bill_calculator/ui/calculate_screens/calculate_screen_widgets/divide_by_total_screen.dart';
+export 'package:bill_calculator/ui/calculate_screens/calculate_screen_widgets/build_items.dart';
+export 'package:bill_calculator/ui/calculate_screens/calculate_screen_widgets/bill.dart';
 export 'package:bill_calculator/ui/calculate_screens/calculate_screen_widgets/propina_dialog.dart';
 
 // about the app

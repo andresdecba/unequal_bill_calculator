@@ -39,6 +39,7 @@ class _CreateExpenseFormsState extends State<CreateExpenseForms> {
     _nameController = TextEditingController(text: widget.onEdit == false ? '' : widget.expense!.expenseName);
     _priceController = TextEditingController(text: widget.onEdit == false ? '' : widget.expense!.expensePrice.toString());
 
+    // focuses
     _focusNode_1 = FocusNode();
     _focusNode_2 = FocusNode();
   }
@@ -107,12 +108,12 @@ class _CreateExpenseFormsState extends State<CreateExpenseForms> {
                   // VALIDATE ITEM NAME AND FORMS
                   if (_state.validateCuentasFormKey() == true && itemExist == false) {
                     ////// create service
-                    _state.crearServicio(servicioNombre: _newName, precioServ: double.parse(_monto));
+                    _state.createExpense(expenseName: _newName, expensePrice: double.parse(_monto));
                     _priceController.clear();
                     _nameController.clear();
                     _focusNode_1.requestFocus();
                   } else if (itemExist == true) {
-                    ///// expense already exists snackBar alert
+                    ///// if expense already exists, show snackBar alert
                     ScaffoldMessenger.of(context).showSnackBar(
                       snackBarCustom(message: 'El gasto ya existe, utilice un nombre diferente.'),
                     );
@@ -146,7 +147,7 @@ class _CreateExpenseFormsState extends State<CreateExpenseForms> {
                     FocusScope.of(context).unfocus();
                     Navigator.pop(context);
                   } else if (itemExist == true) {
-                    ///// expense already exists snackBar alert
+                    ///// if expense already exists, show snackBar alert
                     ScaffoldMessenger.of(context).showSnackBar(
                       snackBarCustom(message: 'El gasto ya existe, utilice un nombre diferente.'),
                     );

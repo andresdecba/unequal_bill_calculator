@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:bill_calculator/states/states.dart';
 import 'package:bill_calculator/styles/styles.dart';
 
-class ShowTotalBill extends StatelessWidget {
-  const ShowTotalBill({Key? key}) : super(key: key);
+class Bill extends StatelessWidget {
+  const Bill({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class ShowTotalBill extends StatelessWidget {
           children: [
             ////////// MOSTRAR SUMA TOTAL
             Text(
-              '"${_titleState.bill.billName}"',
+              '"${_titleState.bill.values.first.billName}"',
               style: kTextMedium,
             ),
             const SizedBox(height: 15),
@@ -45,28 +45,6 @@ class ShowTotalBill extends StatelessWidget {
               style: kTextSmall,
             ),
             kDivder,
-
-            ////////// MOSTRAR PROPINA
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     Text(
-            //       'Calcular propina  \$ ${_propinaState.cuentaTotal.propina}',
-            //       style: kTextMedium,
-            //     ),
-            //     kIconButton(
-            //       onPress: () {
-            //         showDialog(
-            //           context: context,
-            //           builder: (context) => const PropinaDialogBox(),
-            //         );
-            //       },
-            //       icon: Icons.arrow_forward,
-            //     )
-            //   ],
-            // ),
-            // kDivder,
-            //kSizedBoxBig,
           ],
         ),
       ),

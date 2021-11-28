@@ -1,10 +1,12 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import 'package:animate_do/animate_do.dart';
+
 import 'package:bill_calculator/styles/styles.dart';
 import 'package:bill_calculator/states/states.dart';
-import 'package:bill_calculator/models/models.dart';
 import 'package:bill_calculator/widgets/widgets.dart';
 import 'package:bill_calculator/ui/screens.dart';
 
@@ -15,11 +17,7 @@ class CreateUsersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     //provider
     final _state = Provider.of<CreateUsersScreenState>(context);
-    final _newBillstate = Provider.of<CreateNewBillScreenState>(context);
-    List<UserModel> _usersList = _state.usersBox.values.toList().cast<UserModel>();
-
-    //get screen size
-    final _screenData = MediaQuery.of(context);
+    //List<UserModel> _usersList = _state.usersBox.values.toList();
 
     // catch the device back button
     return WillPopScope(
@@ -30,117 +28,73 @@ class CreateUsersScreen extends StatelessWidget {
       child: Scaffold(
         // CONTUNE button
         floatingActionButton: Visibility(
-
-          //visible: MediaQuery.of(context).viewInsets.bottom == 0,
           child: ContinueButton(state: _state),
         ),
 
         // body
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              //////////// TOP SCREEN, INPUT DATA ///////////
-              Container(
-                padding: kPaddingSmall,
-                color: kAmarillo,
-                child: SafeArea(
-                  child: Column(
-                    children: const [
-                      ////////// TITLES //////////
-                      Text('¿QUIENES PAGAN?', style: kBigTitles),
-                      kSizedBoxBig,
-                      ///////// TEXT FIELD + BUTTON ////////
-                      CreateUsersForm(onEdit: false),
-                    ],
-                  ),
+        body: ListView(
+          shrinkWrap: true,
+          padding: const EdgeInsets.all(0),
+          children: [
+            //////////// TOP SCREEN, INPUT DATA ///////////
+            Container(
+              padding: kPaddingSmall,
+              color: kAmarillo,
+              child: SafeArea(
+                child: Column(
+                  children: const [
+                    ////////// TITLES //////////
+                    Text('¿QUIENES PAGAN?', style: kBigTitles),
+                    kSizedBoxBig,
+                    ///////// TEXT FIELD + BUTTON ////////
+                    CreateUsersForm(onEdit: false),
+                  ],
                 ),
               ),
-              kSizedBoxBig,
+            ),
 
-              //////////// ADDED USERS LIST ///////////
-              _usersList.isEmpty
-                  ? Container(
-                      height: 200,
-                      padding: kPaddingLarge,
-                      alignment: Alignment.center,
-                      child: const Text(
-                        'Comience agregando los nombres de las personas que van a compartit los gastos.',
-                        style: kTextSmall,
-                        textAlign: TextAlign.center,
-                      ),
-                    )
-
-                  // generar lista de usuarios
-                  : SizedBox(
-                      width: _screenData.size.width,
-                      child: DataTable(
-                          dataRowHeight: kSpaceLarge,
-                          showBottomBorder: true,
-                          horizontalMargin: kSpaceSmall,
-                          columnSpacing: 0,
-
-                          ////colums
-                          columns: const <DataColumn>[
-                            DataColumn(
-                              label: Text(
-                                'Usuarios',
-                                style: kTextMedium,
-                              ),
-                            ),
-                            DataColumn(label: Text('')),
-                            DataColumn(label: Text('')),
-                          ],
-
-                          ////rows
-                          rows: _usersList.map((user) {
-                            //int index = _usersList.indexOf(item);
-
-                            return DataRow(
-                              cells: <DataCell>[
-                                ////// NAME
-                                DataCell(
-                                  Text(
-                                    user.userName,
-                                    style: kTextSmall,
-                                  ),
-                                ),
-
-                                ////// EDIT / UPDATE
-                                DataCell(
-                                  kIconButton(
-                                    // show dialog box
-                                    onPress: () => showDialog(
-                                      barrierColor: kDialogBackground,
-                                      context: context,
-                                      builder: (context) => DialogBox(
-                                        title: 'Editar usuario',
-                                        children: Column(
-                                          children: [
-                                            CreateUsersForm(
-                                              onEdit: true,
-                                              user: user,
-                                            ),
-                                            const CancelButton(),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    icon: Icons.edit,
-                                  ),
-                                ),
-
-                                ////// DELETE
-                                DataCell(kIconButton(
-                                  onPress: () => _state.eliminarUsuario(user: user),
-                                  icon: Icons.delete_forever,
-                                )),
-                              ],
-                            );
-                          }).toList()),
+            //////////// if NO USERS YET ///////////
+            _state.usersBox.values.isEmpty
+                ? Container(
+                    height: 200,
+                    padding: kPaddingLarge,
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'Comience agregando los nombres de las personas que van a compartit los gastos.',
+                      style: kTextSmall,
+                      textAlign: TextAlign.center,
                     ),
-                    kFooterSpace,
-            ],
-          ),
+                  )
+
+                //////////// BUILD USERS LIST ///////////
+                : ListView.separated(
+                    itemCount: _state.usersBox.values.length,
+                    reverse: true,
+                    dragStartBehavior: DragStartBehavior.start,
+                    padding: const EdgeInsets.all(0),
+                    separatorBuilder: (BuildContext context, int index) => kDivder,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      //
+                      final user = _state.usersBox.values.elementAt(index);
+                
+                      return FadeInDown(
+                        duration: const Duration(milliseconds: 3000),
+                        animate: true,
+                        child: NameAndPriceTile(
+                          title: user.userName,
+                          deleteFnc: () => _state.eliminarUsuario(user: user),
+                          editFnc: CreateUsersForm(
+                            onEdit: true,
+                            user: user,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+
+            kFooterSpace,
+          ],
         ),
       ),
     );
