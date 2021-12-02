@@ -17,7 +17,7 @@ class UserExpenseModelAdapter extends TypeAdapter<UserExpenseModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return UserExpenseModel(
-      userExpenseExpense: fields[0] as ExpenseModel,
+      userExpenseExpense: (fields[0] as HiveList).castHiveList(),
       userExpenseByItemFactor: fields[1] as int,
       userExpenseTotal: fields[2] as double,
     );

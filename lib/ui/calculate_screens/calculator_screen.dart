@@ -40,8 +40,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> with TickerProvider
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
-            // TAB BAR + SHOW TOTAL BILL
-            CreateTabsAndDisplayTotalBill(
+            // CREATE TAB BAR + SHOW TOTAL BILL
+            DisplayTotals(
               tabController: _tabController,
               isActive: _isActive,
             ),
@@ -70,8 +70,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> with TickerProvider
 }
 
 ///// BUILD TABS
-class CreateTabsAndDisplayTotalBill extends StatelessWidget {
-  const CreateTabsAndDisplayTotalBill({
+class DisplayTotals extends StatelessWidget {
+  const DisplayTotals({
     required this.tabController,
     required this.isActive,
     Key? key,
@@ -84,7 +84,7 @@ class CreateTabsAndDisplayTotalBill extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       automaticallyImplyLeading: false,
-      expandedHeight: 270,
+      expandedHeight: 215,
       pinned: true,
       floating: true,
       snap: true,
@@ -98,6 +98,7 @@ class CreateTabsAndDisplayTotalBill extends StatelessWidget {
       bottom: TabBar(
         indicatorWeight: 5,
         controller: tabController,
+        
         tabs: <Widget>[
           Tab(
             // DIVIDIR GLOBAL

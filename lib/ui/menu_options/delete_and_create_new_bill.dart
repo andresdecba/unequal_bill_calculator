@@ -27,9 +27,9 @@ class DeleteAndCreateNewBill extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(width: double.infinity),
-        kDivder,
+        kDivider,
         const Text('Se perderán todos los datos para comenzar una nueva cuenta ', style: kTextSmall),
-        kDivder,
+        kDivider,
         kSizedBoxBig,
         ElevatedButton(
           style: buttonDecoration(),

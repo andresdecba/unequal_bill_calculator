@@ -5,3 +5,5 @@ export 'package:bill_calculator/widgets/cancel_button.dart';
 export 'package:bill_calculator/widgets/name_price_tile.dart';
 export 'package:bill_calculator/widgets/substract_add_buttons.dart';
 export 'package:bill_calculator/widgets/user_total_tile.dart';
+export 'package:bill_calculator/widgets/page_transitions.dart';
+

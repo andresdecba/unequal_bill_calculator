@@ -1,9 +1,6 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
-import 'package:animate_do/animate_do.dart';
 
 import 'package:bill_calculator/styles/styles.dart';
 import 'package:bill_calculator/states/states.dart';
@@ -17,7 +14,6 @@ class CreateUsersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     //provider
     final _state = Provider.of<CreateUsersScreenState>(context);
-    //List<UserModel> _usersList = _state.usersBox.values.toList();
 
     // catch the device back button
     return WillPopScope(
@@ -67,23 +63,35 @@ class CreateUsersScreen extends StatelessWidget {
                   )
 
                 //////////// BUILD USERS LIST ///////////
-                : ListView.separated(
-                    itemCount: _state.usersBox.values.length,
+                : AnimatedList(
                     reverse: true,
-                    dragStartBehavior: DragStartBehavior.start,
+                    initialItemCount: _state.usersBox.length, //_state.usersBox.isNotEmpty ? 100  : 0,  //
+                    key: _state.usrAnimatedListKey,
                     padding: const EdgeInsets.all(0),
-                    separatorBuilder: (BuildContext context, int index) => kDivder,
                     shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
+                    itemBuilder: (context, index, animation) {
                       //
                       final user = _state.usersBox.values.elementAt(index);
-                
-                      return FadeInDown(
-                        duration: const Duration(milliseconds: 3000),
-                        animate: true,
+
+                      return SizeTransition(
+                        sizeFactor: animation,
                         child: NameAndPriceTile(
                           title: user.userName,
-                          deleteFnc: () => _state.eliminarUsuario(user: user),
+                          deleteFnc: () {
+                            // delete from provider
+                            _state.eliminarUsuario(user: user);
+                            // animated list function
+                            _state.usrAnimatedListKey.currentState?.removeItem(index, (context, animation) {
+                              return SizeTransition(
+                                sizeFactor: animation,
+                                child: NameAndPriceTile(
+                                  title: user.userName,
+                                  deleteFnc: () {},
+                                  editFnc: const SizedBox(),
+                                ),
+                              );
+                            });
+                          },
                           editFnc: CreateUsersForm(
                             onEdit: true,
                             user: user,
@@ -99,6 +107,8 @@ class CreateUsersScreen extends StatelessWidget {
       ),
     );
   }
+
+  void cosoo(index) {}
 }
 
 //////////// CONTINUE BUTTON ///////////
@@ -119,12 +129,15 @@ class ContinueButton extends StatelessWidget {
       ),
       onPressed: () {
         if (_state.usersBox.isNotEmpty) {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              settings: const RouteSettings(name: "/agregarCuentas"),
-              builder: (context) => const CreateExpensesScreen(),
+
+          Navigator.push( // or pushReplacement, if you need that
+            context,
+            FadeInRoute(
+              routeName: "/agregarCuentas",
+              page: const CreateExpensesScreen(),
             ),
           );
+
         } else {
           ScaffoldMessenger.of(context).showSnackBar(snackBarCustom(message: 'Agrege un usuario.'));
         }

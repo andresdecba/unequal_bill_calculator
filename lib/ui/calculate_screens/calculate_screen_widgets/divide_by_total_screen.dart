@@ -21,7 +21,7 @@ class DivideByTheTotalScreen extends StatelessWidget {
       children: [
         /////// DESCRIPTION /////
         Container(
-          padding: kPaddingXS,
+          padding: kPaddingXXS,
           decoration: const BoxDecoration(
             border: Border(top: BorderSide(color: kAzul, width: 3)),
             color: kGris300,
@@ -34,17 +34,17 @@ class DivideByTheTotalScreen extends StatelessWidget {
 
         ////// ROUND
         Container(
-          padding: kPaddingXS,
+          padding: kPaddingXXS,
           color: kGris100,
           child: Text(
             '> Diferencia por redondeo  \$ ${_state.bill.billRoundingDifferenceByTotal.toStringAsFixed(4)}',
-            style: kTextSmall,
+            style: kTextXS,
           ),
         ),
 
         //////////// BUILD USERS LIST ///////////
         ListView.separated(
-          separatorBuilder: (context, index) => kDivderBlue,
+          separatorBuilder: (context, index) => kDivider2,
           padding: const EdgeInsets.all(0),
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -57,19 +57,20 @@ class DivideByTheTotalScreen extends StatelessWidget {
             return Column(
               children: [
                 Container(
-                  color: user.userByGlobalFactor > 1 ? kGris300 : Colors.grey[50],
+                  color: Colors.grey[50], // user.userByGlobalFactor > 1 ? kAzul.withOpacity(0.1) : Colors.grey[50],
                   width: double.infinity,
-                  padding: kPaddingSmall, //const EdgeInsets.symmetric(horizontal: 25),
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 0), //const EdgeInsets.symmetric(horizontal: 25),
                   child: Column(
                     children: [
                       //////////// USERNAME AND TOTAL //////////
+                      /// IMPORTANT: we use "Flexible" before text widget for property text overflow working
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Flexible(
                             // user name
                             child: Text(
-                              '> ${user.userName}',
+                              user.userByGlobalFactor > 1 ? '> ${user.userName}' : user.userName,
                               style: kTextLarge,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,

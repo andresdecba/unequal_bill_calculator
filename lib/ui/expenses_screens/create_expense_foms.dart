@@ -109,6 +109,7 @@ class _CreateExpenseFormsState extends State<CreateExpenseForms> {
                   if (_state.validateCuentasFormKey() == true && itemExist == false) {
                     ////// create service
                     _state.createExpense(expenseName: _newName, expensePrice: double.parse(_monto));
+                    // more stuffs
                     _priceController.clear();
                     _nameController.clear();
                     _focusNode_1.requestFocus();

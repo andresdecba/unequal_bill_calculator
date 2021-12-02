@@ -7,7 +7,6 @@ import 'package:bill_calculator/models/models.dart';
 import 'package:bill_calculator/widgets/widgets.dart';
 
 class CreateUsersForm extends StatefulWidget {
-
   const CreateUsersForm({required this.onEdit, this.user, Key? key}) : super(key: key);
 
   // flag: creating or editing a user?
@@ -62,13 +61,11 @@ class _CreateUsersFormState extends State<CreateUsersForm> {
         ////////// ADD USER BUTTON //////////
         ElevatedButton(
           style: buttonDecoration(),
-
           child: Text(
             widget.onEdit == true ? '> ok' : '> agregar',
             style: kButtonsText,
           ),
-
-          onPressed: () {
+          onPressed: () async {
             // LOOK IF THE entered item name already exists
             bool itemExist = false;
             _state.usersBox.values.map((e) {
@@ -80,23 +77,25 @@ class _CreateUsersFormState extends State<CreateUsersForm> {
             // VALIDATE ITEM's NAMES AND FORMS
             // if create
             if (widget.onEdit == false && _state.validateCreateUserFormKey() == true && itemExist == false) {
-              _state.crearUsuario(usrName: _nombre);
+              // create user
+              await _state.crearUsuario(usrName: _nombre);
+              // clear text field
               _textController.clear();
-            } 
+            }
             // if update
             else if (widget.onEdit == true && _state.validateEditUserFormKey() == true && itemExist == false) {
               _state.updateUser(newName: _nombre, user: widget.user!);
               _textController.clear();
               FocusScope.of(context).unfocus();
               Navigator.pop(context);
-            } 
+            }
             // else show advise
             else {
               ScaffoldMessenger.of(context).showSnackBar(
                 snackBarCustom(message: 'Ese nombre ya existe, utilice uno diferente.'),
               );
             }
-          },  
+          },
         ),
       ],
     );

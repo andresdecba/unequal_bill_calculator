@@ -1,8 +1,11 @@
+import 'package:bill_calculator/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
+import 'package:bill_calculator/ui/screens.dart';
 import 'package:bill_calculator/ui/menu_options/menu_options.dart';
 import 'package:bill_calculator/styles/styles.dart';
+
 
 class OptionsActionButton extends StatelessWidget {
   const OptionsActionButton({required this.activeTab, Key? key}) : super(key: key);
@@ -23,7 +26,18 @@ class OptionsActionButton extends StatelessWidget {
           child: const Icon(Icons.info),
           label: 'Acerca de esta APP',
           labelStyle: kTextSmall,
-          onTap: () => Navigator.pushNamed(context, '/aboutTheApp'),
+          onTap: () {
+            Navigator.push(
+              // or pushReplacement, if you need that
+              context,
+              FadeInRoute(
+                routeName: "/agregarCuentas",
+                page: const AboutTheApp(),
+              ),
+            );
+
+            //Navigator.pushNamed(context, '/aboutTheApp')
+          },
         ),
         SpeedDialChild(
           labelBackgroundColor: Colors.white.withOpacity(0.7),

@@ -42,7 +42,7 @@ class _ByItemState extends State<ByItem> {
 
       // get services by user
       for (var expense in user.userExpensesList) {
-        expenseDetails += '- _${expense.userExpenseExpense.expenseName}: \$ ${expense.userExpenseTotal} (x${expense.userExpenseByItemFactor})_ \n';
+        expenseDetails += '- _${expense.userExpenseExpense.first.expenseName}: \$ ${expense.userExpenseTotal} (x${expense.userExpenseByItemFactor})_ \n';
       }
 
       String total = '*${user.userName}: \$${user.userTotalByItem}*\n$expenseDetails\n';
@@ -60,14 +60,14 @@ class _ByItemState extends State<ByItem> {
           'Se enviará total por persona con sus items ',
           style: kTextSmall,
         ),
-        kDivder,
+        kDivider,
         Text(
           createWappText,
           style: kTextXS,
           maxLines: 10,
           overflow: TextOverflow.fade,
         ),
-        kDivder,
+        kDivider,
         ElevatedButton(
           style: buttonDecoration(),
           onPressed: () => _launchWhatsAppComplete(),
@@ -120,14 +120,14 @@ class _ByTotalState extends State<ByTotal> {
           'Se enviará el total por persona',
           style: kTextSmall,
         ),
-        kDivder,
+        kDivider,
         Text(
           textToWhatsapp,
           style: kTextXS,
           maxLines: 6,
           overflow: TextOverflow.fade,
         ),
-        kDivder,
+        kDivider,
         ElevatedButton(
           style: buttonDecoration(),
           onPressed: () => _launchWhatsAppSimple(),

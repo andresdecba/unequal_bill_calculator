@@ -25,7 +25,7 @@ class _DivideByItemsScreenState extends State<DivideByItemsScreen> {
       children: [
         // TEXTO explicativo
         Container(
-          padding: kPaddingXS,
+          padding: kPaddingXXS,
           decoration: const BoxDecoration(
             border: Border(top: BorderSide(color: kAzul, width: 3)),
             color: kGris300,
@@ -38,17 +38,17 @@ class _DivideByItemsScreenState extends State<DivideByItemsScreen> {
 
         // REDONDEO
         Container(
-          padding: kPaddingXS,
+          padding: kPaddingXXS,
           color: kGris100,
           child: Text(
             '> Diferencia por redondeo  \$ ${_state.bill.billRoundingDifferenceByItem.toStringAsFixed(4)}',
-            style: kTextSmall,
+            style: kTextXS,
           ),
         ),
 
         // LISTA A PAGAR
         ListView.separated(
-          separatorBuilder: (context, index) => kDivderBlue,
+          separatorBuilder: (context, index) => kDivider2,
           padding: const EdgeInsets.all(0),
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -74,9 +74,10 @@ class _DivideByItemsScreenState extends State<DivideByItemsScreen> {
 
                   //  BODY: show expenses list
                   body: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     child: BuildItems(
-                      user: user,
+                      user: _state.usersBox.values.elementAt(index),
+                      indexxxx: index,
                     ),
                   ),
                 ),
@@ -106,38 +107,33 @@ class Header extends StatelessWidget {
     return Container(
       color: Colors.grey[50],
       width: double.infinity,
-      padding: kPaddingSmall, //const EdgeInsets.symmetric(horizontal: 25),
-      child: Column(
+      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10), //const EdgeInsets.symmetric(horizontal: 25),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          //////////// USERNAME AND TOTAL //////////
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                // user name
-                child: Text(
-                  '> ${user.userName}',
-                  style: kTextLarge,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
-              ),
-              const SizedBox(width: 40),
-
-              // show progress indicator wile is calculating
-              _state.isLoading
-                  ? const ProgressIndicartor()
-                  : Row(
-                      children: [
-                        // price
-                        Text(
-                          '\$  ${user.userTotalByItem.toString()}',
-                          style: kTextLarge,
-                        ),
-                      ],
-                    ),
-            ],
+          Flexible(
+            // user name
+            child: Text(
+              user.userName,
+              style: kTextLarge,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
           ),
+          const SizedBox(width: 40),
+
+          // show progress indicator wile is calculating
+          _state.isLoading
+              ? const ProgressIndicartor()
+              : Row(
+                  children: [
+                    // price
+                    Text(
+                      '\$  ${user.userTotalByItem.toString()}',
+                      style: kTextLarge,
+                    ),
+                  ],
+                ),
         ],
       ),
     );

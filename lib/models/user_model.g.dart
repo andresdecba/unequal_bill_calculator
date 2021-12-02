@@ -22,7 +22,7 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       userTotalByItem: fields[3] as double,
       userPanelState: fields[0] as bool,
       userByGlobalFactor: fields[4] as int,
-      userExpensesList: (fields[6] as HiveList).castHiveList(),
+      userExpensesList: (fields[7] as HiveList).castHiveList(),
     );
   }
 
@@ -40,7 +40,7 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..write(obj.userTotalByItem)
       ..writeByte(4)
       ..write(obj.userByGlobalFactor)
-      ..writeByte(6)
+      ..writeByte(7)
       ..write(obj.userExpensesList);
   }
 

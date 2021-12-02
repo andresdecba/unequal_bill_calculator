@@ -1,3 +1,4 @@
+import 'package:bill_calculator/borrar.dart';
 import 'package:bill_calculator/ui/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
@@ -62,8 +63,9 @@ class App extends StatelessWidget {
         '/agregarCuentas': (context) => const CreateExpensesScreen(),
         '/newCalculatorScreen': (context) => const CalculatorScreen(),
         '/aboutTheApp': (context) => const AboutTheApp(),
-
+        '/borrar': (context) => const Borrar(),
       },
+
       theme: ThemeData(
         fontFamily: 'OpenSans_Condensed-Regular',
         textTheme: const TextTheme(bodyText2: TextStyle(fontFamily: 'OpenSans_Condensed-Regular')),

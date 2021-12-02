@@ -13,7 +13,6 @@ class CreateExpensesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     //provider
     final _state = Provider.of<CreateExpensesScreenState>(context);
-    //final _expensesList = _state.expensesBox.values; //.toList(); //.cast<ExpenseModel>();
 
     return Scaffold(
       // CONTUNE button
@@ -59,28 +58,38 @@ class CreateExpensesScreen extends StatelessWidget {
                 )
 
               //////////// BUILD USERS LIST ///////////
-              : ListView.separated(
-                  itemCount: _state.expensesBox.values.length,
+              : AnimatedList(
+                  reverse: true,
+                  key: _state.expAnimatedListKey,
+                  initialItemCount: _state.expensesBox.length,
                   padding: const EdgeInsets.all(0),
-                  separatorBuilder: (BuildContext context, int index) => kDivder,
                   shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
+                  itemBuilder: (context, index, animation) {
                     //
                     final expense = _state.expensesBox.values.elementAt(index);
 
-                    return NameAndPriceTile(
-                      title: expense.expenseName,
-                      subTitle: '\$ ${expense.expensePrice}',
-                      deleteFnc: () => _state.deleteExpense(expense: expense),
-                      editFnc: CreateExpenseForms(
-                        onEdit: true,
-                        expense: expense,
+                    return SizeTransition(
+                      sizeFactor: animation,
+                      child: NameAndPriceTile(
+                        title: expense.expenseName,
+                        subTitle: '\$ ${expense.expensePrice}',
+                        deleteFnc: () {
+                          _state.expAnimatedListKey.currentState?.removeItem(index, (context, animation) {
+                            return SizeTransition(
+                              sizeFactor: animation,
+                              child: NameAndPriceTile(title: expense.expenseName, deleteFnc: () {}, editFnc: const SizedBox()),
+                            );
+                          });
+                          _state.deleteExpense(expense: expense);
+                        },
+                        editFnc: CreateExpenseForms(
+                          onEdit: true,
+                          expense: expense,
+                        ),
                       ),
                     );
                   },
                 ),
-
-          _state.expensesBox.isNotEmpty ? kDivder : const SizedBox(),
 
           kFooterSpace,
         ],
@@ -103,12 +112,15 @@ class ContinueButtonServ extends StatelessWidget {
       // VALIDATE FORMS
       onPressed: () {
         if (_state.expensesBox.isNotEmpty) {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              settings: const RouteSettings(name: "/newCalculatorScreen"),
-              builder: (context) => const CalculatorScreen(),
+
+          Navigator.push(
+            context,
+            FadeInRoute(
+              routeName: "/newCalculatorScreen",
+              page: const CalculatorScreen(),
             ),
           );
+
         } else {
           ScaffoldMessenger.of(context).showSnackBar(snackBarCustom(message: 'Agrege un gasto.'));
         }

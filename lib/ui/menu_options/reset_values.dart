@@ -26,9 +26,9 @@ class ResetValues extends StatelessWidget {
 
     return Column(
       children: [
-        kDivder,
+        kDivider,
         const Text('Todos los divisores se pondran en 1', style: kTextSmall),
-        kDivder,
+        kDivider,
         kSizedBoxBig,
         ElevatedButton(
           style: buttonDecoration(),

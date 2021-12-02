@@ -75,7 +75,7 @@ class CalculateScreenState extends ChangeNotifier {
     notifyListeners();
   }
 
-  ///////////////////////////////// CALCULAR TOTAL POR CADA GASTO DE USUARIO /////////////////////////////////
+  ///////////////////////////////// CALCULAR POR ITEM /////////////////////////////////
 
   ///// incrementar item factor //////
   void sumarItem({required UserExpenseModel userExpense}) async {
@@ -85,7 +85,8 @@ class CalculateScreenState extends ChangeNotifier {
     userExpense.userExpenseByItemFactor++;
     await userExpense.save();
 
-    userExpense.userExpenseExpense.expenseDivider++;    
+    userExpense.userExpenseExpense.first.expenseDivider++;
+    await userExpense.userExpenseExpense.first.save();
     await calcularTotalPorItem();
 
     isLoading = false;
@@ -99,10 +100,11 @@ class CalculateScreenState extends ChangeNotifier {
     notifyListeners();
 
     // validar que no baje de cero y que AL MENOS UN USUARIO tenga el gasto seteado en 1
-    if (userExpense.userExpenseByItemFactor != 0 && userExpense.userExpenseExpense.expenseDivider != 1) {
+    if (userExpense.userExpenseByItemFactor != 0 && userExpense.userExpenseExpense.first.expenseDivider != 1) {
       userExpense.userExpenseByItemFactor--;
       await userExpense.save();
-      userExpense.userExpenseExpense.expenseDivider--;
+      userExpense.userExpenseExpense.first.expenseDivider--;
+      await userExpense.userExpenseExpense.first.save();
     }
     await calcularTotalPorItem();
 
@@ -114,13 +116,14 @@ class CalculateScreenState extends ChangeNotifier {
   calcularTotalPorItem() async {
     //
     // loop
+
     for (var user in usersBox.values) {
       // total
       double totalPerUser = 0;
 
       for (var userExpense in user.userExpensesList) {
         // total per expense
-        double itemTotal = (userExpense.userExpenseExpense.expensePrice / userExpense.userExpenseExpense.expenseDivider) * userExpense.userExpenseByItemFactor;
+        double itemTotal = (userExpense.userExpenseExpense.first.expensePrice / userExpense.userExpenseExpense.first.expenseDivider) * userExpense.userExpenseByItemFactor;
         // rounding, asign and save
         userExpense.userExpenseTotal = rounder(itemTotal);
         await userExpense.save();
@@ -131,8 +134,9 @@ class CalculateScreenState extends ChangeNotifier {
       // asign and save
       user.userTotalByItem = rounder(totalPerUser);
       await user.save();
+      notifyListeners();
     }
-    // calculate rounding difference;
+    //calculate rounding difference;
     roundingDiderenceITEM();
   }
 
@@ -159,8 +163,8 @@ class CalculateScreenState extends ChangeNotifier {
       for (var item in user.userExpensesList) {
         item.userExpenseByItemFactor = 1;
         await item.save();
-        item.userExpenseExpense.expenseDivider = usersBox.length;
-        await item.userExpenseExpense.save();
+        item.userExpenseExpense.first.expenseDivider = usersBox.length;
+        await item.userExpenseExpense.first.save();
       }
 
       await user.save();

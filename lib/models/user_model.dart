@@ -26,7 +26,9 @@ class UserModel extends HiveObject {
   int userByGlobalFactor;
   // @HiveField(5)
   // List<UserExpenseModel> userExpensesList;
-  @HiveField(6)
+  // @HiveField(6)
+  // HiveList<UserExpenseModel> userExpensesList;
+  @HiveField(7)
   HiveList<UserExpenseModel> userExpensesList;
 
   @override

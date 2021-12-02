@@ -26,15 +26,23 @@ const kSizedBoxSmall = SizedBox(
   width: 5,
 );
 
-const kDivder = Divider(
+const kDivider = Divider(
   height: 10,
   thickness: 1,
   //indent: 10,
   //endIndent: 10,
 );
 
-const kDivderBlue = Divider(
+const kDivider2 = Divider(
   height: 0,
+  thickness: 1,
+  color: kGris300,
+  //indent: 10,
+  //endIndent: 10,
+);
+
+const kDivderBlue = Divider(
+  height: 1,
   thickness: 1,
   color: kAzul,
   //indent: 10,

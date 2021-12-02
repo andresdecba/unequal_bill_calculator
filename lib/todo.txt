@@ -19,12 +19,13 @@
       ***- Borrar toda la memoria
       ***- resetear los calculos a 1
       ***- pantalla about this app
+******20- trancisiones entre paginas
 
 ---- V 2.0.0 ----
 ******15- hacer menu lateral o bottom bar con las opciones
 ******6- hacer persistencia de datos
 7- poner publicidad
-10- poner algunas animaciones
+*****10- poner algunas animaciones
 3- dividir la propina entre todes
 *****17- hacer diferencia de redondedo
 

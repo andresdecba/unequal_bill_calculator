@@ -13,7 +13,7 @@ class UserExpenseModel extends HiveObject {
   });
 
   @HiveField(0)
-  ExpenseModel userExpenseExpense;
+  HiveList<ExpenseModel> userExpenseExpense; /////// CONVERTIR ESTA PROPIEDAD A UN HIVE LISTTTTTTTT
   @HiveField(1)
   int userExpenseByItemFactor;
   @HiveField(2)
