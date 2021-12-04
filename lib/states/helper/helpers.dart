@@ -13,7 +13,7 @@ double rounder(double value) {
 // generate date
 String getDate() {
   DateTime now = DateTime.now();
-  String dateToday = '${DateFormat('dd-MM-yyyy · kk:mm').format(now)}';
+  String dateToday = DateFormat('dd-MM-yyyy · kk:mm').format(now);
   return dateToday;
 }
 

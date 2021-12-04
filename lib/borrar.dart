@@ -52,7 +52,7 @@ class _BorrarState extends State<Borrar> {
   }
 
   void _addItem() {
-    int i = _items.length > 0 ? _items.length : 0;
+    int i = _items.isEmpty ? _items.length : 0;
     _items.insert(i, 'Item ${_items.length + 1}');
     _key.currentState!.insertItem(i);
   }

@@ -137,6 +137,8 @@ class ContinueButton extends StatelessWidget {
               page: const CreateExpensesScreen(),
             ),
           );
+          // unfocus text fields
+          FocusScope.of(context).unfocus();
 
         } else {
           ScaffoldMessenger.of(context).showSnackBar(snackBarCustom(message: 'Agrege un usuario.'));

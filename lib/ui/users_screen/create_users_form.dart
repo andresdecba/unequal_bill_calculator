@@ -81,6 +81,7 @@ class _CreateUsersFormState extends State<CreateUsersForm> {
               await _state.crearUsuario(usrName: _nombre);
               // clear text field
               _textController.clear();
+              //FocusScope.of(context).unfocus();
             }
             // if update
             else if (widget.onEdit == true && _state.validateEditUserFormKey() == true && itemExist == false) {

@@ -20,7 +20,7 @@ class CreateNewBillScreenState extends ChangeNotifier {
       //totalPayersInTotalDivider: 0,
       billRoundingDifferenceByTotal: 0,
       billRoundingDifferenceByItem: 0,
-      billName: billName != null ? billName : 'Cuenta nueva (${getDate()})',
+      billName: billName ?? 'Cuenta nueva (${getDate()})',
     );
 
     // save it in the box

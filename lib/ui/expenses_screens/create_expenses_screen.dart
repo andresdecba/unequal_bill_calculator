@@ -120,6 +120,8 @@ class ContinueButtonServ extends StatelessWidget {
               page: const CalculatorScreen(),
             ),
           );
+          // UNFOCUS text fields
+          FocusScope.of(context).unfocus();
 
         } else {
           ScaffoldMessenger.of(context).showSnackBar(snackBarCustom(message: 'Agrege un gasto.'));

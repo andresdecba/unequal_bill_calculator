@@ -113,7 +113,7 @@ class _PropinaDialogBoxState extends State<PropinaDialogBox> {
             // cancel button
             ElevatedButton(
               style: buttonDecoration(widthCustom: 100),
-              child: Text('CANCELAR'),
+              child: const Text('CANCELAR'),
               onPressed: () => Navigator.pop(context),
             ),
             const SizedBox(width: 20),
@@ -121,7 +121,7 @@ class _PropinaDialogBoxState extends State<PropinaDialogBox> {
             // save button
             ElevatedButton(
               style: buttonDecoration(widthCustom: 100),
-              child: Text('OK'),
+              child: const Text('OK'),
               onPressed: () async {
                 _state.asignarPropina(_togleCheckBox);
                 Navigator.pop(context);

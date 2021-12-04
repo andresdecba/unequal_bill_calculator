@@ -30,7 +30,7 @@ class _ByItemState extends State<ByItem> {
   // texto a enviar
   final usersList = Singleton().usersBOX.values;
 
-  String createWappText = '${Singleton().billBOX.values.first.billName}\n';
+  String createWappText = '*${Singleton().billBOX.values.first.billName}*\n*>Total: \$${Singleton().billBOX.values.first.billTotal}*\n\n';
 
   @override
   void initState() {
@@ -81,7 +81,7 @@ class _ByItemState extends State<ByItem> {
   _launchWhatsAppComplete() async {
     final link = WhatsAppUnilink(
       phoneNumber: '',
-      text: 'Totales a pagar:\n\n' + createWappText + 'Calculado con play.google.com/store/apps/details?id=com.calculadora.desigual',
+      text: createWappText + 'Calculado con play.google.com/store/apps/details?id=com.calculadora.desigual',
     );
     await launch('$link');
   }
@@ -98,7 +98,7 @@ class _ByTotalState extends State<ByTotal> {
   //
   // users data
   final lista = Singleton().usersBOX.values;
-  String textToWhatsapp = '${Singleton().billBOX.values.first.billName}\n';
+  String textToWhatsapp = '*${Singleton().billBOX.values.first.billName}*\n*>Total: \$${Singleton().billBOX.values.first.billTotal}*\n\n';
 
   @override
   void initState() {
@@ -141,7 +141,7 @@ class _ByTotalState extends State<ByTotal> {
   _launchWhatsAppSimple() async {
     final link = WhatsAppUnilink(
       phoneNumber: '',
-      text: 'Totales a pagar:\n\n' + textToWhatsapp + '\nCalculado con play.google.com/store/apps/details?id=com.tienda.online',
+      text: textToWhatsapp + '\nCalculado con play.google.com/store/apps/details?id=com.tienda.online',
     );
 
     await launch('$link');
