@@ -1,4 +1,25 @@
 
+UserModel:
+    > name
+    > total by global
+    > total by item
+    > panel state
+    > global factor (divider cuenta global)
+    > user expenses (list)
+                |______user expense model:
+                            > user expense total
+                            > user expense by item factor (divider cuenta de cada item)
+                            > user expense expense (list)
+                                        |______expense model:
+                                                    > expense name
+                                                    > expense price
+                                                    > expense divider
+
+
+
+
+
+
 *************************************************
             DIVIDIR POR ITEMS
 *************************************************

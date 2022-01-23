@@ -7,9 +7,9 @@ part 'user_expense_model.g.dart';
 @HiveType(typeId: 1)
 class UserExpenseModel extends HiveObject {
   UserExpenseModel({
-    required this.userExpenseExpense,
-    required this.userExpenseByItemFactor,
-    required this.userExpenseTotal,
+    this.userExpenseExpense,
+    this.userExpenseByItemFactor,
+    this.userExpenseTotal,
   });
 
   @HiveField(0)

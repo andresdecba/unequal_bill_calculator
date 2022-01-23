@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 
 class NameAndPriceTile extends StatelessWidget {
   const NameAndPriceTile({
-    required this.title,
+    this.title,
     this.subTitle,
-    required this.deleteFnc,
-    required this.editFnc,
-    Key? key,
+    this.deleteFnc,
+    this.editFnc,
+    Key key,
   }) : super(key: key);
 
   final String title;
-  final String? subTitle;
+  final String subTitle;
   final VoidCallback deleteFnc;
   final Widget editFnc;
 
@@ -59,7 +59,7 @@ class NameAndPriceTile extends StatelessWidget {
                           ),
                           // text 2
                           Text(
-                            subTitle!,
+                            subTitle,
                             style: kTextSmall,
                           ),
                         ],

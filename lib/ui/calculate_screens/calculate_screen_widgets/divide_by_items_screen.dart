@@ -8,7 +8,7 @@ import 'package:bill_calculator/styles/styles.dart';
 import 'package:bill_calculator/widgets/widgets.dart';
 
 class DivideByItemsScreen extends StatefulWidget {
-  const DivideByItemsScreen({Key? key}) : super(key: key);
+  const DivideByItemsScreen({Key key}) : super(key: key);
   @override
   State<DivideByItemsScreen> createState() => _DivideByItemsScreenState();
 }
@@ -93,9 +93,9 @@ class _DivideByItemsScreenState extends State<DivideByItemsScreen> {
 
 class Header extends StatelessWidget {
   const Header({
-    Key? key,
-    required this.user,
-    required CalculateScreenState state,
+    Key key,
+    this.user,
+    CalculateScreenState state,
   })  : _state = state,
         super(key: key);
 

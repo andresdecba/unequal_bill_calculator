@@ -8,10 +8,10 @@ import 'package:bill_calculator/styles/styles.dart';
 import 'package:bill_calculator/widgets/widgets.dart';
 
 class CreateExpenseForms extends StatefulWidget {
-  const CreateExpenseForms({required this.onEdit, this.expense, Key? key}) : super(key: key);
+  const CreateExpenseForms({this.onEdit, this.expense, Key key}) : super(key: key);
 
   final bool onEdit;
-  final ExpenseModel? expense;
+  final ExpenseModel expense;
 
   @override
   _CreateExpenseFormsState createState() => _CreateExpenseFormsState();
@@ -21,8 +21,8 @@ class _CreateExpenseFormsState extends State<CreateExpenseForms> {
   // textfield controllers
   var _nameController = TextEditingController();
   var _priceController = TextEditingController();
-  late FocusNode _focusNode_1;
-  late FocusNode _focusNode_2;
+  FocusNode _focusNode_1;
+  FocusNode _focusNode_2;
 
   String _newName = '';
   String _monto = '0.0';
@@ -36,8 +36,8 @@ class _CreateExpenseFormsState extends State<CreateExpenseForms> {
     _priceController.addListener(() => setState(() {}));
 
     // below lines add initial value on text the fields
-    _nameController = TextEditingController(text: widget.onEdit == false ? '' : widget.expense!.expenseName);
-    _priceController = TextEditingController(text: widget.onEdit == false ? '' : widget.expense!.expensePrice.toString());
+    _nameController = TextEditingController(text: widget.onEdit == false ? '' : widget.expense.expenseName);
+    _priceController = TextEditingController(text: widget.onEdit == false ? '' : widget.expense.expensePrice.toString());
 
     // focuses
     _focusNode_1 = FocusNode();
@@ -68,7 +68,7 @@ class _CreateExpenseFormsState extends State<CreateExpenseForms> {
                   setState(() => _newName = value);
                   FocusScope.of(context).requestFocus(_focusNode_2);
                 },
-                validator: (value) => (value!.isEmpty) ? 'ingrese un titulo' : null,
+                validator: (value) => (value.isEmpty) ? 'ingrese un titulo' : null,
               ),
               kSizedBoxSmall,
 
@@ -83,7 +83,7 @@ class _CreateExpenseFormsState extends State<CreateExpenseForms> {
                 onChanged: (value) => setState(() => _monto = value), //double.parse(value),
                 onFieldSubmitted: (value) => setState(() => _monto = value), //double.parse(value),
                 inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'(^\d*\.?\d*)'))],
-                validator: (value) => (value!.isEmpty) ? 'ingrese un monto' : null,
+                validator: (value) => (value.isEmpty) ? 'ingrese un monto' : null,
               ),
             ],
           ),
@@ -135,14 +135,14 @@ class _CreateExpenseFormsState extends State<CreateExpenseForms> {
                   // SEARCH IF ITEM ALREADY EXISTS
                   bool itemExist = false;
                   _state.expensesBox.values.map((item) {
-                    if (item.expenseName == _newName && item.expenseName != widget.expense!.expenseName) {
+                    if (item.expenseName == _newName && item.expenseName != widget.expense.expenseName) {
                       itemExist = true;
                     }
                   }).toString();
 
                   if (_state.validateEditCuentasFormKey() == true && itemExist == false) {
                     ///// edit service
-                    _state.editarServicio(expense: widget.expense!, serviceName: _newName, servicePrice: double.parse(_monto));
+                    _state.editarServicio(expense: widget.expense, serviceName: _newName, servicePrice: double.parse(_monto));
                     _priceController.clear();
                     _nameController.clear();
                     FocusScope.of(context).unfocus();

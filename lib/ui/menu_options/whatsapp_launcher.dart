@@ -20,7 +20,7 @@ Future whatsappLauncher(BuildContext context, bool isActive) async {
 
 //////////// SEND DETAIL BY ITEMS ///////////////
 class ByItem extends StatefulWidget {
-  const ByItem({Key? key}) : super(key: key);
+  const ByItem({Key key}) : super(key: key);
   @override
   State<ByItem> createState() => _ByItemState();
 }
@@ -29,14 +29,22 @@ class _ByItemState extends State<ByItem> {
   //
   // texto a enviar
   final usersList = Singleton().usersBOX.values;
+  final expensesList = Singleton().expensesBOX.values;
 
-  String createWappText = '*${Singleton().billBOX.values.first.billName}*\n*>Total: \$${Singleton().billBOX.values.first.billTotal}*\n\n';
+  String createWappText = '*${Singleton().billBOX.values.first.billName}*\n';
 
   @override
   void initState() {
     super.initState();
 
-    // get total by user
+    // build expenses list
+    for (var item in expensesList) {
+      createWappText += '*${item.expenseName}: \$${item.expensePrice}*\n';
+    }
+    // add total
+    createWappText += '*>Total: \$${Singleton().billBOX.values.first.billTotal}*\n\n';
+
+    // build total by user
     for (var user in usersList) {
       String expenseDetails = '';
 
@@ -89,7 +97,7 @@ class _ByItemState extends State<ByItem> {
 
 //////////// SEND DETAIL BY TOTAL ///////////////
 class ByTotal extends StatefulWidget {
-  const ByTotal({Key? key}) : super(key: key);
+  const ByTotal({Key key}) : super(key: key);
   @override
   State<ByTotal> createState() => _ByTotalState();
 }
@@ -98,13 +106,22 @@ class _ByTotalState extends State<ByTotal> {
   //
   // users data
   final lista = Singleton().usersBOX.values;
-  String textToWhatsapp = '*${Singleton().billBOX.values.first.billName}*\n*>Total: \$${Singleton().billBOX.values.first.billTotal}*\n\n';
+  final expensesList = Singleton().expensesBOX.values;
+
+  String textToWhatsapp = '*${Singleton().billBOX.values.first.billName}*\n';
 
   @override
   void initState() {
     super.initState();
 
-    // get total by user
+    // build expenses list
+    for (var item in expensesList) {
+      textToWhatsapp += '*${item.expenseName}: \$${item.expensePrice}*\n';
+    }
+    // add total
+    textToWhatsapp += '*>Total: \$${Singleton().billBOX.values.first.billTotal}*\n\n';
+
+    // build total by user
     lista.map((e) {
       return textToWhatsapp += '*${e.userName}: \$${e.userTotalByGlobal}* _(x${e.userByGlobalFactor})_\n';
     }).toString();

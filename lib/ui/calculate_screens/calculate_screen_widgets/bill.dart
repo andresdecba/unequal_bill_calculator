@@ -5,7 +5,7 @@ import 'package:bill_calculator/states/states.dart';
 import 'package:bill_calculator/styles/styles.dart';
 
 class Bill extends StatelessWidget {
-  const Bill({Key? key}) : super(key: key);
+  const Bill({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

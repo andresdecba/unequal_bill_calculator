@@ -2,7 +2,7 @@ import 'package:bill_calculator/styles/styles.dart';
 import 'package:flutter/material.dart';
 
 class DialogBox extends StatelessWidget {
-  const DialogBox({required this.title, required this.children, Key? key}) : super(key: key);
+  const DialogBox({this.title, this.children, Key key}) : super(key: key);
 
   final String title;
   final Widget children;

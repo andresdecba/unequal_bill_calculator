@@ -6,7 +6,7 @@ import 'package:bill_calculator/states/states.dart';
 import 'package:bill_calculator/styles/styles.dart';
 
 class PropinaDialogBox extends StatefulWidget {
-  const PropinaDialogBox({Key? key}) : super(key: key);
+  const PropinaDialogBox({Key key}) : super(key: key);
   @override
   State<PropinaDialogBox> createState() => _PropinaDialogBoxState();
 }
@@ -42,7 +42,7 @@ class _PropinaDialogBoxState extends State<PropinaDialogBox> {
           value: _togleCheckBox,
           title: const Text('Porcentaje', style: TextStyle(fontSize: 24)),
           onChanged: (value) => setState(() {
-            _togleCheckBox = value!;
+            _togleCheckBox = value;
           }),
         ),
         Opacity(
@@ -81,7 +81,7 @@ class _PropinaDialogBoxState extends State<PropinaDialogBox> {
           value: !_togleCheckBox,
           title: const Text('Monto fijo', style: TextStyle(fontSize: 24)),
           onChanged: (value) => setState(() {
-            _togleCheckBox = !value!;
+            _togleCheckBox = !value;
           }),
         ),
         Opacity(
@@ -99,7 +99,7 @@ class _PropinaDialogBoxState extends State<PropinaDialogBox> {
               onFieldSubmitted: (value) => setState(() => _state.propinaFromManual = double.parse(value)), //double.parse(value),
               inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'(^\d*\.?\d*)'))],
               validator: (value) {
-                return (value!.isEmpty) ? 'ingrese un monto' : null;
+                return (value.isEmpty) ? 'ingrese un monto' : null;
               },
             ),
           ),

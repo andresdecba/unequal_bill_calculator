@@ -5,9 +5,9 @@ part 'expense_model.g.dart';
 @HiveType(typeId: 2)
 class ExpenseModel extends HiveObject {
   ExpenseModel({
-    required this.expenseName,
-    required this.expensePrice,
-    required this.expenseDivider,
+    this.expenseName,
+    this.expensePrice,
+    this.expenseDivider,
   });
 
   @HiveField(0)

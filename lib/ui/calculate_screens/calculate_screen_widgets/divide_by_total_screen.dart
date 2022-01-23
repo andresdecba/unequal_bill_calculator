@@ -7,7 +7,7 @@ import 'package:bill_calculator/styles/styles.dart';
 import 'package:bill_calculator/widgets/widgets.dart';
 
 class DivideByTheTotalScreen extends StatelessWidget {
-  const DivideByTheTotalScreen({Key? key}) : super(key: key);
+  const DivideByTheTotalScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Borrar extends StatefulWidget {
-  const Borrar({Key? key}) : super(key: key);
+  const Borrar({Key key}) : super(key: key);
 
   @override
   State<Borrar> createState() => _BorrarState();
@@ -30,7 +30,7 @@ class _BorrarState extends State<Borrar> {
     );
   }
 
-  _builItem({required String item, required Animation<double> animation, required int index}) {
+  _builItem({String item, Animation<double> animation, int index}) {
     return SizeTransition(
       sizeFactor: animation,
       child: ListTile(
@@ -46,7 +46,7 @@ class _BorrarState extends State<Borrar> {
   void _removeItem(index) {
     String removedItem = _items.removeAt(index);
 
-    _key.currentState!.removeItem(index, (context, animation) {
+    _key.currentState.removeItem(index, (context, animation) {
       return _builItem(item: removedItem, animation: animation, index: index);
     });
   }
@@ -54,6 +54,6 @@ class _BorrarState extends State<Borrar> {
   void _addItem() {
     int i = _items.isEmpty ? _items.length : 0;
     _items.insert(i, 'Item ${_items.length + 1}');
-    _key.currentState!.insertItem(i);
+    _key.currentState.insertItem(i);
   }
 }

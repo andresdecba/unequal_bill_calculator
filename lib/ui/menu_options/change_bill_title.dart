@@ -17,7 +17,7 @@ Future changeBillTitle(BuildContext context) async {
 }
 
 class ChangeTitle extends StatelessWidget {
-  ChangeTitle({Key? key}) : super(key: key);
+  ChangeTitle({Key key}) : super(key: key);
 
   final _textController = TextEditingController();
   String _newBillName = '';

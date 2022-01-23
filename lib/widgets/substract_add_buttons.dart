@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 class SubstractAddButtons extends StatelessWidget {
   const SubstractAddButtons({
-    Key? key,
-    required this.isLoading,
-    required this.sunstractBttn,
-    required this.quantity,
-    required this.addBttn,
+    Key key,
+    this.isLoading,
+    this.sunstractBttn,
+    this.quantity,
+    this.addBttn,
   }) : super(key: key);
 
   final bool isLoading;
@@ -53,10 +53,10 @@ import 'package:flutter/material.dart';
 class SubstractAddButtons extends StatelessWidget {
   const SubstractAddButtons({
     Key? key,
-    required this.isLoading,
-    required this.sunstractBttn,
-    required this.quantity,
-    required this.addBttn,
+     this.isLoading,
+     this.sunstractBttn,
+     this.quantity,
+     this.addBttn,
   }) : super(key: key);
 
   final bool isLoading;

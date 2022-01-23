@@ -26,7 +26,7 @@ class CreateExpensesScreenState extends ChangeNotifier {
   final userExpensesBox = Singleton().userExpensesBOX;
 
   //// create expense
-  void createExpense({required String expenseName, required double expensePrice}) async {
+  void createExpense({String expenseName, double expensePrice}) async {
     //
     //create new expense
     ExpenseModel newExpense = ExpenseModel(
@@ -72,12 +72,14 @@ class CreateExpensesScreenState extends ChangeNotifier {
   }
 
   //// remove expense
-  void deleteExpense({required ExpenseModel expense}) async {
-    //
+  void deleteExpense({ExpenseModel expense}) async {
+   
     //remove THIS expense from the user expenses box
     for (var item in userExpensesBox.values) {
-      if (item.userExpenseExpense == expense) {
-        await item.delete();
+      for (var item2 in item.userExpenseExpense) {
+        if (item2.expenseName == expense.expenseName) {
+          await item.delete();
+        }
       }
     }
 
@@ -90,7 +92,7 @@ class CreateExpensesScreenState extends ChangeNotifier {
   }
 
   //// edit expense values
-  void editarServicio({required ExpenseModel expense, required String serviceName, required double servicePrice}) async {
+  void editarServicio({ExpenseModel expense, String serviceName, double servicePrice}) async {
     //
     if (serviceName != '') {
       expense.expenseName = serviceName;

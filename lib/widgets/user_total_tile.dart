@@ -6,16 +6,16 @@ import 'package:flutter/material.dart';
 
 class UserTotalTile extends StatelessWidget {
   const UserTotalTile({
-    Key? key,
-    required this.user,
+    Key key,
+    this.user,
     this.anyWidget,
-    required CalculateScreenState state,
+    CalculateScreenState state,
   })  : _state = state,
         super(key: key);
 
   final UserModel user;
   final CalculateScreenState _state;
-  final Widget? anyWidget;
+  final Widget anyWidget;
 
   @override
   Widget build(BuildContext context) {

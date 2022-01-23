@@ -9,7 +9,7 @@ class CreateNewBillScreenState extends ChangeNotifier {
   final bill = Singleton().billBOX;
 
   //// CREATE A NEW BILL ////
-  createNewBill({String? billName}) async {
+  createNewBill({String billName}) async {
 
     // create new bill
     var newBill = BillModel(
@@ -28,7 +28,7 @@ class CreateNewBillScreenState extends ChangeNotifier {
   }
 
   // update bill name
-  updateBillName({required String newName}) {
+  updateBillName({String newName}) {
     //
     Singleton().billBOX.values.first.billName = newName;
     Singleton().billBOX.values.first.save();

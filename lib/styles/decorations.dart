@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-InputDecoration inputDecoration({required TextEditingController controller, required String hintText}) {
+InputDecoration inputDecoration({TextEditingController controller, String hintText}) {
   return InputDecoration(
     contentPadding: const EdgeInsets.symmetric(horizontal: 10),
 

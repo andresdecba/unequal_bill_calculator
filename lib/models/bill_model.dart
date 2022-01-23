@@ -5,13 +5,13 @@ part 'bill_model.g.dart';
 @HiveType(typeId: 3)
 class BillModel extends HiveObject {
   BillModel({
-    required this.billSubtotal,
-    required this.billTip,
-    required this.billTotal,
-    required this.billDivider,
-    required this.billRoundingDifferenceByTotal,
-    required this.billRoundingDifferenceByItem,
-    required this.billName,
+    this.billSubtotal,
+    this.billTip,
+    this.billTotal,
+    this.billDivider,
+    this.billRoundingDifferenceByTotal,
+    this.billRoundingDifferenceByItem,
+    this.billName,
   });
 
   @HiveField(0)

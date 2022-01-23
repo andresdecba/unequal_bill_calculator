@@ -7,7 +7,7 @@ import 'package:bill_calculator/styles/spacing.dart';
 import 'package:bill_calculator/styles/texts.dart';
 
 class AboutTheApp extends StatelessWidget {
-  const AboutTheApp({Key? key}) : super(key: key);
+  const AboutTheApp({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

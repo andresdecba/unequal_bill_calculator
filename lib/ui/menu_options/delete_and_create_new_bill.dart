@@ -17,7 +17,7 @@ Future deleteAndCreateNewBill(BuildContext context) async {
 }
 
 class DeleteAndCreateNewBill extends StatelessWidget {
-  const DeleteAndCreateNewBill({Key? key}) : super(key: key);
+  const DeleteAndCreateNewBill({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

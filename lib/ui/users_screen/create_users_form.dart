@@ -7,11 +7,11 @@ import 'package:bill_calculator/models/models.dart';
 import 'package:bill_calculator/widgets/widgets.dart';
 
 class CreateUsersForm extends StatefulWidget {
-  const CreateUsersForm({required this.onEdit, this.user, Key? key}) : super(key: key);
+  const CreateUsersForm({this.onEdit, this.user, Key key}) : super(key: key);
 
   // flag: creating or editing a user?
   final bool onEdit;
-  final UserModel? user;
+  final UserModel user;
 
   @override
   _CreateUsersFormState createState() => _CreateUsersFormState();
@@ -29,7 +29,7 @@ class _CreateUsersFormState extends State<CreateUsersForm> {
     _textController.addListener(() => setState(() {}));
 
     // below line adds initial value on text field
-    _textController = TextEditingController(text: widget.onEdit == false ? '' : widget.user!.userName);
+    _textController = TextEditingController(text: widget.onEdit == false ? '' : widget.user.userName);
   }
 
   @override
@@ -51,7 +51,7 @@ class _CreateUsersFormState extends State<CreateUsersForm> {
             onChanged: (value) => setState(() => _nombre = value),
             onFieldSubmitted: (value) => setState(() => _nombre = value),
             validator: (value) {
-              return (value!.isEmpty) ? 'ingrese un usuario' : null;
+              return (value.isEmpty) ? 'ingrese un usuario' : null;
             },
           ),
         ),
@@ -85,7 +85,7 @@ class _CreateUsersFormState extends State<CreateUsersForm> {
             }
             // if update
             else if (widget.onEdit == true && _state.validateEditUserFormKey() == true && itemExist == false) {
-              _state.updateUser(newName: _nombre, user: widget.user!);
+              _state.updateUser(newName: _nombre, user: widget.user);
               _textController.clear();
               FocusScope.of(context).unfocus();
               Navigator.pop(context);

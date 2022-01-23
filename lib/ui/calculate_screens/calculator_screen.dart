@@ -5,7 +5,7 @@ import 'package:bill_calculator/styles/styles.dart';
 import 'package:bill_calculator/ui/screens.dart';
 
 class CalculatorScreen extends StatefulWidget {
-  const CalculatorScreen({Key? key}) : super(key: key);
+  const CalculatorScreen({Key key}) : super(key: key);
 
   @override
   _CalculatorScreenState createState() => _CalculatorScreenState();
@@ -15,7 +15,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> with TickerProvider
   //
   // _isActive controls how to show the active or inactive tab
   bool _isActive = true;
-  late TabController _tabController;
+  TabController _tabController;
 
   @override
   void initState() {
@@ -72,9 +72,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> with TickerProvider
 ///// BUILD TABS
 class DisplayTotals extends StatelessWidget {
   const DisplayTotals({
-    required this.tabController,
-    required this.isActive,
-    Key? key,
+    this.tabController,
+    this.isActive,
+    Key key,
   }) : super(key: key);
 
   final TabController tabController;

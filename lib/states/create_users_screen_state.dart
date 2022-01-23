@@ -29,7 +29,7 @@ class CreateUsersScreenState extends ChangeNotifier {
 
   ////////// USUARIOS ///////////
   ///// CREAR usuario /////
-  crearUsuario({required String usrName}) async {
+  crearUsuario({String usrName}) async {
     //
     // create user
     UserModel newUser = UserModel(
@@ -87,13 +87,13 @@ class CreateUsersScreenState extends ChangeNotifier {
   }
 
   void insertar() {
-    usrAnimatedListKey.currentState!.insertItem(usersBox.length);
+    usrAnimatedListKey.currentState.insertItem(usersBox.length);
   }
 
   bool calculando = false;
 
   ///// ELIMINAR usuario /////
-  void eliminarUsuario({required UserModel user}) async {
+  void eliminarUsuario({UserModel user}) async {
     calculando = true;
     notifyListeners();
 
@@ -126,7 +126,7 @@ class CreateUsersScreenState extends ChangeNotifier {
   }
 
   ///// Editar usuario /////
-  updateUser({required UserModel user, required String newName}) async {
+  updateUser({UserModel user, String newName}) async {
     user.userName = newName;
     await user.save();
     notifyListeners();

@@ -16,7 +16,7 @@ class CalculateScreenState extends ChangeNotifier {
   ///////////////////////////////// CALCULAR TOTAL POR USUARIO GLOBALMENTE /////////////////////////////////
 
   ///// sumar multiplicador //////
-  void sumarTotal({required UserModel user}) async {
+  void sumarTotal({UserModel user}) async {
     isLoading = true;
     notifyListeners();
 
@@ -32,7 +32,7 @@ class CalculateScreenState extends ChangeNotifier {
   }
 
   ///// restar multiplicador //////
-  void restarTotal({required UserModel user}) async {
+  void restarTotal({UserModel user}) async {
     isLoading = true;
     notifyListeners();
 
@@ -78,7 +78,7 @@ class CalculateScreenState extends ChangeNotifier {
   ///////////////////////////////// CALCULAR POR ITEM /////////////////////////////////
 
   ///// incrementar item factor //////
-  void sumarItem({required UserExpenseModel userExpense}) async {
+  void sumarItem({UserExpenseModel userExpense}) async {
     isLoading = true;
     notifyListeners();
 
@@ -94,7 +94,7 @@ class CalculateScreenState extends ChangeNotifier {
   }
 
   ///// restar multiplicador //////
-  void restarItem({required UserExpenseModel userExpense}) async {
+  void restarItem({UserExpenseModel userExpense}) async {
     //
     isLoading = true;
     notifyListeners();

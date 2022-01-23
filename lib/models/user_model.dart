@@ -6,12 +6,12 @@ part 'user_model.g.dart';
 @HiveType(typeId: 0)
 class UserModel extends HiveObject {
   UserModel({
-    required this.userName,
-    required this.userTotalByGlobal,
-    required this.userTotalByItem,
-    required this.userPanelState,
-    required this.userByGlobalFactor,
-    required this.userExpensesList,
+    this.userName,
+    this.userTotalByGlobal,
+    this.userTotalByItem,
+    this.userPanelState,
+    this.userByGlobalFactor,
+    this.userExpensesList,
   });
 
   @HiveField(0)

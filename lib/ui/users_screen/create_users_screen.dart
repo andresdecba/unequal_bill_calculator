@@ -8,7 +8,7 @@ import 'package:bill_calculator/widgets/widgets.dart';
 import 'package:bill_calculator/ui/screens.dart';
 
 class CreateUsersScreen extends StatelessWidget {
-  const CreateUsersScreen({Key? key}) : super(key: key);
+  const CreateUsersScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +64,7 @@ class CreateUsersScreen extends StatelessWidget {
 
                 //////////// BUILD USERS LIST ///////////
                 : AnimatedList(
+                    physics: const ScrollPhysics(),
                     reverse: true,
                     initialItemCount: _state.usersBox.length, //_state.usersBox.isNotEmpty ? 100  : 0,  //
                     key: _state.usrAnimatedListKey,
@@ -114,7 +115,7 @@ class CreateUsersScreen extends StatelessWidget {
 //////////// CONTINUE BUTTON ///////////
 
 class ContinueButton extends StatelessWidget {
-  const ContinueButton({Key? key, required CreateUsersScreenState state})
+  const ContinueButton({Key key, CreateUsersScreenState state})
       : _state = state,
         super(key: key);
 

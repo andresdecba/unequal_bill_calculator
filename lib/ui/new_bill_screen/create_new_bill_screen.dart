@@ -5,9 +5,9 @@ import 'package:bill_calculator/states/states.dart';
 import 'package:bill_calculator/styles/styles.dart';
 
 class CreateNewBillScreen extends StatelessWidget {
-  CreateNewBillScreen({Key? key}) : super(key: key);
+  CreateNewBillScreen({Key key}) : super(key: key);
 
-  String? _billName;
+  String _billName;
   final _textController = TextEditingController();
 
   @override

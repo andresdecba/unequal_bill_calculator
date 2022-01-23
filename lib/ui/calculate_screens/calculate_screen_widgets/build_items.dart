@@ -8,7 +8,7 @@ import 'package:bill_calculator/widgets/widgets.dart';
 
 class BuildItems extends StatelessWidget {
   //
-  const BuildItems({Key? key, required this.user, required this.indexxxx}) : super(key: key);
+  const BuildItems({Key key, this.user, this.indexxxx}) : super(key: key);
   final UserModel user;
   final int indexxxx;
 

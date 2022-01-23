@@ -8,7 +8,7 @@ import 'package:bill_calculator/styles/styles.dart';
 
 
 class OptionsActionButton extends StatelessWidget {
-  const OptionsActionButton({required this.activeTab, Key? key}) : super(key: key);
+  const OptionsActionButton({this.activeTab, Key key}) : super(key: key);
 
   final bool activeTab;
 
@@ -76,8 +76,8 @@ class OptionsActionButton extends StatelessWidget {
         ),
         SpeedDialChild(
           labelBackgroundColor: Colors.white.withOpacity(0.7),
-          child: const Icon(Icons.share),
-          label: 'Compartir resumen',
+          child: const Icon(Icons.whatsapp),
+          label: 'Enviar por WhatsApp',
           labelStyle: kTextSmall,
           onTap: () => whatsappLauncher(context, activeTab),
         ),

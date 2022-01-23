@@ -17,7 +17,7 @@ Future resetValues(BuildContext context) async {
 }
 
 class ResetValues extends StatelessWidget {
-  const ResetValues({Key? key}) : super(key: key);
+  const ResetValues({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

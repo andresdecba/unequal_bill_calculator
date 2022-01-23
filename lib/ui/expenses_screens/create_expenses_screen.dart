@@ -7,7 +7,7 @@ import 'package:bill_calculator/styles/styles.dart';
 import 'package:bill_calculator/widgets/widgets.dart';
 
 class CreateExpensesScreen extends StatelessWidget {
-  const CreateExpensesScreen({Key? key}) : super(key: key);
+  const CreateExpensesScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +59,7 @@ class CreateExpensesScreen extends StatelessWidget {
 
               //////////// BUILD USERS LIST ///////////
               : AnimatedList(
+                  physics: const ScrollPhysics(),
                   reverse: true,
                   key: _state.expAnimatedListKey,
                   initialItemCount: _state.expensesBox.length,
@@ -73,15 +74,19 @@ class CreateExpensesScreen extends StatelessWidget {
                       child: NameAndPriceTile(
                         title: expense.expenseName,
                         subTitle: '\$ ${expense.expensePrice}',
+                        // delete item
                         deleteFnc: () {
+                          // borrar en pantalla (animated list)
                           _state.expAnimatedListKey.currentState?.removeItem(index, (context, animation) {
                             return SizeTransition(
                               sizeFactor: animation,
                               child: NameAndPriceTile(title: expense.expenseName, deleteFnc: () {}, editFnc: const SizedBox()),
                             );
                           });
+                          // borra el item en sí
                           _state.deleteExpense(expense: expense);
                         },
+                        // edit item
                         editFnc: CreateExpenseForms(
                           onEdit: true,
                           expense: expense,
@@ -100,7 +105,7 @@ class CreateExpensesScreen extends StatelessWidget {
 
 //////////// CONTINUE BUTTON ///////////
 class ContinueButtonServ extends StatelessWidget {
-  const ContinueButtonServ({Key? key, required CreateExpensesScreenState state})
+  const ContinueButtonServ({Key key, CreateExpensesScreenState state})
       : _state = state,
         super(key: key);
 
